@@ -1,0 +1,110 @@
+<ui>
+  <section name="General" fixed="true">
+    <grid rows="25,,30" cols="30,,30">
+      <union>
+        <grid rows="" cols=",">
+        <item id="BMU_BatteryCurrentCapacity" precision="1" units="below"  period='2000'/>
+        <item id="BMU_BatteryRemainingCapacity" precision="1" units="below" />
+        </grid>
+      </union>
+
+      <switch index='$${svalue("FuelEconomy_trip") &lt; svalue("FuelEconomy_NoIdling") + 10 ? 0 : 1 }'>
+        <item id="FuelEconomy_trip" />
+        <item id="FuelEconomy_NoIdling" />
+      </switch>
+
+      <union>
+        <grid rows="" cols=",">
+        <item id="BMU_VoltageTotal" precision="2" units="below"/>
+        <item id="ControlModuleVoltage" precision="2" units="below"/>
+        </grid>
+      </union>
+
+
+      <item id="RPM" size='medium'/>
+      <item id="Speed" size='giant'/>
+      <union>
+        <grid rows="" cols=",">
+        <item id="BMU_MinVoltage" precision="2" units="below"/>
+        <item id="BMU_MaxVoltage" precision="2" units="below"/>
+        </grid>
+      </union>
+
+<!--
+      <union>
+        <item id="TimeToEmpty" text-evaluator="" description="hidden"/>
+        <grid rows="60,," cols="">
+          <item id="TimeToEmpty" type="text"/>
+          <item id="TimeToEmpty_primary" type="text" description="hidden" text-evaluator='$${Sensor_Text}(${t("autogas.sh")})'/>
+          <item id="TimeToEmpty_secondary" type="text" description="hidden" text-evaluator='$${Sensor_Text}(${t("petrol.sh")})'/>
+        </grid>
+      </union>
+-->
+
+      <union>
+        <grid rows="" cols=",,">
+        <item id="CoolantTemp"  units="below"/>
+        <item id="BMU_MinTemp" units="below"/>
+        <item id="BMU_MaxTemp" units="below"/>
+        </grid>
+      </union>
+      <item id='BMU_BatteryCurrent'/>
+      <item id="EfficiencyPercentage" onclick="Go(Efficiency)" inherit="_GoIcon"/>
+    </grid>
+  </section>
+
+  <section name="Trip computer" fixed="true" class="Trip">
+    <grid rows="25,,30" cols="30,,30">
+      <item id="TripTime"/>
+      <item id="IdleTime"/>
+      <item id="FuelPerHour"/>
+
+      <item id="FuelEconomy_instant" size='large'/>
+      <switch index='$${svalue("FuelEconomy_trip") &lt; svalue("FuelEconomy_NoIdling") + 10 ? 0 : 1 }'>
+        <item id="FuelEconomy_trip" size="giant"/>
+        <item id="FuelEconomy_NoIdling" size="giant"/>
+      </switch>
+      <item id="FuelEconomy_short" size='large'/>
+
+      <union>
+        <item id="Speed_average"
+              visibility='${!sexists("Speed_average_noidle")}'
+              size='large' units="aside" period='1000'/>
+        <item id="Speed_average_noidle"
+              visibility='${sexists("Speed_average_noidle")}'
+              size='large' units="aside" period='1000'/>
+      </union>
+      <item id="DistanceRun" size='large'  period='5000'/>
+      <item id="FuelConsumed" size='large'/>
+    </grid>
+  </section>
+
+  <section name="Fuel Details" fixed="true" class="Trip" >
+    <grid rows=",," cols=",40,">
+      <item id="FuelConsumed_Idling"/>
+      <item id="FuelEconomy_NoIdling" size='extralarge'/>
+      <item id="FuelConsumed_Idling_Cost"/>
+
+      <item id="FuelConsumed" inherit="_EditAction" onclick='CorrectionInformation'/>
+      <item id="FuelEconomy_trip" size='huge'/>
+      <item id="FuelConsumed_Cost" inherit="_EditAction" onclick='ChangeLiterCost'/>
+
+      <item id="FuelConsumed_ColdEngine" />
+      <item id="FuelEconomy_WarmEngine" size='extralarge'/>
+      <item id="DistanceRun_UnitCost" />
+    </grid>
+  </section>
+
+  <section name="Tank Details" fixed="true" >
+    <grid rows="," cols=",,">
+      <item id="FuelLevel" onclick="FuelCalibration" inherit="_EditAction, _FuelLevelJoint"/>
+      <item id="DistanceToEmpty"/>
+      <item id="TimeToEmpty" colspan="2"/>
+
+      <item id="RegularTimeToEmpty"/>
+      <item id="DistanceRun_fueling" size="large"/>
+      <item id="Odometer" actions="SetupOdometer" size="large" inherit="_EditAction"/>
+
+    </grid>
+  </section>
+</ui>

@@ -1,0 +1,330 @@
+<ui>
+
+  <section name="TestFonts" fixed="true">
+    <grid rows="8,,,," cols=",">
+
+      <item id="Font Size Test 4" type="static" size="4" border-opacity="0.5"/>
+      <item id="Font Size Test 8" type="static" size="8" border-opacity="1"/>
+
+      <item id="Test 32" type="static" size="32" border-opacity="1"/>
+      <item id="Test 72" type="static" size="72" border-opacity="1"/>
+
+      <item id="Font Size Test small" type="static" size="small" border-opacity="1"/>
+      <item id="Test normal" type="static" size="normal" border-opacity="1"/>
+
+      <item id="Test large" type="static" size="large" border-opacity="1"/>
+      <item id="Extralarge" type="static" size="extralarge" border-opacity="1"/>
+
+      <item id="Test huge" type="static" size="huge" border-opacity="1"/>
+      <item id="123" type="static" size="giant" border-opacity="1"/>
+      
+    </grid>
+  </section>
+
+  <section name="TestBars" fixed="true">
+    <grid rows="25,,30" cols="30,,30">
+      <item id="Test"               type='bar' cache-interval="1" red-green="100,5" bars-count="5" transparent="true" />
+      <item id="Test" size='large'  type='bar' cache-interval="1" red-green="100,30,0" bars-count="10" transparent="true"/>
+      <item id="Test" size='medium' type='bar' cache-interval="0" red-green="0,150" border-width="1" bars-count="10" transparent="true"/>
+
+      <item id="Test" size='medium' type='roundbar' red-green="150,0" cache-interval="1" item-width="10" item-height="10" transparent="false" small-radis-delta="10" bars-count="8" colored-value="true"/>
+      <item id="Test" size='giant' type='roundbar' red-green="150,0" cache-interval="1" item-width="10" item-height="10" transparent="false"/>
+      <item id="Test" size='medium' type='bar' cache-interval="0" red-green="0,150" border-width="3" bars-count="10" transparent="true" />
+
+      <item id="Test" fade-coeff="0.2" colored-value="true" type='roundbar' size="small" width-compression="0.9" small-radis-delta="5" corn-angle="60" middle-angle="130" red-green="0,150" cache-interval="0" item-width="10" item-height="10" bars-count="10" transparent="true" border-width="0"/>
+      <item id="Test" fade-coeff="0.5" colored-value="true" type='roundbar' red-green="0,150" cache-interval="0" item-width="10" item-height="10" bars-count="10" transparent="true" border-width="0"/>
+      <item id="Test" fade-coeff="0.4" colored-value="xtrue" type='bar' cache-interval="1" red-green="10,30,150" bars-count="50" transparent="false" border-width="0" />
+    </grid>
+  </section>
+
+  <section name="TestCharts" fixed="true">
+    <grid rows="," cols=",,">
+
+      <item id="Test" type="chart" chart='line' pen-width="4"  cache-interval="6000" red-green="30,5" bars-count="5" transparent="true" min-limit="0" max-limit="50"
+             custom-description="cached 6s" real-time-scale="true"/>
+      <item id="Test" type="chart" chart='point'  cache-interval="3000" red-green="10,30,100" bars-count="10" transparent="true"
+             custom-description="cached 3s" pen-width="4"/>
+      <item id="Test" type="chart" chart='bar'    cache-interval="0" red-green="10,120,150" bars-count="10" transparent="true" border-width="0" />
+
+      <item id="Test" type="chart" chart='line'   colored-value="true" cache-interval="1000" red-green="30,5" transparent="true"  fade-coeff="0.8"
+             custom-description="cached 1s"/>
+      <item id="Test" type="chart" chart='point'  pen-width="4" colored-value="true" cache-interval="3000" red-green="10,30,100" transparent="true" fade-coeff="0.1"/>
+      <item id="Test" type="chart" chart='bar'    colored-value="true" cache-interval="0" red-green="10,120,150" transparent="true" fade-coeff="0.1" />
+
+      
+    </grid>
+  </section>
+
+  <section name="Test Filters" fixed="true">
+    <grid rows=",," cols=",,">
+
+      <item id="DateTime" custom-units="timesec12" custom-description="blur offset before"
+            decorator-b="filter" b-effect="blur(2,2); offset(1,1)" b-mode="before"/>
+
+      <item id="DateTime" custom-units="timesec12" custom-description="blur in"
+            decorator-b="filter" b-effect="blur(4.5,4.5)" b-mode="in"/>
+
+      <item id="DateTime" custom-units="timesec12" custom-description="blur offset invert after"
+            decorator-b="filter" b-effect="invert(); offset(3,3); blur(1.5,1.5);" b-mode="after"/>
+
+      <item id="Test" type="chart" chart='line'  colored-value="true"  red-green="30,5" bars-count="5" transparent="true" min-limit="0" max-limit="50"
+            custom-description="sepia" cache-interval="2000"
+            decorator-b="filter" b-effect="blur(2,2);sepia()" b-mode="before"/>
+      <item id="Test" type="chart" chart='point' colored-value="true"  red-green="10,30,100" bars-count="10" transparent="true"
+            custom-description="drop-shadow in" cache-interval="2000" pen-width="4">
+            <filter effect="drop-shadow(5.5,5.5, 8,2); blur(8,2)" mode="before"/>
+            <padding padding="5"/>
+      </item>
+      <item id="Test" type="chart" chart='bar'   colored-value="true"  red-green="10,120,150" bars-count="10" transparent="true" border-width="0"
+            custom-description="dilate transp before" cache-interval="2000"
+            decorator-b="filter" b-effect="dilate(1,1);transparent(0.5)" b-mode="before"/>
+
+      <item id="Speed" size="6" custom-description="dynamic blur rotate">
+        <break/>
+        <image image-zorder="bottom" image-path="images/ui/arrow-circle-right.png" image-scale="0.6"/>
+        <filter effect="rotate($${Sensor_Value-225},50%,50%)" mode="in" interval="100"/>
+        <break/>
+        <image image-zorder="bottom" image-path="images/ui/arrow-circle-right.png" image-scale="0.6"/>
+        <filter effect="rotate($${Sensor_Value-225},50%,50%);blur($${Sensor_Value/50},$${Sensor_Value/50});sepia()" mode="in" interval="100"/>
+      </item>
+
+      <item id="Speed"
+        size="6" 
+        decorator-i1="image" i1-image-zorder="bottom"
+                             i1-image-scale="0.3"
+                             i1-image-path="images/ui/arrow-circle-right.png"
+        custom-description="zoom in" border-opacity="1"
+        decorator-xb="filter" xb-effect="offset(20%,20%); zoom(0.6,0.6,0%,0%);" xb-mode="in"
+      />
+
+      <item id="Speed"
+        size="10" custom-description="rotate zoom before" border-opacity="1">
+        <image image-zorder="bottom" image-path="images/arrow-circle-right.png" image-scale="0.5"/>
+        <filter effect="rotate(3,50%,50%); zoom(1.1,1.1); blur(0.5,0.5)" mode="before"/>
+      </item>
+
+      
+    </grid>
+  </section>
+
+  <section name="Test Prediction Smooth" fixed="true">
+    <grid rows="," cols=",">
+
+      <item id="Speed" type="chart" chart='line' custom-description="raw" precision="1" border-opacity="1" period="100" real-time-scale="true">
+        <break/>
+        <image image-zorder="bottom" image-path="images/ui/arrow-circle-right.png" image-scale="0.6"/>
+        <filter effect="rotate($${180+Sensor_Value%360},50%,50%)" mode="in" interval="100"/>
+        <filter effect="blur(1,1)"/>
+        <padding padding="0 0 0 120"/>
+      </item>
+
+      <item id="Speed" wrap="predict()" type="chart" chart='line' custom-description="predict" precision="1" border-opacity="1" period="100">
+        <break/>
+        <image image-zorder="bottom" image-path="images/ui/arrow-circle-right.png" image-scale="0.6"/>
+        <filter effect="rotate($${180+Sensor_Value%360},50%,50%)" mode="in" interval="100"/>
+        <filter effect="blur(1,1)"/>
+        <padding padding="0 0 0 120"/>
+      </item>
+
+      <item id="Speed" wrap="smooth(200)" type="chart" chart='line' custom-description="smooth" precision="1" border-opacity="1" period="100">
+        <break/>
+        <image image-zorder="bottom" image-path="images/ui/arrow-circle-right.png" image-scale="0.6"/>
+        <filter effect="rotate($${180+Sensor_Value%360},50%,50%)" mode="in" interval="100"/>
+        <filter effect="blur(1,1)"/>
+        <padding padding="0 0 0 120"/>
+      </item>
+
+    </grid>
+  </section>
+
+  <section name="TestPadding" fixed="true">
+    <grid rows=",," cols=",,">
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="10%"/>
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="2 2 2 2"/>
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="10 10 10 10"/>
+
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="1 5 10 15"/>
+      <item id="Test" custom-description="lanscape dynamic difference" border-opacity="1" decorator-p="padding" p-padding='${LandscapeLayout ? "10% 30%" : "30% 10%"}'/>
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="10 20"/>
+
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="5% 20%"/>
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="10 0"/>
+      <item id="Test" border-opacity="1" decorator-p="padding" p-padding="30%"/>
+    </grid>
+  </section>
+
+  <section name="TestCrops" fixed="true">
+    <grid rows=",," cols=",,">
+      
+      <item id="Test" border-opacity="1" type='roundbar' red-green="150,0">
+        <crop crop="10% 10% 10% 10%"/>
+      </item>
+
+      <item id="Test" custom-description="crop dynamic" border-opacity="1" type='roundbar' red-green="150,0">
+        <crop crop="$${Min(60; Sensor_Value)}% 0 0 0"/>
+      </item>
+
+      <item id="Test" border-opacity="1" type='roundbar' red-green="150,0">
+        <crop crop="50% 50% 0% 0%"/>
+      </item>
+
+      <item id="Test" border-opacity="1" type='roundbar' red-green="150,0">
+        <crop crop="35%"/>
+      </item>
+
+    </grid>
+  </section>
+
+  <section name="TestRoundBar" fixed="true">
+    <grid rows="," cols=",,">
+
+      <item id="Test" size='medium' type='roundbar' red-green="150,0" cache-interval="1" item-size="25" item-spacing="20" transparent="false" radius="100" bars-count="5" colored-value="true"/>	  
+	  <item id="Test" size='medium' type='roundbar' red-green="150,0" cache-interval="1" item-size="10" transparent="true" start-angle="45" end-angle="315" radius="75" bars-count="10" colored-value="true"/>	  
+	  <item id="Test" size='large' type='roundbar' red-green="150,0" cache-interval="1" item-size="10" transparent="true" start-angle="90" end-angle="270" radius="100" bars-count="10" colored-value="true"/>	  
+
+	  <item id="Test" size='medium' type='roundbar' red-green="150,0" cache-interval="1" item-size="10" transparent="false" start-angle="45" end-angle="315" radius="75" item-spacing="100" vertical-offset = "-10" colored-value="true"/>	  
+	  <item id="Test" size='medium' type='roundbar' red-green="150,0" cache-interval="1" item-size="15" transparent="true" start-angle="45" end-angle="315" radius="75" item-spacing="50" vertical-offset = "10" colored-value="true"/>	  
+	  <item id="Test" size='medium' type='roundbar' red-green="150,0" cache-interval="1" item-size="20" transparent="true" start-angle="45" end-angle="315" radius="75" item-spacing="0" colored-value="true"/>	  	  
+      
+    </grid>
+  </section>
+
+  <section name="Dates" fixed="true">
+    <grid rows=",,," cols=",">
+      <item id="DateTime" custom-units="time12"/>
+      <item id="DateTime" custom-units="time"/>
+      <item id="DateTime" custom-units="timesec12"/>
+      <item id="DateTime" custom-units="timesec"/>
+      <item id="DateTime" custom-units="datetime"/>
+      <item id="DateTime" custom-units="datetime"/>
+      <item id="DateTime" custom-units="seconds"/>
+    </grid>
+  </section>
+
+  <section name="Extras" fixed="true">
+    <grid rows=",,," cols=",">
+      <item id="TripTime[trip]" />
+      <item id="TripTime[day]" />
+      <item id="TripTime[week]" />
+      <item id="TripTime[month]" />
+      <item id="TripTime[fillup]" />
+      <item id="TripTime[alltime]" />
+      <item id="TripTime" />
+    </grid>
+  </section>
+
+  <section name="Buttons" fixed="true">
+    <grid rows=",,," cols=",">
+      <item type="button" text="1234"  />
+      <item type="button" text="exit" action="Shutdown"  />
+      <item type="button" text="fuel tank" action="NewFueling" />
+      <item type="button" text="nautilus" action="run(nautilus)" />
+      <item type="button" text="git gui" action="run(git gui)" />
+    </grid>
+  </section>
+
+  <section name="IM" fixed="true">
+    <grid rows=",," cols=",">
+      <item type="button" text="ClearDTC" action="invoke(ClearDTC)"  />
+      <item type="button" text="Fan On" action="invoke(FAN_ON)"  />
+      <item type="button" text="Fan Off" action="invoke(FAN_OFF)"  />
+      <item type="button" text="Fan On2" action="invoke(FAN_ON2)"  />
+      <item type="button" text="Fan Off2" action="invoke(FAN_OFF2)"  />
+    </grid>
+  </section>
+
+  <section name="Images Rotate" fixed="true">
+    <grid rows="," cols=",">
+      
+      <item id="Speed"
+        description="hidden" size="6" border-opacity="1"
+        decorator-i1="image" i1-image-zorder="bottom"
+                             i1-image-path="images/tpms_r.png"
+                             i1-image-rotate='$${(svalue("DateTime")/10) % 360}'
+                             i1-image-rotate-align="hcenter,top"
+        />
+      <item id="Speed"
+        description="hidden" size="6" border-opacity="1"
+        decorator-i1="image" i1-image-zorder="bottom"
+                             i1-image-path="images/ui/arrow-circle-right.png"
+                             i1-image-rotate='$${(svalue("DateTime")/10) % 360}'
+                             i1-image-rotate-align="right,bottom"
+        />
+      <item id="Speed"
+        description="hidden" size="6" border-opacity="1"
+        decorator-i1="image" i1-image-zorder="bottom"
+                             i1-image-path="images/ui/arrow-circle-right.png"
+                             i1-image-rotate='$${(svalue("DateTime")/10) % 360}'
+                             i1-image-rotate-align="left,vcenter"
+        />
+      <item id="Speed"
+        description="hidden" size="6" border-opacity="1"
+        decorator-i1="image" i1-image-zorder="bottom"
+                             i1-image-path="images/ui/arrow-circle-right.png"
+                             i1-image-rotate='$${(svalue("DateTime")/10) % 360}'
+                             i1-image-rotate-align="center"
+        />
+
+    </grid>
+  </section>
+
+
+  <section name="Images" fixed="true">
+    <grid rows="80," cols=",">
+      <item id="RPM"
+        description="hidden"
+        size="6"
+        type="text"
+        border-opacity="1"
+        decorator-i="image" i-image-zorder="bottom"
+                            i-image-path="images/new/tah/$${1+rand(14)}.png"
+        />
+      
+      <item id="Speed"
+        description="hidden"
+        size="6"
+        border-opacity="1">
+
+        <image zorder="bottom"
+               path="images/ui/arrow-circle-right.png"/>
+
+        <image zorder="bottom"
+               path="images/ui/arrow-circle-right.png"
+               rotate='$${(svalue("DateTime")/100) % 360}'
+               scale="1"/>
+        <image zorder="bottom"
+               path="images/ui/arrow-circle-right.png"/>
+      </item>
+
+      <item id="Speed"
+        description="hidden"
+        size="6"
+        decorator-i1="image" i1-image-zorder="bottom"
+                             i1-image-path="images/gauges/without_arrow_circle.png"
+        decorator-i2="image" i2-image-zorder="bottom"
+                             i2-image-path="images/gauges/arrow.png"
+                             i2-image-rotate='$${ Sensor_Value - 45 }'
+                             i2-image-scale="1"
+        decorator-i3="image" i3-image-zorder="bottom"
+                             i3-image-path="images/gauges/without_arrows.png"
+        />
+
+    </grid>
+  </section>
+
+  <section name="Variables" fixed="true">
+    <stack-vertical>
+      <item id="Speed" text-evaluator="tank: $${Vehicle_tank + (XXX := Sensor_Value) }" />
+      <item type="static" text="help: ${help()}" size="12" height="400"/>
+      <item type="static" text="allglobals: ${allglobals()}" size="12" height="400"/>
+      <item id="Speed"  text-evaluator='Portrait: $${PortraitLayout}
+sexists $${sexists("Speed")}
+Reference var: $${XXX}
+about $${about()}
+'
+            size="12" xheight="400"/>
+    </stack-vertical>
+  </section>
+
+
+</ui>

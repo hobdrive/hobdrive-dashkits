@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui>
+
+  <include file="default-tripcomp.layout" if='${!sexists("GasTrigger")}'/>
+
+  <include file="default-dualfuel.layout" if="GasTrigger"/>
+
+  <include file="default-EV.layout" if="EVTrigger"/>
+
+</ui>

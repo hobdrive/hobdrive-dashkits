@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui>
+
+  <config id="Layout_ECUFuel" type="bool" default="false"
+          title="Use Fuel Level data from ECU"
+          descr="If enabled - fuel level will be shown from ECU. Otherwise - estimated from fuel consumption"
+          title-ru="Показывать уровень топлива из ЭБУ"
+          descr-ru="Если включено - уровень топлива будет браться из ЭБУ. Иначе - показывается оценочный уровень топлива"/>
+
+  <config id="Layout_Diesel" type="bool" default="false"
+          title="Adapt display for Diesel engines"
+          descr="If enabled many display elements will be adapted for Diesel engines. This includes limiting RPM gauge max, and some trip computer elements"
+          title-ru="Адаптировать отображение для дизельных двигателей"
+          descr-ru="Если включено то графические элементы будут адаптироваться для дизелей"/>
+
+  <section name="General" fixed="true" align-descriptions-size="true">
+
+    <config id="Layout_RollTemp" type="bool" default="false"
+            title="Cycle temperature data"
+            descr="If enabled - temperature sensors will be displayed periodically in a loop.
+            If disabled - all available temperature sensors will be displayed at once"
+            title-ru="Чередовать показания температур"
+            descr-ru="Если включено - показания известных температур будут меняться периодически.
+            Если выключено - все показания будут отображаться одновременно"/>
+
+    <config id="Layout_ShiftAssistant" type="bool" default="true"
+            title="Shift Assistant"
+            descr="If enabled, hobdrive will provide shift assistance indicators"
+            title-ru="Помощник переключения передач"
+            descr-ru="Помощник переключения передач показывает рекомендованные сдвиги из текущей передачи вниз или вверх"/>
+
+    <grid rows="25,,30" cols="30,,30">
+      
+      <!--  111 111 -->
+      <item id="FuelLevel" if='${Layout_ECUFuel != true}'
+            inherit="_FuelIndicator, _EditAction" onclick="NewFueling"/>
+      <item id="ECUFuelLevel" if='${Layout_ECUFuel = true}'
+            inherit="_FuelIndicator, _EditAction" onclick="NewFueling"/>
+
+      <!--  111 222 -->
+      <switch index='$${svalue("FuelEconomy_trip") &lt; svalue("FuelEconomy_NoIdling") + 10 ? 0 : 1 }'
+              interval="5000">
+        <item id="FuelEconomy_trip" />
+        <item id="FuelEconomy_NoIdling" />
+      </switch>
+      <!--  111 333 -->
+      <switch index='$${svalid("ControlModuleVoltage") ? 1 : 0}' interval="5000">
+        <item id="BatteryVoltage"       period='5000'/>
+        <item id="ControlModuleVoltage" period='5000'/>
+      </switch>
+
+      <!--  222 111 -->
+      <item id="RPM" size='medium'/>
+      <!--  222 222 -->
+      <item id="Speed" size='giant'/>
+      <!--  222 333 -->
+      <union>
+        <!-- need improvement of such constructions. here overlapping may happen. description should always be visible -->
+        <item id="ShiftPosition" XXvisibility='$${Sensor_Value}' size='huge' inherit="_ShiftPositionLatin"/>
+        <item id="AT_R" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R' size="huge"/>
+        <item id="AT_P" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='P' size="huge"/> 
+        <item id="AT_N" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='N' size="huge"/> 
+        <item id="AT_D" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='D' size="huge"/> 
+        <item id="AT_P_N" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='P/N' size="huge"/> 
+        <item id="AT_P_N_R" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='P/N/R' size="huge"/> 
+        <item id="AT_R-1" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R-1' size="huge"/>
+        <item id="AT_R-2" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R-2' size="huge"/>
+        <item id="AT_R-3" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R-3' size="huge"/>
+
+        <grid rows=",30,5" cols=",20,"
+              if='${Layout_ShiftAssistant = true}'
+              >
+          <item/><item/><item/>
+          <union>
+            <item id="ShiftPosition" visibility='$${ svalue("RPM") &gt; 4000 and svalue("ShiftPosition") &lt; 5 ? 1 : 0 }'
+                  description="hidden" text-evaluator='$${svalue("ShiftPosition")}⮕$${svalue("ShiftPosition")+1}'
+                  interval="1000" size="small"/>
+            <item id="ShiftPosition" visibility='$${ (svalue("RPM") &lt; 1200 and svalue("ShiftPosition") &gt; 1) ? 1 : 0 }'
+                  description="hidden" text-evaluator='$${svalue("ShiftPosition")}⮕$${svalue("ShiftPosition")-1}'
+                  interval="1000" size="small"/>
+          </union>
+          <item/>
+          <item id="AT_SolenoidLock" visibility='$${svalid("AT_SolenoidLock")}' description="hidden" text-evaluator='$${Sensor_Value != 0 ? "SLock" : ""}' size="small"/>
+          <item/><item/><item/>
+        </grid>
+      </union>
+
+      <!--  333 111 -->
+      <item id="CoolantTemp" period="2000"/>
+
+      <!--  333 222 -->
+      <stack-horizontal
+        if='${Layout_RollTemp != true}'
+        >
+        <item id="ATFTemp" if='ATFTemp' units="below"  period='2000'/>
+        <item id="CVTTemp" if='CVTTemp' units="below"  period='2000'/>
+        <item id="IntakeAirTemp" if='IntakeAirTemp' units="below" period='2000'/>
+        <item id="AirTemp" if='AirTemp' units="below" period='2000'/>
+      </stack-horizontal>
+      <!-- Roll over every 4 seconds -->
+      <switch if='${Layout_RollTemp = true}'
+              index='$${ svalue("DateTime") / 4000 }'>
+        <item id="ATFTemp" if='ATFTemp' inherit="_CycleIcon" units="below"  period='2000'/>
+        <item id="CVTTemp" if='CVTTemp' inherit="_CycleIcon" units="below"  period='2000'/>
+        <item id="EngineOilTemp" if='EngineOilTemp' inherit="_CycleIcon" units="below"  period='2000'/>
+        <item id="IntakeAirTemp" if='IntakeAirTemp' inherit="_CycleIcon" units="below" period='2000'/>
+        <item id="AirTemp" if='AirTemp' inherit="_CycleIcon" units="below" period='2000'/>
+      </switch>
+
+      <!--  333 333 -->
+      <item id="EfficiencyPercentage" onclick="Go(Efficiency)" inherit="_GoIcon"/>
+    </grid>
+  </section>
+
+  <section name="Trip computer" fixed="true" class="Trip">
+
+    <config id="Layout_Speed_Average_noidle" type="bool" default="false"
+            title="Show average speed without idling"
+            descr="By default we show absolute average speed. If option is enabled -
+            average speed without idle time will be shown. This is useful when you often
+            stay with engine running and not moving"
+            title-ru="Показывать среднюю скорость без учета простоя" 
+            descr-ru="По умолчанию показывается абсолютная средняя скорость.
+            Если опция включена - будет отображаться средняя скорость без учета времени простоя.
+            Это полезно, если вы часто стоите с работающим двигателем и не двигаетесь"/>
+
+    <grid rows="25,,30" cols="30,,30">
+      <item id="TripTime"/>
+      <item id="IdleTime"/>
+      <item id="FuelPerHour"/>
+
+      <item id="FuelEconomy_instant" size='large'/>
+      <switch index='$${svalue("FuelEconomy_trip") &lt; svalue("FuelEconomy_NoIdling") + 10 ? 0 : 1 }'>
+        <item id="FuelEconomy_trip" size="giant"/>
+        <item id="FuelEconomy_NoIdling" size="giant"/>
+      </switch>
+      <item id="FuelEconomy_short" size='large'/>
+
+      <union>
+        <item id="Speed_average"
+              if='${Layout_Speed_Average_noidle = false}'
+              size='large' units="aside" period='1000'/>
+        <item id="Speed_average_noidle"
+              if='${Layout_Speed_Average_noidle = true}'
+              size='large' units="aside" period='1000'/>
+      </union>
+      <item id="DistanceRun" size='large'  period='5000'/>
+      <item id="FuelConsumed" size='large'/>
+    </grid>
+  </section>
+
+  <section name="Fuel Details" fixed="true" class="Trip" >
+    <grid rows=",," cols=",40,">
+      <item id="FuelConsumed_Idling"/>
+      <item id="FuelEconomy_NoIdling" size='extralarge'/>
+      <item id="FuelConsumed_Idling_Cost"/>
+
+      <item id="FuelConsumed" inherit="_EditAction" onclick='CorrectionInformation'/>
+      <item id="FuelEconomy_trip" size='huge'/>
+      <item id="FuelConsumed_Cost" inherit="_EditAction" onclick='ChangeLiterCost'/>
+
+      <item id="FuelConsumed_ColdEngine" />
+      <item id="FuelEconomy_WarmEngine" size='extralarge'/>
+      <item id="DistanceRun_UnitCost" />
+    </grid>
+  </section>
+
+  <section name="Tank Details" fixed="true" >
+
+    <config id="Layout_ECU_Odometer" type="bool" default="false"
+            title="Show Odometer data from ECU"
+            descr="If enabled odometer data will be shown from ECU. Otherwise - estimated from fuel consumption"
+            title-ru="Показывать Одометр из ЭБУ"
+            descr-ru="Если включено показания одометра будут браться из ЭБУ. Иначе - оценочное значение одометра.
+                      Хобдрайв основывает все внутренние расчеты на собственном одометре независимо от выбора этой опции отображения"/>
+
+    <grid rows="," cols=",,">
+      <item id="FuelLevel" if='${Layout_ECUFuel != true}'
+            onclick="FuelCalibration" inherit="_EditAction, _FuelLevelJoint"/>
+      <item id="ECUFuelLevel" if='${Layout_ECUFuel = true}'
+            onclick="FuelCalibration" inherit="_EditAction, _ECUFuelLevelJoint"/>
+
+      <!-- these should also be different depending on Layout_ECUFuel -->
+      <item id="DistanceToEmpty"/>
+      <item id="TimeToEmpty" colspan="2"/>
+
+      <item id="RegularTimeToEmpty"/>
+      <item id="DistanceRun_fueling" size="large"/>
+      <item id="Odometer" if="${Layout_ECU_Odometer != true}" actions="SetupOdometer" size="large" inherit="_EditAction"/>
+      <item id="ECU_Odometer" if="${Layout_ECU_Odometer = true}" size="large"/>
+
+    </grid>
+  </section>
+</ui>

@@ -1,0 +1,87 @@
+<ui>
+    <section name="DashB3" title-height="0" maximize-focus="true" controls="autohide">
+
+        <grid rows='${LandscapeLayout = true ? "" : ",50,"}' cols='${LandscapeLayout = true ? ",50," : ""}'>
+
+            <!-- + for electric -->
+            <item id="RPM" wrap="predict(50, 0.7)" text-values="0:" type="text" description="hidden">
+                <break/>
+                <image image-zorder="bottom" image-path="images/dashb3/dashb3_rpm_0_${Layout_Diesel ? 6 : 8}.png" image-align="right,bottom" image-scale="1"/>
+                <filter effect="transparent(0.7)"/>
+                <image image-zorder="bottom" image-path="images/dashb3/dashb3_rpm.png" image-align="right,bottom" image-scale="1" />
+                <filter effect="blur(0.5,0.5)"/>
+                <padding padding="10% 0 5% 0"/>
+
+                <break/>
+                <image image-zorder="bottom" image-path="images/dashb3/dashb3_rpm_on.png" image-align="right,bottom" image-scale="1"/>
+                <image image-zorder="xbottom" image-path="images/dashb3/dashb3_rpm_0_${Layout_Diesel ? 6 : 8}.png" image-align="right,bottom" image-scale="1"/>
+                <xfilter effect="blur(0.5,0.5)"/>
+                <padding padding="10% 0 5% 0"/>
+                <crop crop="$${110-Min(100; 19 + Sensor_Value / (Layout_Diesel ? 80 : 100) )}% 0 0 0"/>
+            </item>
+
+            <!-- Speed arrow gauge -->
+            <union decorator-x="filter" x-effect="blur(0.5,0.5)" x-NOT-YET-WORKING="true">
+                <item>
+                    <image image-zorder="bottom" image-path="images/dashb3/dashb3_dial.png"
+                        image-align="center" image-scale="1"/>
+                </item>
+                <grid rows="60," cols="20,,20">
+                    <item colspan="3" id="Speed" wrap="predict(50, 0.7)" text-values="0:" type="text" description="hidden" period="100">
+                        <break/>
+                        <image image-zorder="bottom" image-path="images/dashb3/dashb3_arrow.png"
+                            image-align="hcenter,bottom" image-scale="0.8"
+                            image-rotate="$${-135 + 5 + Sensor_Value * 0.95 % 360}"
+                            image-rotate-align="hcenter,bottom"/>
+                    </item>
+                    <item/>
+                    <item id="Speed" wrap="predict(50, 0.7)" type="chart" chart='line' description="hidden" precision="0" period="100"></item>
+                    <item/>
+                </grid>
+            </union>
+
+            <!--
+             TODO: for electric, variators
+             Сглаженное отображение текущей передачи
+             При переходе картинка следующей передачи плавно наплывает, текущая уходит влево.
+             -->
+            <item id="ShiftPosition" wrap="smooth(500,100,0)" size='huge' precision="2" text-values="0:"
+                  Xtext-evaluator="_ $${Sensor_Value - Floor(Sensor_Value+0.001)}" description="hidden">
+                
+                <!--
+                  Previous gear
+                  Уходящая передача, рисуется когда промежуточное значение Sensor_Value меньше текущей целой передачи
+                -->
+                <break/>
+                <image image-path="images/dashb3/dashb3_shift$${Floor(Sensor_Value)}.png"
+                       image-zorder="bottom" image-align="hcenter,bottom"/>
+                <filter effect="zoom($${1 - PrevShiftDiff}, $${1 - PrevShiftDiff}, 20%, 100%);
+                                transparent($${PrevShiftDiff})" interval="100"/>
+                <padding padding="0 0 30% 0"/>
+                <visibile visibility='$${PrevShiftDiff := Sensor_Value - Floor(Sensor_Value)}$${PrevShiftDiff &gt; 0.01}' visibility-interval="0"/>
+
+                <!-- Current gear -->
+                <break/>
+                <image image-zorder="bottom" image-path="images/dashb3/dashb3_shift$${Floor(Sensor_Value)}.png"
+                    image-align="hcenter,bottom" image-scale="1"
+                    />
+                <padding padding="0 0 30% 0"/>
+                <visibile visibility='$${Sensor_Value - Floor(Sensor_Value) &lt; 0.01}' visibility-interval="100"/>
+
+
+                <!-- +1 next gear -->
+                <break/>
+                <image image-zorder="bottom" image-path="images/dashb3/dashb3_shift$${Ceiling(Sensor_Value-0.001)}.png"
+                    image-align="hcenter,bottom" image-scale="1"
+                    />
+                <filter effect="$${NextShiftDiff := (Ceiling(Sensor_Value-0.001) - Sensor_Value)};
+                                zoom($${1-NextShiftDiff}, $${1-NextShiftDiff}, 80%, 100%);
+                                transparent($${NextShiftDiff})" interval="10"/>
+                <padding padding="0 0 30% 0"/>
+                <visibile visibility='$${Sensor_Value - Floor(Sensor_Value) &gt; 0.01}' visibility-interval="0"/>
+
+            </item>
+
+        </grid>
+    </section>
+</ui>

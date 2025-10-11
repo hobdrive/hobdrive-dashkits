@@ -1,0 +1,229 @@
+﻿<ui name="Dual Fuel" description="Layout for dual fuel systems">
+
+  <!--
+  CONVERT THIS TO UNIVERSAL DUAL ? not sure, too specific for Autogas.
+  Or merge with
+  Plugin Gybrid: Electro/Gaz
+  Gas / Electro
+  Full Electro??
+
+  UNIFY COMMON elements, using _ref="xxx" to gauge.
+  -->
+  <section name="General" fixed="true">
+    <grid rows="25,,30" cols="30,,30">
+      <grid rows=",30" cols="">
+        <item id="FuelLevel" text-evaluator='$${Sensor_Text}(${t("autogas.sh")})' type="text"
+                  onclick="NewFueling" inherit="_EditAction"/>
+        <item id="FuelLevel_secondary" description="hidden" text-evaluator='$${Sensor_Text}(${t("petrol.sh")})' type="text"
+                  onclick="NewFueling"/>
+      </grid>
+      <!-- Fuel Economy -->
+      <union>
+        <item id="FuelEconomy_trip" text-evaluator="" description="hidden"/>
+        <grid rows=",30" cols="">
+
+          <switch index='$${svalue("FuelEconomy_trip") &lt; svalue("FuelEconomy_NoIdling") + 10 ? 0 : 1 }'>
+            <item id="FuelEconomy_trip" />
+            <item id="FuelEconomy_NoIdling" />
+          </switch>
+          
+          <item id="FuelEconomy_trip_secondary"
+                type="text"
+                text-evaluator='$${Sensor_Text}(${t("petrol.sh")})'
+                description="hidden"/>
+        </grid>
+      </union>
+      <!-- END Fuel Economy -->
+      
+      <switch index='$${svalid("ControlModuleVoltage") ? 1 : 0}'>
+        <item id="BatteryVoltage"       period='5000'/>
+        <item id="ControlModuleVoltage" period='5000'/>
+      </switch>
+
+      <item id="RPM" size='medium'/>
+      <item id="Speed" size='giant'/>
+      <union>
+        <item id="ShiftPosition" visibility='$${Sensor_Value}' size='huge' inherit="_ShiftPositionLatin"/>
+        <item id="AT_R" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R' size="huge"/>
+        <item id="AT_P" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='P' size="huge"/> 
+        <item id="AT_N" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='N' size="huge"/> 
+        <item id="AT_D" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='D' size="huge"/> 
+        <item id="AT_P_N" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='P/N' size="huge"/> 
+        <item id="AT_P_N_R" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='P/N/R' size="huge"/> 
+        <item id="AT_R-1" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R-1' size="huge"/>
+        <item id="AT_R-2" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R-2' size="huge"/>
+        <item id="AT_R-3" visibility='$${Sensor_Value}' custom-description="sname.ShiftPosition" text-evaluator='R-3' size="huge"/>
+        <grid rows=",30,5" cols=",20,">
+          <item/><item/><item/>
+          <item id="ShiftPositionHelp" visibility="False" description="hidden" text-evaluator="Вверх" size="small"/>
+          <item/>
+          <item id="AT_SolenoidLock" visibility='$${svalid("AT_SolenoidLock")}' description="hidden" text-evaluator='$${Sensor_Value != 0 ? "SLock" : ""}' size="small"/>
+          <item/><item/><item/>
+        </grid>
+      </union>
+
+      <item id="CoolantTemp" period="2000"/>
+      <union>
+        <grid rows="" cols=",,">
+        <union>
+          <item id="ATFTemp" visibility='$${svalid("ATFTemp")}' units="below"  period='2000'/>
+          <item id="CVTTemp" visibility='$${svalid("CVTTemp")}' units="below"  period='2000'/>
+        </union>
+        <item id="IntakeAirTemp" visibility='$${svalid("IntakeAirTemp")}' units="below" period='2000'/>
+        <item id="AirTemp" visibility='$${svalid("AirTemp")}' units="below" period='2000'/>
+        </grid>
+      </union>
+      <item id="EfficiencyPercentage" onclick="Go(Efficiency)" inherit="_GoIcon"/>
+
+    </grid>
+  </section>
+
+  <section name="Trip computer" fixed="true" class="Trip">
+    <grid rows="25,,30" cols="30,,30">
+
+      <!--  ROW 1111111111 -->
+      <grid rows=',30'>
+        <item id="TripTime"/>
+        <item id="TripTime_primary"
+              text-evaluator='$${Sensor_Text}(${t("autogas.sh")}) / $${svaluef("TripTime_secondary")}(${t("petrol.sh")})'
+              description="hidden"/>
+      </grid>
+      <item id="IdleTime" height="30"/>
+      <union>
+        <item visibility='$${svalue("GasTrigger")}' id="FuelPerHour"
+              />
+        <item visibility='$${svalue("GasTrigger") = 0}'
+              id="FuelPerHour_secondary"/>
+      </union>
+
+      <!--  ROW 222222222222 -->
+      <union>
+        <item visibility='$${svalue("GasTrigger")}' id="FuelEconomy_instant" size='large'/>
+        <item visibility='$${svalue("GasTrigger") = 0}' id="FuelEconomy_instant_secondary" size='large'/>
+      </union>
+
+      <grid rows=",20" cols="">
+        <item id="FuelEconomy_trip" size='giant'/>
+        <item id="FuelEconomy_trip_secondary"
+              text-evaluator='$${Sensor_Text}(${t("petrol.sh")})'
+              type="text"
+              description="hidden"/>
+      </grid>
+      <union>
+        <item visibility='$${svalue("GasTrigger")}' id="FuelEconomy_short" size='large'/>
+        <item visibility='$${svalue("GasTrigger") = 0}' id="FuelEconomy_short_secondary" size='large'/>
+      </union>
+
+      <!--  ROW 33333333333333 -->
+      <union>
+        <item id="Speed_average"
+              visibility='$${!sexists("Speed_average_noidle")}'
+              size='large' units="aside" period='1000'/>
+        <item id="Speed_average_noidle"
+              visibility='$${sexists("Speed_average_noidle")}'
+              size='large' units="aside" period='1000'/>
+      </union>
+      <grid rows=",30">
+        <item id="DistanceRun" size='large' units="aside" precision="2" period='5000'/>
+        <item id="DistanceRun_primary" units="none" precision="2"
+              text-evaluator='$${Sensor_Text}(${t("autogas.sh")}) / $${svaluef("DistanceRun_secondary"; 2)}(${t("petrol.sh")})'
+              description="hidden"/>
+      </grid>
+      <grid rows=",30">
+        <item id="FuelConsumed" size='large' precision="2"
+              text-evaluator='$${Sensor_Text}(${t("autogas.sh")})'
+          />
+        <item id="FuelConsumed_secondary" precision="2"
+              text-evaluator='$${Sensor_Text}(${t("petrol.sh")})'
+              description="hidden"/>
+      </grid>
+    </grid>
+  </section>
+
+  <section name="FuelDetails.Gas" fixed="true" class="Trip">
+    <grid rows=",," cols=",40,">
+      <item id="FuelConsumed_Idling"/>
+      <item id="FuelEconomy_NoIdling" size='extralarge'/>
+      <item id="FuelConsumed_Idling_Cost"/>
+
+      <item id="FuelConsumed" inherit="_EditAction" onclick='CorrectionInformation'/>
+      <item id="FuelEconomy_trip" size='huge'/>
+      <item id="FuelConsumed_Cost" inherit="_EditAction" onclick='ChangeLiterCost'/>
+
+      <item id="DistanceRun_primary" />
+      <item id="DistanceRun_primary_UnitCost" size='extralarge'/>
+      <item id="FuelConsumed_TotalCost" units="aside"/>
+    </grid>
+  </section>
+
+  <section name="FuelDetails.Petrol" fixed="true" class="Trip">
+    <grid rows=",," cols=",40,">
+      <item id="FuelConsumed_secondary_Idling"/>
+      <item id="FuelEconomy_secondary_NoIdling" size='extralarge'/>
+      <item id="FuelConsumed_secondary_Idling_Cost" inherit="_EditAction" onclick='ChangeLiterCost'/>
+
+      <item id="FuelConsumed_secondary" inherit="_EditAction" onclick='CorrectionInformation'/>
+      <item id="FuelEconomy_trip_secondary" size='huge'/>
+      <item id="FuelConsumed_secondary_Cost" inherit="_EditAction" onclick='ChangeLiterCost'/>
+
+      <item id="DistanceRun_secondary" />
+      <item id="DistanceRun_secondary_UnitCost" size='extralarge'/>
+      <item id="FuelConsumed_TotalCost" units="aside"/>
+    </grid>
+  </section>
+
+  <section name="Tank Details" fixed="true" >
+    <grid rows="," cols=",,">
+
+      <!--  ROW 1111111111 -->
+      <grid rows="60," cols="">
+        <item id="FuelLevel"
+              text-evaluator='$${Sensor_Text} / $${svaluef_units("FuelInTank")} (${t("autogas.sh")})'
+              size="extralarge"
+              onclick="FuelCalibration" inherit="_EditAction"/>
+        <item id="FuelLevel_secondary" description="hidden"
+              size="extralarge"
+              text-evaluator='$${Sensor_Text}  / $${svaluef_units("FuelInTank_secondary")} (${t("petrol.sh")})'
+              onclick="FuelCalibration"/>
+      </grid>
+
+      <union>
+        <!-- для фонового чарта -->
+        <item id="DistanceToEmpty" text-evaluator="" description="hidden"/>
+        <grid rows="60,," cols="">
+          <item id="DistanceToEmpty" type="text" size="large"/>
+
+          <item id="DistanceToEmpty_primary" type="text" size="normal" description="hidden"
+                text-evaluator='$${Sensor_Text} (${t("autogas.sh")})'/>
+          <item id="DistanceToEmpty_secondary" type="text" size="normal" description="hidden"
+                text-evaluator='$${Sensor_Text} (${t("petrol.sh")})'/>
+        </grid>
+      </union>
+
+      <union>
+        <item id="TimeToEmpty" text-evaluator="" description="hidden"/>
+        <grid rows="60,," cols="">
+          <item id="TimeToEmpty" type="text"/>
+          <item id="TimeToEmpty_primary" type="text" description="hidden" text-evaluator='$${Sensor_Text}(${t("autogas.sh")})'/>
+          <item id="TimeToEmpty_secondary" type="text" description="hidden" text-evaluator='$${Sensor_Text}(${t("petrol.sh")})'/>
+        </grid>
+      </union>
+
+      <!--  ROW 222222222 -->
+
+      <grid rows="60,">
+        <item id="RegularTimeToEmpty" text-evaluator='${t("autogas.sh")}: $${Sensor_Text}'/>
+        <item id="RegularTimeToEmpty_secondary" description="hidden" text-evaluator='${t("petrol.sh")}: $${Sensor_Text}'/>
+      </grid>
+
+      <grid rows="60,">
+        <item id="DistanceRun_fueling_on_primary" size="large" text-evaluator='${t("autogas.sh")}: $${Sensor_Text}'/>
+        <item id="DistanceRun_fueling_secondary_on_secondary" size="large" description="hidden" text-evaluator='${t("petrol.sh")}: $${Sensor_Text}'/>
+      </grid>
+
+      <item id="Odometer" actions="SetupOdometer" size="large"  inherit="_EditAction"/>
+
+    </grid>
+  </section>
+
+</ui>
