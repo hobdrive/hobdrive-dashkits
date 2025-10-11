@@ -1,0 +1,201 @@
+﻿<!--
+  This layout is for 16x9 screen, however any similar proportions
+  will work fine by using DPI automatic scaling
+-->
+<ui>
+ 
+
+<section name="NEW" fixed="true" title-height="0">
+<grid rows="45,11,0,11,14,19,1," cols="26,9,,35">
+
+
+<!-- Тахометр 1/1-->	
+	<item id="RPM" 
+	description="hidden"
+	size="large"
+	type="text"
+	text-align="right"
+	
+	
+	
+	decorator-bg="image" 
+		bg-image-path="images/new/tah/$${ceiling(Sensor_Value/1000*2)}.png"
+		bg-image-align="left"	
+		bg-image-scale="2.2"
+		bg-image-zorder="bottom"
+		
+		
+	   	
+		
+	/>
+
+<!-- Пустышка 1/2-->		
+<item />
+		
+<!-- Одометр 1/3-->			
+	<item id="Odometer" actions="SetupOdometer" period='120000'
+	description="hidden"
+	text-align="bottom"
+	size="normal"
+	/>
+	
+<!-- Температура 1/4-->	
+	<item id="CoolantTemp" period='30000'
+	description="hidden"
+	type="text"
+	
+	decorator-bg1="image" 
+		bg1-image-path="images/new/temp/$${ceiling(Sensor_Value/5)}.png"
+		
+		bg1-image-align="right"	
+		bg1-image-scale="2.2"
+		bg1-image-zorder="bottom"
+		
+	
+	
+	/>
+	
+<!-- Часовой расход 2/2-->		
+	<item id="LitersPerHour" 
+	description="hidden"
+	type="text"
+	units="aside"
+	/>
+
+<!-- Пустышка 2/3-->			
+<item />
+		
+<!-- Спидометр -->			
+	<item id="Speed"
+    description="hidden"
+	type="text"
+	rowspan="3"
+	size="150" 
+	
+	decorator-bg="image" 
+		bg-image-path="images/new/spd/spd33.png" 
+		bg-image-scale="4.8"
+		bg-image-zorder="bottom"
+		
+		decorator-i7="image" i7-image-zorder="top"
+		i7-image-path="images/new/spd/arr7.png"
+		i7-image-rotate='$${ Sensor_Value/0.586 -46 }'
+		i7-image-scale="1.6"
+			
+	/>
+
+<!-- бак 2/4-->			
+<item id="FuelInTank" inherit="_FuelLevelJoint" period="600000"
+	description="hidden"
+	type="text"
+	size="55"
+	text-align="right" 
+	
+	decorator-bg2="image" 
+		bg2-image-path="images/new/bak/$${ceiling(Sensor_Value/5)}.png"
+		bg2-image-align="vcenter, right"	
+		bg2-image-scale="8.9"
+		bg2-image-zorder="bottom"
+	
+	/>
+		<item />
+		<item />
+<item />
+<item />
+<!-- Пустышки -->	
+<!-- Средний расход на 100км за поездку -->	
+	<item id="FuelEconomy_trip" size='normal' period='120000'
+	description="hidden"
+	type="text"
+	units="aside"
+	/>		
+
+	
+	<item />
+	<item />
+
+
+<item id="ControlModuleVoltage" period='10000'
+	description="hidden"
+	type="text"
+	units="aside"
+    />
+	
+	
+	<item id="FuelEconomy_instant" size='normal' 
+	description="hidden"
+	units="aside"
+	text-align="right"
+	
+	/>
+	
+	<item />
+	
+	
+	
+	
+
+	
+	<!-- Время поездки -->			
+	<item id="TripTime" 
+	description="hidden"
+	size="normal"
+	type-landscape="text"
+	text-align-landscape="bottom"
+	/>
+
+
+		
+<!-- Израсходованно за поездку -->			
+	<item id="FuelConsumed" period='600000'
+	size='normal'
+	description="hidden"
+	precision="1"
+	/>
+		
+<item />
+
+<!-- Пустышка -->			
+<item />
+
+<!-- Расстояние за поездку -->			
+	<item id="DistanceRun" size="normal"  period="60000"
+	description="hidden"
+	type="text"
+	precision="1"
+	type-landscape="text"
+	precision-landscape="1"
+	/>
+</grid>
+</section>
+
+<section name="123" fixed="true" title-height="0">
+<grid rows="45,11,0,11,14,19,1," cols="26,9,,35">
+		<!-- Расстояние за поездку -->			
+	<item id="DistanceRun" size="normal"  period="60000"
+	description="hidden"
+	type="text"
+	precision="1"
+	type-landscape="text"
+	precision-landscape="1"
+	/>
+
+	<item id="CapacityEfficiency" size="normal"  period="60000"
+	description="hidden"
+	type="text"
+	precision="1"
+	type-landscape="text"
+	precision-landscape="1"
+	/>
+	<item id="TotalMisfire" size="normal"  period="60000"
+	description="hidden"
+	type="text"
+	precision="1"
+	type-landscape="text"
+	precision-landscape="1"
+	/>
+	
+
+</grid>
+</section>
+</ui>

@@ -1,0 +1,289 @@
+﻿<!--
+  Created by SanyaDez [ sanyadez@gmail.com ]
+-->
+<ui>
+<!-- vaz-yanvar.ecuxml -->
+<section name="Home Dash v.2" title-height="0" fixed="true" if="LandscapeLayout">
+    <union>
+      <item/>
+      <grid rows="100" cols="25,50,25">
+
+          <union>
+            <item/>
+            <grid rows=",," cols="100">
+              <union>
+                <item id="" description="hidden"
+                    size="6"
+                    decorator-fuel="image"
+                       fuel-image-zorder="top"
+                       fuel-image-scale="1"
+                       fuel-image-align="top, left"
+                       fuel-image-aspect="false"
+                       fuel-image-path="images/sd/top-left.png"
+                />
+                <grid rows="," cols=",">
+                    <item id="FuelEconomy_trip"/>
+                    <item id="FuelEconomy_instant"/>
+                    <item id="EfficiencyPercentage" onclick="Go(Efficiency)" colspan="2" size="small"/>
+                </grid>
+              </union>
+              <union>
+                <item/>
+                <grid rows="100" cols=",,">            
+                  <item/>
+                  <item/>
+                  <item/>
+                </grid>
+              </union>
+              <union>
+                <item id=""
+                  decorator-time="image"
+                     time-image-zorder="top"
+                     time-image-scale="1"
+                     time-image-align="top, left"
+                     time-image-aspect="false"
+                     time-image-path="images/sd/bottom-left.png"
+                />
+                <grid rows="," cols=",">
+                  <item id="TripTime" actions="SetupOdometer" size='small' description="hidden"/>
+                  <item id="DistanceRun" period='3000' actions="SetupOdometer" size='small' description="hidden" text-align="left"/>
+                  <item id="FuelConsumed" colspan="2" actions="SetupOdometer" size='normal' description="hidden" precision="2"/>
+                </grid>
+              </union>
+            </grid>
+          </union>
+
+          <union>
+            <item id="Speed" description="hidden" period="50"
+                  decorator-bg="image"
+                      bg-image-zorder="bottom"
+                      bg-image-scale="1"
+                      bg-image-align="center"
+                      bg-image-aspect="true"
+                      bg-image-path="images/sd/spd-center.png"
+                  decorator-arrow="image"
+                      arrow-image-zorder="bottom"
+                      arrow-image-path="images/sd/spd-arrow.png"
+                      arrow-image-rotate='$${ Sensor_Value * 2.4 }'
+                      arrow-image-scale="1"
+                      arrow-image-rotate-align="center"
+                      arrow-image-align="center"
+                />
+            <grid rows="18,21,22,11,10,18" cols=",,">
+              <item/> <item/> <item/>
+              <item/> <item/> <item/>
+              <item/> <item/> <item/>
+              <item/> <item id="Odometer" actions="SetupOdometer" description="hidden"  size='small'/> <item/>
+              <item/> <item/> <item/>
+              <item/> <item id="ShiftPosition" size='huge' description="hidden"/> <item/>
+            </grid>
+          </union>
+
+          <union>
+            <item/>
+            <grid rows="," cols="100">
+              <union>
+                <item/>
+                <grid rows="," cols=",">
+                  <item id='CoolantTemp' description="hidden" size="normal"/>
+                  <switch index='$${svalue("FAN_Status") ? 0 : 1 }'>
+                    <item id="FAN_Status" onclick="invoke(FAN_ON)" description="hidden"
+                        size="6"
+                        decorator-fanoff="image"
+                          fanoff-image-zorder="bottom"
+                          fanoff-image-scale="1"
+                          fanoff-image-align="center"
+                          fanoff-image-aspect="true"
+                          fanoff-image-path="images/sd/fan_off.png"
+                      />
+                    <item id="FAN_Status" onclick="invoke(FAN_OFF)" description="hidden"
+                          size="6"
+                          decorator-fanon="image"
+                            fanon-image-zorder="bottom"
+                            fanon-image-scale="1"
+                            fanon-image-align="center"
+                            fanon-image-aspect="true"
+                            fanon-image-path="images/sd/fan_on.png"
+                        />
+                  </switch>
+                  <item id='ControlModuleVoltage' description="hidden" size="medium" colspan="2"/>
+                </grid>
+              </union>
+              <union>
+                <item id="RPM" description="hidden" rowspan="3" colspan="2" period="50"
+                    size="6"
+                    decorator-bg="image"
+                        bg-image-zorder="bottom"
+                        bg-image-scale="1"
+                        bg-image-align="center"
+                        bg-image-aspect="true"
+                        bg-image-path="images/sd/tah.png"
+                        bg-padding="50 0 0 0"
+                    decorator-arrow="image"
+                        arrow-image-zorder="bottom"
+                        arrow-image-path="images/sd/tah-arrow.png"
+                        arrow-image-rotate='$${ Sensor_Value / 100 * 2.4 }'
+                        arrow-image-scale="1"
+                        arrow-image-rotate-align="center"
+                        arrow-image-align="center"
+                  />
+                <grid rows=",," cols=",,">
+                  <item/> <item/> <item/>
+                  <item/> <item/> <item id="RPM" description="hidden" period="50" size="normal" text-align="left"/>
+                  <item/> <item/> <item/>
+                </grid>
+              </union>
+            </grid>
+          </union>
+
+      </grid>
+    </union>
+</section>
+
+<section name="Home Dash v.2" title-height="0" fixed="true" if="PortraitLayout">
+    <union>
+      <item/>
+      <grid rows="25,49,,25" cols="100">
+
+          <union>
+              <item/>
+              <grid rows="100" cols="55,45">
+                <union>
+                  <item id="" description="hidden"
+                      size="6"
+                      decorator-fuel="image"
+                         fuel-image-zorder="top"
+                         fuel-image-scale="1"
+                         fuel-image-align="top, left"
+                         fuel-image-aspect="false"
+                         fuel-image-path="images/sd/top-left.png"
+                  />
+                  <grid rows="10,,,10" cols="10,,,10">
+                    <item/> <item/> <item/> <item/>
+                    <item/>
+                    <item id="FuelEconomy_trip" size="normal" width-compression="0.5"/>
+                    <item id="FuelEconomy_instant" size="normal" width-compression="0.5"/>
+                    <item/>
+                    <item/>
+                    <item id="EfficiencyPercentage" onclick="Go(Efficiency)" colspan="2" size="small"/>
+                    <item/>
+                    <item/> <item/> <item/> <item/>
+                  </grid>
+                </union>
+                <union>
+                  <item id="RPM" description="hidden" period="50"
+                      size="6"
+                      decorator-bg="image"
+                          bg-image-zorder="bottom"
+                          bg-image-scale="1"
+                          bg-image-align="center"
+                          bg-image-aspect="true"
+                          bg-image-path="images/sd/tah.png"
+                          bg-padding="50 0 0 0"
+                      decorator-arrow="image"
+                          arrow-image-zorder="bottom"
+                          arrow-image-path="images/sd/tah-arrow.png"
+                          arrow-image-rotate='$${ Sensor_Value / 100 * 2.4 }'
+                          arrow-image-scale="1"
+                          arrow-image-rotate-align="center"
+                          arrow-image-align="center"
+                          arrow-padding="0 0 0 0"
+                    />
+                  <grid rows=",," cols=",,">
+                    <item/> <item/> <item/>
+                    <item/> <item/> <item id="RPM" description="hidden" period="50" size="normal" text-align="left"/>
+                    <item/> <item/> <item/>
+                  </grid>
+                </union>
+              </grid>
+            </union>
+
+          <union>
+            <item id="Speed" description="hidden" period="50"
+                  decorator-bg="image"
+                      bg-image-zorder="bottom"
+                      bg-image-scale="1"
+                      bg-image-align="center"
+                      bg-image-aspect="true"
+                      bg-image-path="images/sd/spd-center.png"
+                  decorator-arrow="image"
+                      arrow-image-zorder="bottom"
+                      arrow-image-path="images/sd/spd-arrow.png"
+                      arrow-image-rotate='$${ Sensor_Value * 2.4 }'
+                      arrow-image-scale="1"
+                      arrow-image-rotate-align="center"
+                      arrow-image-align="center"
+                />
+            <grid rows="18,21,22,11,10,18" cols=",,">
+              <item/> <item/> <item/>
+              <item/> <item/> <item/>
+              <item/> <item/> <item/>
+              <item/> <item id="Odometer" actions="SetupOdometer" description="hidden"  size='small'/> <item/>
+              <item/> <item/> <item/>
+              <item/> <item id="ShiftPosition" size='huge' description="hidden"/> <item/>
+            </grid>
+          </union>
+
+          <item/>
+
+          <union>
+              <item id="" description="hidden"
+                  size="6"
+                  decorator-fuel="image"
+                     fuel-image-zorder="top"
+                     fuel-image-scale="1"
+                     fuel-image-align="center"
+                     fuel-image-aspect="false"
+                     fuel-image-path="images/sd/bg.png"
+              />
+              <grid rows="100" cols="45,,45">
+                <union>
+                  <item/>
+                  <grid rows="," cols=",">
+                    <item id="TripTime" actions="SetupOdometer" size='small' description="hidden"/>
+                    <item id="DistanceRun" period='3000' actions="SetupOdometer" size='small' description="hidden" text-align="left"/>
+                    <item id="FuelConsumed" colspan="2" actions="SetupOdometer" size='normal' description="hidden" precision="2" text-align="top"/>
+                  </grid>
+                </union>
+                <union>
+                  <item/>
+                  <grid rows="100" cols=",,">
+                    <item/>
+                    <item/>
+                    <item/>
+                  </grid>
+                </union>
+                <union>
+                  <item/>
+                  <grid rows="," cols=",">
+                    <item id='CoolantTemp' description="hidden" size="normal"/>
+                    <switch index='$${svalue("FAN_Status") ? 0 : 1 }'>
+                      <item id="FAN_Status" onclick="invoke(FAN_ON)" description="hidden"
+                          size="6"
+                          decorator-fanoff="image"
+                            fanoff-image-zorder="bottom"
+                            fanoff-image-scale="1"
+                            fanoff-image-align="center"
+                            fanoff-image-aspect="true"
+                            fanoff-image-path="images/sd/fan_off.png"
+                        />
+                      <item id="FAN_Status" onclick="invoke(FAN_OFF)" description="hidden"
+                            size="6"
+                            decorator-fanon="image"
+                              fanon-image-zorder="bottom"
+                              fanon-image-scale="1"
+                              fanon-image-align="center"
+                              fanon-image-aspect="true"
+                              fanon-image-path="images/sd/fan_on.png"
+                          />
+                    </switch>
+                    <item id='ControlModuleVoltage' description="hidden" size="medium" colspan="2" text-align="top"/>
+                  </grid>
+                </union>
+              </grid>
+            </union>
+
+      </grid>
+    </union>
+</section>
+</ui>

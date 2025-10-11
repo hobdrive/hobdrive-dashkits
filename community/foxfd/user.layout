@@ -1,0 +1,185 @@
+﻿<!--
+  This layout is for 16x9 screen, however any similar proportions
+  will work fine by using DPI automatic scaling
+-->
+<ui>
+<section name="FoxFd1" fixed="true" title-height="0">
+    <grid rows="15,15,20,25,25" cols="20,20,20,20,20">
+      
+		<item id="CoolantTemp" period='20000' colspan="1" rowspan="2"/>
+		<item id="Speed" size='giant' colspan="3" rowspan="2"/>
+		<item id="Odometer" actions="SetupOdometer" period='5000' rowspan="1"/>
+	  
+<item/>
+<item/>
+<item/>
+<item/>
+
+	  <item id="DistanceRun" size='large'  period='5000'/>
+	  
+	  
+	  <item id="BatteryVoltage" period='30000' colspan="1" rowspan="1"/>
+	  <item id="RPM" size='giant' colspan="3"/>
+	  <item id="TripTime"/>
+	  	  	  
+	  <item id="LitersPerHour" period='1000'/>
+	  <item id="FuelEconomy_instant" size='large' colspan="3"/>
+	  <item id="FuelEconomy_trip" size='giant' period='10000'/>
+	  
+	  <item id="FuelConsumed" period='60000'/>
+	  <item id="FuelLevel" inherit="_EditAction, _FuelLevelJoint" period='60000'/>
+	  <item/>
+	  <item id="DistanceToEmpty" period='60000'/>
+	  <item id="TimeToEmpty" period='60000'/>
+	  
+	  
+	  
+    </grid>
+  </section>
+  
+ 
+<section name="FoxFd11" fixed="true" title-height="0" maximize-focus="true" controls="autohide">
+<union>
+<grid rows="38,11,0,11,14,24,1," cols="26,9,,10,25" xif="false">	
+	<item id="RPM" size='large'
+	    wrap="smooth(500,100,0)"
+		decorator-r="image"
+		r-image-path="images/foxfd/rpm/rpm01.png"
+		r-image-zorder="bottom"
+		r-image-align="top"
+		r-image-scale="1.4"
+		
+		decorator-rs="image" 
+		rs-image-zorder="top"
+		rs-image-align="bottom,hcenter"
+		rs-image-path="images/foxfd/rpm/arr9.png"
+		rs-image-rotate='$${ 51 + ((Max(Min(7000; Sensor_Value);0) -0 ) * 96/7000)}'
+		rs-image-scale="2"
+		
+
+	/>
+	 
+<item />
+		
+		<item id="Odometer" actions="SetupOdometer" period='5000' />
+
+
+		
+		<item id="FuelEconomy_instant" size='large' colspan="2"  />
+		
+		<item id="LitersPerHour" period='1000'/>
+
+<item />
+		
+		<item id="Speed"
+		wrap="predict(50, 0.7)"
+        description="hidden"
+        rowspan="3"
+		size="60" 
+		decorator-bg="image" 
+		bg-image-path="images/foxfd/spd/spd33.png" 
+		bg-image-scale="4.2"
+		bg-image-zorder="bottom"
+	  
+		decorator-i7="image" i7-image-zorder="top"
+		i7-image-path="images/foxfd/spd/arr7.png"
+		i7-image-rotate='$${ Sensor_Value/0.586 -46 }'
+		i7-image-scale="1.5"	
+		/>
+	  
+<item />
+		
+		<item id="BatteryVoltage" period='30000' />
+<item />
+<item />
+<item />
+<item />
+<item />
+
+		<item id="FuelEconomy_trip" size='giant' period='10000'/>
+
+<item />
+<item />
+<item />
+		
+		<item id="FuelConsumed" period='60000'/>
+		
+		<item id="CoolantTemp" period='20000'
+		
+		decorator-b="image"
+		b-image-path="images/foxfd/tmp/01-1.png"
+		b-image-zorder="bottom"
+		b-image-align="top,left"
+		b-image-scale="3"
+		
+	
+		decorator-i4="image" i4-image-zorder="top"
+		i4-image-path="images/foxfd/tmp/arr9.png"
+		i4-image-rotate='$${ -50 - ((Max(Min(120; Sensor_Value);50) - 50) * 96 / 70) }'
+		i4-image-scale="1.5"
+		i4-image-align="top,hcenter"
+		/>
+
+<item />
+		
+		<item id="DistanceRun" size='large'  period='5000'/>
+
+<item />
+		
+		<item id="FuelLevel" inherit="_EditAction, _FuelLevelJoint" period='60000'
+
+		decorator-b="image"
+		b-image-path="images/foxfd/tank/100.png"
+		b-image-zorder="bottom"
+		b-image-align="top,right"
+		b-image-scale="3"
+		
+		decorator-i5="image"
+		i5-image-zorder="top"
+        i5-image-path="images/foxfd/tank/arr7.png"
+        i5-image-rotate='$${ -392 - ((Max(Min(100; Sensor_Value);0) + 0) * 100 / 100) }'
+		i5-image-scale="1.5"
+		i5-image-align="top,hcenter"		
+		/>
+		
+			
+<item />
+<item />
+		
+		<item id="TripTime"/>
+		
+<item />
+		
+		<item id="IdleTime" 
+		xdescription="hidden"
+		decorator-bg="imagex" 
+		bg-image-path="images/foxfd/bg/b.png" 
+		bg-image-align="right,bottom"
+		bg-image-scale="4.2"
+		bg-image-aspect="false"
+		/>
+	
+<item />
+<item />
+<item />
+<item />
+		
+		<item id="*"
+		decorator-bg="image" 
+		bg-image-path="images/foxfd/bg/last10.png"
+		bg-image-align="right,vcenter"
+		bg-image-scale="242"
+		/>	
+
+</grid>
+<item id="IdleTime" 
+		xdescription="hidden"
+		decorator-bg="image" 
+		bg-image-path="images/foxfd/bg/b.png" 
+		bg-image-align="right,bottom"
+		xbg-image-scale="4.2"
+		bg-image-aspect="false"
+		/>
+</union>
+</section>
+</ui>

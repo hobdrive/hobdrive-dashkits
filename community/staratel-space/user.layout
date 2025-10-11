@@ -1,0 +1,232 @@
+﻿<!--
+  Спроектировано для соотношения  сторон экрана 16x9,  разрешение и DPI 
+  устанавливаются автоматически в зависимости от  характеристик экрана.
+  автор проекта staratel.
+-->
+<ui>
+  <section name="space" fixed="true" title-height="0" maximize-focus="true" controls="autohide">
+    <union>
+      <item/>
+        <grid rows=",," cols=",, "> 
+          <union>
+             <item/>                      
+    <!--  устанавливаем фоновую картинку   --> 
+      <grid rows="," cols=",">  
+        <union>
+         <item id=" " 
+           decorator-back="image"
+            back-image-zorder="bottom"
+             back-image-scale="7.7"
+              back-image-align="top"
+               back-image-aspect="true"
+                 back-image-path="images/space/0001.jpg"   />     
+        </union>       
+       </grid> 
+     </union>       
+   </grid>
+                  
+    <!--  уровень топлива в баке  -->
+       <union>
+        <grid rows="54,16,6,14,12" cols="77,16,7">
+          <item/> <item/> <item/> <item/>   
+            <item id="FuelInTank" inherit="_FuelLevelJoint" period="50000"
+		      type="text" size="40" />		                                 
+        <item/> <item/> <item/> <item/>  <item/>
+              
+    <!--  израсходовано топлива  -->
+        <item id="FuelConsumed" 
+          actions="SetupOdometer"  
+           size="40" precision="2"  /> 		                              
+        <item/> <item/> <item/> <item/>
+        </grid>
+       </union>
+
+    <!--  график уровня топлива -->
+        <union>
+           <grid rows="60,30,12" cols="90,9,3" >
+          <item/> <item/> <item/> <item/>
+           <item id="FuelInTank" inherit="_FuelLevelJoint" period="50000"
+		     description="hidden"  type="text" size="1"
+	          decorator-level="image" 
+		       level-image-path="images/space/tank/level.png"
+		        level-image-align="vcenter, right"
+                 level-image-scale="1.6"
+		          level-image-zorder="bottom"
+ 
+            decorator-tank="image" 
+		    tank-image-path="images/space/tank/$${max(0,ceiling(Sensor_Value /4.6))}.png"
+		     tank-image-align="vcenter, right"	
+		      tank-image-scale="1.6"
+		       tank-image-zorder="bottom"
+                colsspan="3"/>			                            
+           <item/> <item/> <item/> <item/>
+          </grid>
+         </union>
+
+    <!-- средний расход топлива  -->
+         <union>
+          <grid rows="11,22,22,57" cols="79,19" >
+            <item/> <item/> <item/> 
+             <item id="FuelEconomy_trip" size='giant' period='5000'
+              custom-description="Средний расход (л/100км)"
+               type="text" units="aside"   />	 <item/>                 
+                   
+  <!-- часовой расход, мгновенный расход, в зависимости от режима -->
+       <switch index='$${svalue("Speed") > 1 ? 1 : 0}'> 
+         <item id="FuelPerHour" type="text" units="aside" size="30" />
+         <item id="FuelEconomy_instant" type="text" size="50"  /> 	  		                               
+       </switch>
+          <item/> <item/> 
+          </grid>
+        </union>  
+
+    <!--  график температуры -->
+         <union>
+          <grid rows="4,15,85" cols="46,25,29" >
+           <item/> <item/> <item/> <item/> 
+	        <item id="CoolantTemp" period='30000'
+             description="hidden"  type="text"  size="0"
+                     
+	         decorator-coolbg="image" 
+		      coolbg-image-path="images/space/cool/cool.png"
+		       coolbg-image-align="center"
+                coolbg-image-scale="1.2"
+		         coolbg-image-zorder="bottom"
+ 
+             decorator-cool="image" 
+		      cool-image-path="images/space/cool/$${ceiling(Sensor_Value/5)}.png"
+		       cool-image-align="center"
+                cool-image-scale="1.2"
+		         cool-image-zorder="top" /> 
+             <item/> <item/> <item/> <item/>
+		     </grid>
+          </union> 
+
+    <!-- температура ОЖ (7)  -->
+           <union>
+             <grid rows="18,24,60" cols="51,18,31">
+             <item/> <item/> <item/> <item/>  
+              <item id="CoolantTemp" period='30000'
+               custom-description="Температура ОЖ"
+                type="text" size="85"  text-aling="left" /> 		                                  
+              <item/> <item/> <item/> <item/>    
+             </grid>
+           </union>
+
+    <!--  напряжение бортовой сети либо с ЭБУ,  либо с АКБ   -->
+           <union>
+            <grid rows="60,24,22" cols="58,10,32">
+              <item/> <item/> <item/> <item/>       
+              <switch index='$${svalid("ControlModuleVoltage") ? 1 : 0}'>
+               <item id="BatteryVoltage" period='5000' 
+                custom-description="Напряжение сети с ЭБУ" 
+                 size="85"   />
+               <item id="ControlModuleVoltage" period='5000' 
+                custom-description="Напряжение сети с АКБ" 
+                 size="85"  />
+              </switch> 	
+             <item/> <item/> <item/> <item/>   	                                
+            </grid>
+          </union>
+
+    <!--  спидометр -->
+            <union>
+             <grid rows="44,37,20" cols="8,28,64">
+              <item/> <item/> <item/> <item/>
+              <item id="Speed" type="text" text-evaluator="$${svalue_est(Sensor_Obj)}" description="hidden" period="50"  size="84"
+               decorator-bg="image"
+                bg-image-zorder="bottom"
+                 bg-image-scale="2.3"
+                  bg-image-align="center"
+                   bg-image-aspect="true"
+                    bg-image-path="images/space/speed/speedo1.png"  />
+              <item/> <item/> <item/> <item/>
+             </grid>
+            </union>            
+              
+    <!--  стрелка спидометра  -->  
+            <union>
+             <grid rows="45,37,20" cols="8,28,64">
+              <item/> <item/> <item/> <item/>
+              <item id="Speed" type="text" description="hidden" period="50"  size="0"
+                decorator-arrow="image"
+                 arrow-image-zorder="top"
+                  arrow-image-path="images/space/speed/arrow.png"
+                   arrow-image-rotate='$${ svalue_est(Sensor_Obj)/0.97 - 40 }'
+                    arrow-image-scale="1.4"
+                     arrow-image-rotate-align="center"
+                      arrow-image-align="center"   />
+              <item/> <item/> <item/> <item/>
+             </grid>
+            </union>            
+    
+    <!--    одометр  --> 
+            <union>
+             <grid  rows="42,10,18,10,12" cols="10,25,65" >
+              <item/> <item/> <item/> <item/>                       
+              <item id="Odometer" actions="SetupOdometer" period='50000'
+	           description="hidden"
+	            text-align="bottom"
+                 size="24" />
+              <item/> <item/> <item/> <item/><item/>
+              <item/> <item/> <item/> <item/> <item/>    
+             </grid>
+          </union> 
+
+    <!--  суточный пробег  -->
+            <union>
+             <grid  rows="87,10,5" cols="9,18,73" >
+               <item/>   <item/>  <item/>  <item/>
+                <item id="DistanceRun" size="26"  period="50000"
+	             description="hidden"
+	              type="text"
+	               precision="2"
+	                type-landscape="text"
+	                 aling="bottom"  />
+              <item/> <item/> <item/> <item/>    
+             </grid>
+           </union>                     
+      
+    <!-- время в пути, время простоя -->
+              <union>
+               <grid rows="6,14,82" cols="5,14,81" >
+                 <item/>  <item/>  <item/>  <item/>  
+                 <switch index='$${svalue("Speed")>1?1:0}'> 
+                  <item id="IdleTime" type="text" size="24"  />
+                  <item id="TripTime" type="text" size="small" 
+                   units="aside" />
+                 </switch>
+                <item/>  <item/>  <item/>  <item/>
+              </grid>
+             </union>               
+         
+    <!-- тахометр -->
+         <union>
+           <grid rows="20,38,38,8" cols="75,25" >
+             <item/> <item/> <item/> <item/>          
+             <item id="RPM" description="hidden"  period="50"
+               type="text" size="0"
+              decorator-tahobg="image"
+               tahobg-image-zorder="bottom"
+                tahobg-image-scale="1"
+                 tahobg-image-align="center"
+                  tahobg-image-path="images/space/taho/taho.png"
+                   
+              decorator-taho="image"         
+               taho-image-path="images/space/taho/$${min(30;ceiling(Sensor_Value/1000*4.75))}.png"
+                taho-image-align="center"
+                 taho-image-scale="1"
+	              taho-image-zorder="top"  />  
+               <item/> <item/> <item/> </grid> </union>
+                
+        <union>
+          <grid rows="76,20,6" cols="30,20,50" >             
+             <item/> <item/> <item/> <item/>   
+             <item id="RPM"  custom-description="обороты двигателя" type="text"  size="normal" />
+              <item/> <item/> <item/> <item/>
+           </grid>
+        </union>     
+
+     </union>
+ </section>
+</ui>
