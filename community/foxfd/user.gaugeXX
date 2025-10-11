@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<gauges>
+  <gauge
+    id="*"
+    description="hidden"
+    description-portrait="hidden"
+    description-landscape="hidden" />
+  <gauge
+    id="FuelEconomy_instant"
+    color-map=":#01b300, 2: #01b300, 4: #01b300, 6: #01b300, 8: #fff000, 10:#fff000, 12: #ff0000, 14: #ff0000"
+    color-map-portrait=":#01b300, 2: #01b300, 4: #01b300, 6: #01b300, 8: #fff000, 10:#fff000, 12: #ff0000, 14: #ff0000"
+    color-map-landscape=":#01b300, 2: #01b300, 4: #01b300, 6: #01b300, 8: #fff000, 10:#fff000, 12: #ff0000, 14: #ff0000"
+    description="hidden"
+    type="roundbar"
+    vertical-offset="50"
+    type-portrait="roundbar"
+    type-landscape="roundbar"
+    vertical-offset-portrait="50"
+    vertical-offset-landscape="50"
+    start-angle="135"
+    end-angle="225"
+    start-angle-portrait="135"
+    start-angle-landscape="135"
+    end-angle-portrait="225"
+    end-angle-landscape="225"
+    bars-count="30"
+    bars-count-portrait="30"
+    bars-count-landscape="30"
+    ellipse="true"
+    ellipse-portrait="true"
+    ellipse-landscape="true"
+    radius="230"
+    item-spacing="0"
+    radius-portrait="230"
+    radius-landscape="230"
+    item-spacing-portrait="0"
+    item-spacing-landscape="0"
+    item-size="20"
+    item-size-portrait="20"
+    item-size-landscape="20"
+    period="0"
+    period-portrait="0"
+    period-landscape="0"
+    cache-interval="0"
+    cache-interval-portrait="0"
+    cache-interval-landscape="0" />
+  <gauge
+    id="Speed"
+    type="text"
+    size="large"
+    type-portrait="text"
+    type-landscape="text"
+    size-portrait="large"
+    size-landscape="large"
+    text-align="top"
+    text-align-portrait="top"
+    text-align-landscape="top" />
+  <gauge
+    id="FuelEconomy_trip"
+    type="text"
+    type-portrait="text"
+    type-landscape="text"
+    colored-value="false"
+    colored-value-portrait="false"
+    colored-value-landscape="false"
+    units="none"
+    units-portrait="none"
+    units-landscape="none"
+    size="normal"
+    size-portrait="normal"
+    size-landscape="normal" />
+  <gauge
+    id="FuelConsumed"
+    type="text"
+    precision="1"
+    type-portrait="text"
+    type-landscape="text"
+    precision-portrait="1"
+    precision-landscape="1" />
+  <gauge
+    id="Odometer"
+    text-align="bottom"
+    text-align-portrait="bottom"
+    text-align-landscape="bottom"
+    size="normal"
+    size-portrait="normal"
+    size-landscape="normal" />
+  <gauge
+    id="FuelLevel"
+    type="text"
+    size="normal"
+    type-portrait="text"
+    type-landscape="text"
+    size-portrait="normal"
+    size-landscape="normal"
+    colored-value="false"
+    colored-value-portrait="false"
+    colored-value-landscape="false" />
+  <gauge
+    id="DistanceRun"
+    type="text"
+    size="normal"
+    precision="1"
+    type-portrait="text"
+    type-landscape="text"
+    size-portrait="normal"
+    size-landscape="normal"
+    precision-portrait="1"
+    precision-landscape="1" />
+  <gauge
+    id="TripTime"
+    type="text"
+    size="normal"
+    type-portrait="text"
+    type-landscape="text"
+    size-portrait="normal"
+    size-landscape="normal"
+    text-align="top"
+    text-align-portrait="top"
+    text-align-landscape="top"
+    text-onoff="false"
+    text-onoff-portrait="false"
+    text-onoff-landscape="false" />
+  <gauge
+    id="RPM"
+    type="text"
+    size="large"
+    type-portrait="text"
+    type-landscape="text"
+    size-portrait="large"
+    size-landscape="large"
+    text-align="bottom"
+    text-align-portrait="bottom"
+    text-align-landscape="bottom" />
+  <gauge
+    id="LitersPerHour"
+    units="none"
+    units-portrait="none"
+    units-landscape="none" />
+  <gauge
+    id=":0:0:TripTime"
+    size="large"
+    size-portrait="large"
+    size-landscape="large" />
+  <gauge
+    id="IdleTime"
+    period="4000"
+    size="6"
+    period-portrait="4000"
+    period-landscape="4000"
+    size-portrait="6"
+    size-landscape="6" />
+  <gauge
+    id="BatteryVoltage"
+    type="text"
+    type-portrait="text"
+    type-landscape="text" />
+  <gauge
+    id=":0:0:CoolantTemp"
+    type="text"
+    type-portrait="text"
+    type-landscape="text" />
+  <gauge
+    id="CoolantTemp"
+    type="text"
+    type-portrait="text"
+    type-landscape="text" />
+  <gauge
+    id=":0:0:Speed"
+    type="text"
+    type-portrait="text"
+    type-landscape="text" />
+</gauges>
