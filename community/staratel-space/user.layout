@@ -54,7 +54,7 @@
 		          level-image-zorder="bottom"
  
             decorator-tank="image" 
-		    tank-image-path="images/space/tank/$${max(0,ceiling(Sensor_Value /4.6))}.png"
+		    tank-image-path="images/space/tank/$${max(0; ceiling(Sensor_Value /4.6))}.png"
 		     tank-image-align="vcenter, right"	
 		      tank-image-scale="1.6"
 		       tank-image-zorder="bottom"

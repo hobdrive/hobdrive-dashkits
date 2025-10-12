@@ -3,7 +3,7 @@
   will work fine by using DPI automatic scaling
 -->
 <ui>
-<section name="FoxFd1" fixed="true" title-height="0">
+<section name="FoxFd1" fixed="true" title-height="0" maximize-focus="true">
     <grid rows="15,15,20,25,25" cols="20,20,20,20,20">
       
 		<item id="CoolantTemp" period='20000' colspan="1" rowspan="2"/>
