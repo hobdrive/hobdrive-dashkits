@@ -3,9 +3,8 @@
   will work fine by using DPI automatic scaling
 -->
 <ui>
- 
 
-<section name="NEW" fixed="true" title-height="0">
+<section name="FoxFD2.New" fixed="true" title-height="0">
 <grid rows="45,11,0,11,14,19,1," cols="26,9,,35">
 
 
@@ -169,33 +168,4 @@
 </grid>
 </section>
 
-<section name="123" fixed="true" title-height="0">
-<grid rows="45,11,0,11,14,19,1," cols="26,9,,35">
-		<!-- Расстояние за поездку -->			
-	<item id="DistanceRun" size="normal"  period="60000"
-	description="hidden"
-	type="text"
-	precision="1"
-	type-landscape="text"
-	precision-landscape="1"
-	/>
-
-	<item id="CapacityEfficiency" size="normal"  period="60000"
-	description="hidden"
-	type="text"
-	precision="1"
-	type-landscape="text"
-	precision-landscape="1"
-	/>
-	<item id="TotalMisfire" size="normal"  period="60000"
-	description="hidden"
-	type="text"
-	precision="1"
-	type-landscape="text"
-	precision-landscape="1"
-	/>
-	
-
-</grid>
-</section>
 </ui>
