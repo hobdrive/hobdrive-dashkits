@@ -4,9 +4,9 @@ This document collects the layout tags, attributes and options used by HobDrive 
 
 Purpose: provide a concise, practical reference for creating and modifying UI layouts (dash panels, ECU screens, hybrid/GPS panels, etc.)
 
-## Contract
+## Layout Contract
 - Inputs: XML-like layout files (tags: `ui`, `section`, `grid`, `item`, `union`, `stack-vertical`, `stack-horizontal`, etc.)
-- Output: Rendered UI screens in HobDrive; conditional visibility and decorators influence runtime behavior
+- Output: Rendered UI screens in HobDrive; conditional visibility and decorators influence on runtime behavior
 - Error modes: invalid attributes are ignored or fallback to defaults; missing sensors show as empty/unavailable
 - Success criteria: layout renders and respects conditional `if` attributes, grid placement, decorators and widget attributes
 
@@ -25,39 +25,29 @@ Example:
 
 ## section
 Defines a logical screen/page block. Common attributes:
-- name — human-readable section name (used in UI lists).
-- fixed — `true/false` (whether the section is fixed in navigation).
-- if — conditional expression (a sensor name or expression). Section is shown only if condition evaluates truthy. Examples: `if="Oxygen_b1s1"`, `if="PortraitLayout"`, `if="Renault_01_11103.ControlModuleVoltage"`.
-- class — CSS-like class used by system to apply predefined behaviors (e.g., `SensorList`).
-- ns — namespace for sensor filtering when using `SensorList`.
-- exclude — regex to exclude sensor IDs in generated sensor lists
-- maximize-focus — (from changelog) `true/false` remove optional controls when focused
-- controls — `autohide` or other values to control UI buttons
-
-Example:
-<section name="GPS">
-  ...
-</section>
-
-<section name="Fuel Trims" if="STFT1">
-  ...
-</section>
-
-`config` elements
-- `config` — declare UI-configurable options that appear in settings dialogs. Typical attributes:
-  - `id` — unique identifier accessible from layout expressions (e.g., `${Layout_ECUFuel}`).
-  - `type` — `bool`, `int`, `string`, etc.
-  - `default` — default value.
-  - `title`, `descr` — text shown in UI; localized variants like `title-ru`, `descr-ru` are supported.
+- `name` — human-readable section name (used in UI lists).
+- `fixed` — `true/false` (whether the section is fixed in navigation).
+- `if` — conditional expression (a sensor name or expression). Section is shown only if condition evaluates truthy. Examples: `if="Oxygen_b1s1"`, `if="PortraitLayout"`, `if="Renault_01_11103.ControlModuleVoltage"`.
+- `class` — CSS-like class used by system to apply predefined behaviors (e.g., `SensorList`).
+- `ns` — namespace for sensor filtering when using `SensorList`.
+- `exclude` — regex to exclude sensor IDs in generated sensor lists
+- `maximize-focus` — (from changelog) `true/false` remove optional controls when focused
+- `controls` — `autohide` or other values to control UI buttons
 
 Example:
 ```xml
-<config id="Layout_ECUFuel" type="bool" default="false"
-        title="Use Fuel Level data from ECU"
-        descr="If enabled - fuel level will be shown from ECU. Otherwise - estimated from fuel consumption"
-        title-ru="Показывать уровень топлива из ЭБУ"
-        descr-ru="Если включено - уровень топлива будет браться из ЭБУ. Иначе - показывается оценочный уровень топлива"/>
+<section name="GPS">
+  ...
+</section>
 ```
+
+```xml
+<section name="Fuel Trims" if="STFT1">
+  ...
+</section>
+```
+
+
 
 `config` elements
 - `config` — declare UI-configurable options that appear in settings dialogs. Typical attributes:
@@ -76,9 +66,9 @@ Example:
 ```
 
 ## Layout containers
-- `grid` — places child `item`s into a table-like grid.
-  - Attributes: rows, cols — comma-separated size hints. Example: `rows=",," cols=",35"`.
-  - rows and cols can include numeric heights/widths or empty entries for flexible sizing.
+ - `grid` — places child `item`s into a table-like grid.
+  - Attributes: `rows`, `cols` — comma-separated size hints. Example: `rows=",," cols=",35"`.
+  - `rows` and `cols` can include numeric heights/widths or empty entries for flexible sizing.
   - grids can be nested.
 
 - `stack-vertical` / `stack-horizontal` — stack items vertically/horizontally; `columns` may be used.
@@ -107,26 +97,27 @@ Example (cycle temperature sensors every 4 seconds):
 
 ## item
 Represents a widget in a grid or stack. Common attributes and usages:
-- id — sensor or special control identifier. Examples: `RPM`, `Latitude`, `ControlModuleVoltage`.
-- type — `button`, `static`, etc. Defaults to a sensor/value widget when omitted.
-- text — for buttons or static items, visible text.
-- action — for `button`: action string such as `invoke(FAN_ON)` or `run(...)`.
-- size — visual size hint: `micro`, `small`, `normal`, `large`, `huge`, `extralarge` or numeric.
-- precision — number of decimal digits or special tags like `6fixed`.
-- inherit — refers to a decorator or style name, e.g., `inherit="_ColoredOnOff"` or `_MB_Battery`.
-- colspan / rowspan — span cells in the grid.
-- description — extra attribute used to style or position small descriptive labels (e.g., `description="aside"`).
-- period — update period in milliseconds (e.g., `period='5000'` on `ControlModuleVoltage`).
-- wrap — filter expression for smoothing or prediction: examples from changelog:
+
+- `id` — sensor or special control identifier. Examples: `RPM`, `Latitude`, `ControlModuleVoltage`.
+- `type` — `button`, `static`, etc. Defaults to a sensor/value widget when omitted.
+- `text` — for buttons or static items, visible text.
+- `action` — for `button`: action string such as `invoke(FAN_ON)` or `run(...)`.
+- `size` — visual size hint: `micro`, `small`, `normal`, `large`, `huge`, `extralarge` or numeric.
+- `precision` — number of decimal digits or special tags like `6fixed`.
+- `inherit` — refers to a decorator or style name, e.g., `inherit="_ColoredOnOff"` or `_MB_Battery`.
+- `colspan` / `rowspan` — span cells in the grid.
+- `description` — extra attribute used to style or position small descriptive labels (e.g., `description="aside"`).
+- `period` — update period in milliseconds (e.g., `period='5000'` on `ControlModuleVoltage`).
+- `wrap` — filter expression for smoothing or prediction: examples from changelog:
   - `wrap="predict(50,0.7)"`
   - `wrap="smooth(400,100,5)"`
   - `wrap="average(30)"`
 - custom attributes: `text-values`, `custom-units`, `colored-descr`, `text-evaluator` (see changelog entries where used)
 
-- onclick — item-level click handler (navigates or runs named actions). Examples: `onclick="NewFueling"`, `onclick="Go(Efficiency)"`.
-- actions — comma-separated list of actions available in sensor info dialog. Example: `actions="SetupOdometer"`.
-- units — visual placement of unit text: `units="below"`, `units="aside"` or `units="hidden"`.
-- interval — an update interval used for dynamic UI behaviour or internal timers (different from sensor `period`).
+- `onclick` — item-level click handler (navigates or runs named actions). Examples: `onclick="NewFueling"`, `onclick="Go(Efficiency)"`.
+- `actions` — comma-separated list of actions available in sensor info dialog. Example: `actions="SetupOdometer"`.
+- `units` — visual placement of unit text: `units="below"`, `units="aside"` or `units="hidden"`.
+- `interval` — an update interval used for dynamic UI behaviour or internal timers (different from sensor `period`).
 
 Example usages found in `default-tripcomp.layout`:
 ```xml
@@ -243,9 +234,20 @@ Sensor formatted access example:
 </section>
 
 ## Conditional expressions
-- The `if` attribute can be a simple sensor presence test (e.g., `if="STFT1"`) or a full expression referencing theme variables, day/night flags, layout flags, and sensor values. Example seen: `if="SY_ABS_TEVES.ABS_ControlModuleVoltage, Chery_A21_ABS_TRW.ABS_ControlModuleVoltage"` (comma-separated OR?)
+- The `if` attribute can be a simple sensor presence test (e.g., `if="STFT1"`) or a full expression referencing theme variables, day/night flags, layout flags, and sensor values. Example seen: `if="SY_ABS_TEVES.ABS_ControlModuleVoltage, Chery_A21_ABS_TRW.ABS_ControlModuleVoltage"` 
 
 Notes: `if` can contain comma-separated identifiers which act as OR conditions in practice (layout files often list multiple sensors/namespaces separated by commas).
+
+## Interpolation in Expressions
+
+In addition to unadorned expressions, two interpolation styles are available:
+
+- ${ } interpolation: Evaluated once when the layout is built. Use this form for static computations or one-time assignments. Applicable for any attributes.
+
+- $${ } interpolation: Evaluated dynamically, making it suitable for values that update over time (e.g., animations or periodic sensor updates). Only applicable to the selected elements/attributes:
+  - `text-evaluator`, `switch[index]`, `visibility`, `image-rotate`, `image-path`, `crop`
+
+These forms allow embedding TinyExe expressions within attribute values to achieve either static or dynamic evaluation as needed.
 
 ## Grid sizing hints
 - `rows` and `cols` accept comma separated values. Empty entries are flexible cells, numbers provide fixed size hints. Example: `rows="30,,," cols="30,,30"`.
@@ -264,35 +266,36 @@ You can nest `grid` elements to create complex responsive regions.
 
 - type (examples): `bar`, `roundbar`, `chart`, `text`, `static` — many visual widgets are selected via `type` on the `item`.
 
-- cache-interval — UI cache/refresh hint (milliseconds or unit) used to control smoothing/plotting; frequently used on `chart` and gauge-like widgets. Example: `cache-interval="6"`.
 
-- red-green — color threshold list; comma-separated numbers indicating color boundaries (interpretation depends on widget). Examples: `red-green="100,5"`, `red-green="10,120,150"`.
+- `cache-interval` — UI cache/refresh hint (milliseconds or unit) used to control smoothing/plotting; frequently used on `chart` and gauge-like widgets. Example: `cache-interval="6"`.
 
-- bars-count — number of bars or segments used by bar/roundbar widgets. Example: `bars-count="10"`.
+- `red-green` — color threshold list; comma-separated numbers indicating color boundaries (interpretation depends on widget). Examples: `red-green="100,5"`, `red-green="10,120,150"`.
 
-- transparent — `true/false` whether background is transparent for the widget.
+- `bars-count` — number of bars or segments used by bar/roundbar widgets. Example: `bars-count="10"`.
 
-- border-width / border-opacity — visual border control. Example: `border-width="3"`, `border-opacity="1"`.
+- `transparent` — `true/false` whether background is transparent for the widget.
 
-- colored-value — whether value text is colored according to thresholds: `colored-value="true"`.
+- `border-width` / `border-opacity` — visual border control. Example: `border-width="3"`, `border-opacity="1"`.
 
-- fade-coeff — visual fading coefficient used on charts/gauges to control trail transparency: `fade-coeff="0.8"`.
+- `colored-value` — whether value text is colored according to thresholds: `colored-value="true"`.
 
-- width-compression — compress drawing horizontally: `width-compression="0.9"`.
+- `fade-coeff` — visual fading coefficient used on charts/gauges to control trail transparency: `fade-coeff="0.8"`.
 
-- item-size / item-width / item-height / item-spacing — sizing controls for roundbars and similar widgets (absolute/logical units). Example: `item-size="25"`, `item-width="10"`, `item-height="10"`, `item-spacing="20"`.
+- `width-compression` — compress drawing horizontally: `width-compression="0.9"`.
 
-- small-radis-delta / small-radis-delta (typo variants observed) — small radius adjustments used for roundbars.
+- `item-size` / `item-width` / `item-height` / `item-spacing` — sizing controls for roundbars and similar widgets (absolute/logical units). Example: `item-size="25"`, `item-width="10"`, `item-height="10"`, `item-spacing="20"`.
 
-- start-angle / end-angle / radius / radius / vertical-offset — roundbar geometry attributes to control arc start/end and offset.
+- `small-radius-delta` / `small-radis-delta` (typo variants observed) — small radius adjustments used for roundbars.
 
-- item-width/item-height vs item-size — some widgets use `item-size` while others use width/height pair.
+- `start-angle` / `end-angle` / `radius` / `vertical-offset` — roundbar geometry attributes to control arc start/end and offset.
 
-- corn-angle / middle-angle — additional roundbar geometry attributes (observed in test layouts).
+- `item-width`/`item-height` vs `item-size` — some widgets use `item-size` while others use width/height pair.
 
-- decorator-p (padding) and p-padding — decorator shorthand for padding decorator. Example: `decorator-p="padding" p-padding="10 10 10 10"`.
+- `corn-angle` / `middle-angle` — additional roundbar geometry attributes (observed in test layouts).
 
-- decorator-i / decorator-iN pattern — numbered decorators for multiple images on a single item. Use `decorator-i1="image"` and `i1-image-path`, `i1-image-rotate`, `i1-image-zorder`, `i1-image-rotate-align`, etc. The unnumbered `decorator-i="image"` with nested `<image>` elements is also supported.
+- `decorator-p` (padding) and `p-padding` — decorator shorthand for padding decorator. Example: `decorator-p="padding" p-padding="10 10 10 10"`.
+
+- `decorator-i` / `decorator-iN` pattern — numbered decorators for multiple images on a single item. Use `decorator-i1="image"` and `i1-image-path`, `i1-image-rotate`, `i1-image-zorder`, `i1-image-rotate-align`, etc. The unnumbered `decorator-i="image"` with nested `<image>` elements is also supported.
 
   Examples:
 ```xml
@@ -338,19 +341,10 @@ Example: `text-values` and `type=text` usage in dashb3 kits:
 - Keep gauges local to section when possible using `ignore-gauges` and local `gauge` declarations to reduce global side-effects.
 
 ## Appendix — common attributes quick reference
-- section: name, fixed, if, class, ns, exclude, maximize-focus, controls
-- grid: rows, cols
-- item: id, type, text, action, size, precision, inherit, colspan, rowspan, description, period, wrap
-- decorators: image (image-path, image-scale, image-zorder, image-rotate, image-width/height)
-
-
----
-
-If you want, I can:
-- scan all `hobd/config/*.layout` files and produce a table of all observed attributes and which files used them (helpful for completeness), or
-- extend this doc with a small set of template layouts (GPS, Fan control, Hybrid panel) ready to copy into a new skin.
-
-Completion: created `hobdrive-dashkits/LAYOUT_SPEC.md` with collected tags and examples.
+- section: `name`, `fixed`, `if`, `class`, `ns`, `exclude`, `maximize-focus`, `controls`
+- grid: `rows`, `cols`
+- item: `id`, `type`, `text`, `action`, `size`, `precision`, `inherit`, `colspan`, `rowspan`, `description`, `period`, `wrap`
+- decorators: `image` (`image-path`, `image-scale`, `image-zorder`, `image-rotate`, `image-width`/`image-height`)
 
 ## Try it — ready templates
 Copy these minimal examples into a skin file to try the patterns.
@@ -395,10 +389,3 @@ Hybrid summary example
 </ui>
 ```
 
-If you'd like, I can also:
-- generate a CSV of all attributes used across `hobd/config/*.layout` (file-by-file), or
-- create a smaller 'quick-reference' cheat-sheet suitable for printing.
-
----
-
-Done — `hobdrive-dashkits/LAYOUT_SPEC.md` is now saved in the workspace.
