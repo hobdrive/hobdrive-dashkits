@@ -2,7 +2,9 @@
 
 This document collects the layout tags, attributes and options used by HobDrive UI layout files.
 
-Purpose: provide a concise, practical reference for creating and modifying UI layouts (dash panels, ECU screens, hybrid/GPS panels, etc.)
+# Other languages
+- [English][LAYOUT_SPEC.md]
+- [Russian][LAYOUT_SPEC_RU.md]
 
 ## Layout Contract
 - Inputs: XML-like layout files (tags: `ui`, `section`, `grid`, `item`, `union`, `stack-vertical`, `stack-horizontal`, etc.)
