@@ -195,43 +195,6 @@ Sensor formatted access example:
   <section name="Ford" class="SensorList" ns="Ford_MondeoDuratorq2003" if="Ford_MondeoDuratorq2003.Speed" exclude="\\bCACT_|...">
   </section>
 
-## Examples (extracted)
-- Simple GPS screen (from `ecu-gps.layout`):
-
-<section name="GPS">
-  <grid rows=",," cols=",,">
-    <item id='Latitude' precision='6fixed' size="normal"/>
-    <item id='Longitude' precision='6fixed' size="normal"/>
-    <item id='Satellites'/>
-    <item id='Altitude' precision='1'/>
-    <item id='GPSSpeed' precision='1'/>
-    <item id='ActiveSatellites'/>
-    <item id='Direction'/>
-    <item id='GPSOBD2SpeedDiff'/>
-    <item id='FixedPosition'/>
-  </grid>
-</section>
-
-- Fan control (buttons + inherit decorator):
-
-<section name="FAN" fixed="false" if="PortraitLayout">
-  <grid rows=",," cols="">
-    <item id="FAN_Status" inherit="_ColoredOnOff" size='large'/>
-    <item type="button" text="Fan On" action="invoke(FAN_ON)" size='extralarge' />
-    <item type="button" text="Fan Off" action="invoke(FAN_OFF)" size='extralarge' />
-  </grid>
-</section>
-
-- Fuel trims (conditional section with grid, colspan example):
-
-<section name="Fuel Trims" if="STFT1">
-  <grid rows="," cols=",">
-    <item id="STFT1" size='large' precision="1" />
-    <item id="STFT2" size='large' precision="1" />
-    <item id="LTFT1" size='large' precision="1" />
-    <item id="LTFT2" size='large' precision="1" />
-  </grid>
-</section>
 
 ## Conditional expressions
 - The `if` attribute can be a simple sensor presence test (e.g., `if="STFT1"`) or a full expression referencing theme variables, day/night flags, layout flags, and sensor values. Example seen: `if="SY_ABS_TEVES.ABS_ControlModuleVoltage, Chery_A21_ABS_TRW.ABS_ControlModuleVoltage"` 
@@ -388,4 +351,3 @@ Hybrid summary example
   </section>
 </ui>
 ```
-
