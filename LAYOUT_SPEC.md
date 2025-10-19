@@ -3,8 +3,8 @@
 This document collects the layout tags, attributes and options used by HobDrive UI layout files.
 
 # Other languages
-- [English][LAYOUT_SPEC.md]
-- [Russian][LAYOUT_SPEC_RU.md]
+- [English](LAYOUT_SPEC.md)
+- [Russian](LAYOUT_SPEC_RU.md)
 
 ## Layout Contract
 - Inputs: XML-like layout files (tags: `ui`, `section`, `grid`, `item`, `union`, `stack-vertical`, `stack-horizontal`, etc.)
