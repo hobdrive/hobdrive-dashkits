@@ -1,6 +1,11 @@
 # hobdrive-dashkits
 Стандартные и поддерживаемые сообществом панели приборов для hobdrive
 
+Translations:
+[English](README.md) |
+[Russian](README_RU.md) |
+[Spanish](README_ES.md) |
+
 Обратитесь к [LAYOUT_SPEC.md](LAYOUT_SPEC.md) для подробного описания языка компоновки hobDrive.
 
 Если вы хотите создать свои собственные панели и экраны - рассмотрите возможность клонирования этого шаблонного репозитория: [template-dashkits](https://github.com/hobdrive/template-dashkits)
