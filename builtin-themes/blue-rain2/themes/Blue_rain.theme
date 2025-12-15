@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding='utf-8'?>
+<theme name='Blue Rain'>
+
+  <background id="rain-blue"   crop="0 0 400 0">Blue_rain-blue.jpg</background>  
+  <background>Blue_rain-storm.jpg</background> 
+  <background>Blue_rain-raindrops.jpg</background>
+  <background>Blue_rain-glass-lights.jpg</background>
+  <background>Blue_rain-glass-green.jpg</background>
+  <background>Blue_rain-blue-lights.jpg</background>
+
+  <color name='normal'>     #  EFEFFF</color>
+  <color name='contrast'>   #  FFF0F0</color>
+  <color name='minor'>      #  A0C0FF</color>
+  <color name='subtle'>     #A05080C0</color>
+  <color name='back'>       #  265974</color>
+
+  <color name='sensor-good'>#A0208020</color>
+  <color name='sensor-bad'> #A0802020</color>
+
+  <font-size name='small'  value='9'/>
+  <font-size name='normal' value='12'/>
+  <font-size name='medium' value='14'/>
+  <font-size name='large'  value='19'/>
+  <font-size name='extralarge' value='30'/>
+  <font-size name='huge'   value='40'/>
+  <font-size name='giant'  value='60'/>
+
+  <font-family name='default'>Tahoma</font-family>
+  <font-family name='numeric'>Tahoma</font-family>
+
+  <style name="PanoramaTitle">
+    <font>default</font>
+    <size>extralarge</size>
+    <color>subtle</color>
+  </style>
+
+  <style name="PanoramaSubTitle">
+    <font>default</font>
+    <size>large</size>
+    <color>subtle</color>
+  </style>
+
+  <style name="PanoramaSectionTitle">
+    <font>default</font>
+    <size>large</size>
+    <color>normal</color>
+  </style>
+
+  <style name="TextNormal">
+    <font>default</font>
+    <size>normal</size>
+    <color>normal</color>
+  </style>
+
+  <style name="TextSmall">
+    <font>default</font>
+    <size>small</size>
+    <color>minor</color>
+  </style>
+
+  <style name="TextStatus">
+    <font>default</font>
+    <size>small</size>
+    <color>subtle</color>
+  </style>
+
+  <style name="TextSensorDescr">
+    <font>default</font>
+    <size>small</size>
+    <color>minor</color>
+  </style>
+
+  <brightness>dark</brightness>
+
+</theme>
