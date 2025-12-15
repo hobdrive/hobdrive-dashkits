@@ -6,7 +6,7 @@ Translations:
 [Russian](README_RU.md) |
 [Spanish](README_ES.md) |
 
-Обратитесь к [LAYOUT_SPEC.md](LAYOUT_SPEC.md) для подробного описания языка компоновки hobDrive.
+Обратитесь к [LAYOUT_SPEC.md](https://github.com/hobdrive/hobdrive-docs/blob/main/ru/LAYOUT_SPEC_RU.md) для подробного описания языка компоновки hobDrive.
 
 Если вы хотите создать свои собственные панели и экраны - рассмотрите возможность клонирования этого шаблонного репозитория: [template-dashkits](https://github.com/hobdrive/template-dashkits)
 
