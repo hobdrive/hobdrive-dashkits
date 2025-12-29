@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding='utf-8'?>
-<theme name='Blue Rain'>
+<theme name='BlueRain2'>
 
   <background id="rain-blue"   crop="0 0 400 0">Blue_rain-blue.jpg</background>  
   <background>Blue_rain-storm.jpg</background> 
