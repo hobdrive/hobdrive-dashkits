@@ -1,7 +1,5 @@
 <ui>
 
-<ui>
-
   <section name="TestFonts" fixed="true">
     <grid rows="8,,,," cols=",">
 
@@ -42,16 +40,17 @@
   <section name="TestCharts" fixed="true">
     <grid rows="," cols=",,">
 
-      <item id="Test" type="chart" chart='line' pen-width="4"  cache-interval="6000" red-green="30,5" bars-count="5" transparent="true" min-limit="0" max-limit="50"
+      <item id="Test" type="chart" chart='line' pen-width="4"  cache-interval="6000" xred-green="5,300" bars-count="5" transparent="true"
              custom-description="cached 6s" real-time-scale="true"/>
       <item id="Test" type="chart" chart='point'  cache-interval="3000" red-green="10,30,100" bars-count="10" transparent="true"
              custom-description="cached 3s" pen-width="4"/>
       <item id="Test" type="chart" chart='bar'    cache-interval="0" red-green="10,120,150" bars-count="10" transparent="true" border-width="0" />
 
-      <item id="Test" type="chart" chart='line'   colored-value="true" cache-interval="1000" red-green="30,5" transparent="true"  fade-coeff="0.8"
+      <item id="Test" type="chart" chart='line' pen-width="10"  colored-value="true" cache-interval="1000" xxred-green="30,5" transparent="true"  fade-coeff="0.3"
              custom-description="cached 1s"/>
       <item id="Test" type="chart" chart='point'  pen-width="4" colored-value="true" cache-interval="3000" red-green="10,30,100" transparent="true" fade-coeff="0.1"/>
-      <item id="Test" type="chart" chart='bar'    colored-value="true" cache-interval="0" red-green="10,120,150" transparent="true" fade-coeff="0.1" />
+      <item id="Test" type="chart" chart='bar'    colored-value="true" cache-interval="500" red-green="10,120,150" transparent="true" fade-coeff="0.1"
+            custom-description="cached 500ms"/>
 
       
     </grid>
@@ -79,7 +78,7 @@
       </item>
       <item id="Test" type="chart" chart='bar'   colored-value="true"  red-green="10,120,150" bars-count="10" transparent="true" border-width="0"
             custom-description="dilate transp before" cache-interval="2000"
-            decorator-b="filter" b-effect="dilate(1,1);transparent(0.5)" b-mode="before"/>
+            decorator-b="filter" b-effect="dilate(0.5,0.5);transparent(0.5)" b-mode="before"/>
 
       <item id="Speed" size="6" custom-description="dynamic blur rotate">
         <break/>
@@ -193,11 +192,11 @@
 
   <section name="Dates" fixed="true">
     <grid rows=",,," cols=",">
-      <item id="DateTime" custom-units="time12"/>
-      <item id="DateTime" custom-units="time"/>
-      <item id="DateTime" custom-units="timesec12"/>
-      <item id="DateTime" custom-units="timesec"/>
-      <item id="DateTime" custom-units="datetime"/>
+      <item id="DateTime" custom-units="time12" text-outline="true" text-outline-width="5"/>
+      <item id="DateTime" custom-units="time" description-outline="true" description-outline-width="5"/>
+      <item id="DateTime" custom-units="timesec12" description-outline="true" description-outline-width="1"/>
+      <item id="DateTime" custom-units="timesec" text-outline="true" text-outline-width="2" description-outline="true" description-outline-width="2"/>
+      <item id="DateTime" custom-units="datetime" text-outline="true" text-outline-width="6" description-outline="true" description-outline-width="6"/>
       <item id="DateTime" custom-units="datetime"/>
       <item id="DateTime" custom-units="seconds"/>
     </grid>
@@ -327,9 +326,6 @@ about $${about()}
             size="12" xheight="400"/>
     </stack-vertical>
   </section>
-
-
-</ui>
 
 
 </ui>
