@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <radialGradient id="bgG" cx="45%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e8e8e0"/>
+    </radialGradient>
+    <radialGradient id="bzG" cx="38%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#f0f0f0"/>
+      <stop offset="45%" stop-color="#b0b0b0"/>
+      <stop offset="100%" stop-color="#787878"/>
+    </radialGradient>
+  </defs>
+  <circle cx="150" cy="150" r="148" fill="url(#bzG)"/>
+  <circle cx="150" cy="150" r="138" fill="url(#bgG)"/>
+  <circle cx="150" cy="150" r="136" fill="none" stroke="#cccccc" stroke-width="1.5"/>
+  <path d="M 270.10,100.25 A 130,130 0 0,1 241.92,241.92" fill="none" stroke="#cc0000" stroke-width="7" stroke-linecap="round" opacity="0.85"/>
+  <line x1="68.68" y1="231.32" x2="55.95" y2="244.05" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="79.29" y="220.71" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">0</text>
+  <line x1="37.21" y1="172.44" x2="19.56" y2="175.95" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="51.92" y="169.51" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">1</text>
+  <line x1="43.75" y1="105.99" x2="27.12" y2="99.10" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="57.61" y="111.73" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">2</text>
+  <line x1="86.11" y1="54.38" x2="76.11" y2="39.41" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="94.44" y="66.85" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">3</text>
+  <line x1="150.00" y1="35.00" x2="150.00" y2="17.00" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="150.00" y="50.00" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">4</text>
+  <line x1="213.89" y1="54.38" x2="223.89" y2="39.41" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="205.56" y="66.85" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">5</text>
+  <line x1="256.25" y1="105.99" x2="272.88" y2="99.10" stroke="#bb0000" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="242.39" y="111.73" text-anchor="middle" dominant-baseline="central" fill="#bb0000" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">6</text>
+  <line x1="262.79" y1="172.44" x2="280.44" y2="175.95" stroke="#bb0000" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="248.08" y="169.51" text-anchor="middle" dominant-baseline="central" fill="#bb0000" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">7</text>
+  <line x1="231.32" y1="231.32" x2="244.05" y2="244.05" stroke="#bb0000" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="220.71" y="220.71" text-anchor="middle" dominant-baseline="central" fill="#bb0000" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">8</text>
+  <line x1="39.76" y1="208.92" x2="32.70" y2="212.70" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="25.60" y1="137.75" x2="17.64" y2="136.96" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="53.37" y1="70.70" x2="47.19" y2="65.63" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="113.71" y1="30.38" x2="111.39" y2="22.73" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="186.29" y1="30.38" x2="188.61" y2="22.73" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="246.63" y1="70.70" x2="252.81" y2="65.63" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="274.40" y1="137.75" x2="282.36" y2="136.96" stroke="#bb0000" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="260.24" y1="208.92" x2="267.30" y2="212.70" stroke="#bb0000" stroke-width="1.2" stroke-linecap="round"/>
+  <text x="150" y="204" text-anchor="middle" fill="#555555" font-size="11" font-family="Arial,Helvetica,sans-serif" letter-spacing="2">×100 rpm</text>
+  <circle cx="150" cy="150" r="15" fill="#dddddd" stroke="#999999" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="6" fill="#bbbbbb" stroke="#888888" stroke-width="1"/>
+</svg>

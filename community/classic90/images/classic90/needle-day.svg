@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="ng" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a1a60"/>
+      <stop offset="50%" stop-color="#3a3aaa"/>
+      <stop offset="100%" stop-color="#1a1a60"/>
+    </linearGradient>
+  </defs>
+  <polygon points="150,35 148.5,140 151.5,140" fill="url(#ng)"/>
+  <polygon points="148.5,140 146,150 147,182 153,182 154,150 151.5,140" fill="url(#ng)"/>
+  <line x1="150" y1="35" x2="150" y2="150" stroke="#8888cc" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="150" cy="150" r="10" fill="#cccccc" stroke="#888888" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="4.5" fill="#aaaaaa" stroke="#777777" stroke-width="1"/>
+</svg>

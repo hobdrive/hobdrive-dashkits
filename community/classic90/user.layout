@@ -16,6 +16,13 @@
     RPM      (0–8000)     :  Sensor_Value * 0.03375 − 135
     Fuel     (0–100 %)    :  Sensor_Value * 2.7 − 135
     CoolTemp (40–120 °C)  :  (clamped − 40) * 3.375 − 135
+
+  Day / Night adaptation:
+    image-path uses $${ daynight == "day" ? "…-day.svg" : "….svg" }
+    so the correct gauge face (dark or light) is picked automatically.
+    Day faces: white/cream background, dark chrome bezel, dark ticks.
+    Night faces: dark background, silver bezel, bright ticks.
+    Needle: amber (night) or dark-navy (day).
 -->
 <ui>
 
@@ -41,10 +48,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path="images/classic90/tach-bg.svg"
+                bg-image-path='$${ daynight == "day" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -59,10 +66,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path="images/classic90/spd-bg.svg"
+                bg-image-path='$${ daynight == "day" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -82,10 +89,10 @@
                     bg-image-scale="1"
                     bg-image-align="center"
                     bg-image-aspect="true"
-                    bg-image-path="images/classic90/fuel-bg.svg"
+                    bg-image-path='$${ daynight == "day" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
                 decorator-arrow="image"
                     arrow-image-zorder="top"
-                    arrow-image-path="images/classic90/needle.svg"
+                    arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                     arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
                     arrow-image-scale="1"
                     arrow-image-rotate-align="center"
@@ -99,10 +106,10 @@
                     bg-image-scale="1"
                     bg-image-align="center"
                     bg-image-aspect="true"
-                    bg-image-path="images/classic90/temp-bg.svg"
+                    bg-image-path='$${ daynight == "day" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
                 decorator-arrow="image"
                     arrow-image-zorder="top"
-                    arrow-image-path="images/classic90/needle.svg"
+                    arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                     arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
                     arrow-image-scale="1"
                     arrow-image-rotate-align="center"
@@ -151,10 +158,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path="images/classic90/tach-bg.svg"
+                bg-image-path='$${ daynight == "day" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -169,10 +176,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path="images/classic90/spd-bg.svg"
+                bg-image-path='$${ daynight == "day" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -187,10 +194,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path="images/classic90/fuel-bg.svg"
+                bg-image-path='$${ daynight == "day" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -204,10 +211,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path="images/classic90/temp-bg.svg"
+                bg-image-path='$${ daynight == "day" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
