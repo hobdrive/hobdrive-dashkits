@@ -1,0 +1,231 @@
+<!--
+  Classic 90s Dashboard (classic90)
+  Mimics the analog instrument clusters common in 1990s cars:
+    - Large central speedometer  (0–240 km/h, 270° sweep)
+    - Tachometer on the left     (0–8000 RPM, red zone ≥ 6000)
+    - Fuel gauge on the right    (E → F, 270° sweep)
+    - Temperature gauge on the right (C → H, normal zone highlighted)
+  All gauge faces and the shared needle are SVG sprites.
+
+  Needle rotation formula for all gauges uses the same 270° sweep:
+    val_min → −135°,  val_max → +135°
+    rotation = (value − val_min) / (val_max − val_min) × 270 − 135
+
+  Rotation values:
+    Speed    (0–240 km/h) :  Sensor_Value * 1.125 − 135
+    RPM      (0–8000)     :  Sensor_Value * 0.03375 − 135
+    Fuel     (0–100 %)    :  Sensor_Value * 2.7 − 135
+    CoolTemp (40–120 °C)  :  (clamped − 40) * 3.375 − 135
+-->
+<ui>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LANDSCAPE SECTION
+     Layout: [  tachometer  |    speedometer     | fuel / temp  ]
+                  28 %      |       44 %         |    28 %
+     Rows:  70 % gauges | 15 % digital readouts | 15 % trip bar
+═════════════════════════════════════════════════════════════════ -->
+<section name="Classic 90" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         if="LandscapeLayout">
+  <union>
+    <item/>
+
+    <grid rows="70,15,15" cols="28,44,28">
+
+      <!-- ── row 1, col 1 : TACHOMETER ─────────────────────────── -->
+      <item id="RPM" description="hidden" period="50"
+            wrap="smooth(300,80,0)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/tach-bg.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 1, col 2 : SPEEDOMETER ────────────────────────── -->
+      <item id="Speed" description="hidden" period="50"
+            wrap="predict(50, 0.7)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/spd-bg.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 1, col 3 : FUEL + TEMPERATURE (stacked) ──────── -->
+      <union>
+        <item/>
+        <grid rows="50,50" cols="100">
+
+          <!-- Fuel gauge  (FuelInTank 0–100 %) -->
+          <item id="FuelInTank" inherit="_FuelLevelJoint"
+                description="hidden" period="60000"
+                decorator-bg="image"
+                    bg-image-zorder="bottom"
+                    bg-image-scale="1"
+                    bg-image-align="center"
+                    bg-image-aspect="true"
+                    bg-image-path="images/classic90/fuel-bg.svg"
+                decorator-arrow="image"
+                    arrow-image-zorder="top"
+                    arrow-image-path="images/classic90/needle.svg"
+                    arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
+                    arrow-image-scale="1"
+                    arrow-image-rotate-align="center"
+                    arrow-image-align="center"
+          />
+
+          <!-- Coolant temperature gauge  (40–120 °C) -->
+          <item id="CoolantTemp" description="hidden" period="10000"
+                decorator-bg="image"
+                    bg-image-zorder="bottom"
+                    bg-image-scale="1"
+                    bg-image-align="center"
+                    bg-image-aspect="true"
+                    bg-image-path="images/classic90/temp-bg.svg"
+                decorator-arrow="image"
+                    arrow-image-zorder="top"
+                    arrow-image-path="images/classic90/needle.svg"
+                    arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
+                    arrow-image-scale="1"
+                    arrow-image-rotate-align="center"
+                    arrow-image-align="center"
+          />
+
+        </grid>
+      </union>
+
+      <!-- ── row 2 : digital readouts ──────────────────────────── -->
+      <item id="RPM"        size="small" description="hidden" period="50"/>
+      <item id="Odometer"   size="normal" description="hidden"
+            actions="SetupOdometer" period="30000"/>
+      <item id="ControlModuleVoltage" size="small" period="30000"/>
+
+      <!-- ── row 3 : trip bar ───────────────────────────────────── -->
+      <item id="FuelEconomy_trip"    size="small" period="10000"/>
+      <item id="FuelEconomy_instant" size="small" period="1000"/>
+      <item id="DistanceRun"         size="small" period="5000"
+            actions="SetupOdometer"/>
+
+    </grid>
+  </union>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PORTRAIT SECTION
+     Layout: [  tachometer  |  speedometer  ]   (top half)
+              [    fuel      |   temperature ]   (middle)
+              [      trip / odometer bar     ]   (bottom)
+═════════════════════════════════════════════════════════════════ -->
+<section name="Classic 90" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         if="PortraitLayout">
+  <union>
+    <item/>
+
+    <grid rows="40,40,10,10" cols="50,50">
+
+      <!-- ── row 1, col 1 : TACHOMETER ─────────────────────────── -->
+      <item id="RPM" description="hidden" period="50"
+            wrap="smooth(300,80,0)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/tach-bg.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 1, col 2 : SPEEDOMETER ────────────────────────── -->
+      <item id="Speed" description="hidden" period="50"
+            wrap="predict(50, 0.7)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/spd-bg.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 2, col 1 : FUEL ───────────────────────────────── -->
+      <item id="FuelInTank" inherit="_FuelLevelJoint"
+            description="hidden" period="60000"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/fuel-bg.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 2, col 2 : TEMPERATURE ────────────────────────── -->
+      <item id="CoolantTemp" description="hidden" period="10000"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/temp-bg.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle.svg"
+                arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 3 : digital readouts ──────────────────────────── -->
+      <item id="Odometer" size="small" description="hidden"
+            actions="SetupOdometer" period="30000"/>
+      <item id="ControlModuleVoltage" size="small" period="30000"/>
+
+      <!-- ── row 4 : trip bar ───────────────────────────────────── -->
+      <item id="FuelEconomy_instant" size="small" period="1000"/>
+      <item id="DistanceRun"         size="small" period="5000"
+            actions="SetupOdometer"/>
+
+    </grid>
+  </union>
+</section>
+
+</ui>

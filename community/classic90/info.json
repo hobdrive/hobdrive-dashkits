@@ -1,0 +1,6 @@
+{
+    "name": "Classic 90",
+    "version": "1.0.0",
+    "description": "Classic analog dashboard inspired by 90s cars: large speedometer center, tachometer left, fuel and temperature gauges right. All gauges rendered with SVG sprites.",
+    "author": "GitHub Copilot"
+}
