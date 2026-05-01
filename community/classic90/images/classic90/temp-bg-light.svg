@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <radialGradient id="bgG" cx="45%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e8e8e0"/>
+    </radialGradient>
+    <radialGradient id="bzG" cx="38%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#f0f0f0"/>
+      <stop offset="45%" stop-color="#b0b0b0"/>
+      <stop offset="100%" stop-color="#787878"/>
+    </radialGradient>
+  </defs>
+  <circle cx="150" cy="150" r="148" fill="url(#bzG)"/>
+  <circle cx="150" cy="150" r="138" fill="url(#bgG)"/>
+  <circle cx="150" cy="150" r="136" fill="none" stroke="#cccccc" stroke-width="1.5"/>
+  <path d="M 222.22,41.91 A 130,130 0 0,1 277.50,175.36" fill="none" stroke="#cc7700" stroke-width="7" stroke-linecap="round" opacity="0.75"/>
+  <path d="M 270.10,199.75 A 130,130 0 0,1 241.92,241.92" fill="none" stroke="#cc0000" stroke-width="7" stroke-linecap="round" opacity="0.85"/>
+  <line x1="68.68" y1="68.68" x2="55.95" y2="55.95" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="79.29" y="79.29" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">C</text>
+  <line x1="150.00" y1="35.00" x2="150.00" y2="17.00" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="231.32" y1="68.68" x2="244.05" y2="55.95" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="265.00" y1="150.00" x2="283.00" y2="150.00" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="231.32" y1="231.32" x2="244.05" y2="244.05" stroke="#bb0000" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="220.71" y="220.71" text-anchor="middle" dominant-baseline="central" fill="#bb0000" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">H</text>
+  <line x1="102.16" y1="34.52" x2="99.10" y2="27.12" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="197.84" y1="34.52" x2="200.90" y2="27.12" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="265.48" y1="102.16" x2="272.88" y2="99.10" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="265.48" y1="197.84" x2="272.88" y2="200.90" stroke="#bb0000" stroke-width="1.2" stroke-linecap="round"/>
+  <text x="150" y="204" text-anchor="middle" fill="#555555" font-size="11" font-family="Arial,Helvetica,sans-serif" letter-spacing="2">°C</text>
+  <circle cx="150" cy="150" r="15" fill="#dddddd" stroke="#999999" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="6" fill="#bbbbbb" stroke="#888888" stroke-width="1"/>
+</svg>

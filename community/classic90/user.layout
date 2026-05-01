@@ -1,0 +1,215 @@
+<!--
+  Classic 90s Dashboard (classic90)
+  Mimics the analog instrument clusters common in 1990s cars:
+    - Large central speedometer  (0–240 km/h, 270° sweep)
+    - Tachometer on the left     (0–8000 RPM, red zone ≥ 6000)
+    - Fuel gauge on the right    (E → F, 270° sweep)
+    - Temperature gauge on the right (C → H, normal zone highlighted)
+  All gauge faces and the shared needle are SVG sprites.
+
+  Needle rotation formula (270° sweep):
+    val_min → −135°,  val_max → +135°
+
+  Rotation values:
+    Speed    (0–240 km/h) :  Sensor_Value * 1.125 − 135
+    RPM      (0–8000)     :  Sensor_Value * 0.03375 − 135
+    Fuel     (0–100 %)    :  Sensor_Value * 2.7 − 135
+    CoolTemp (40–120 °C)  :  (clamped − 40) * 3.375 − 135
+
+  Day / Night adaptation:
+    $Theme_brightness expands to "light" or "dark" at load time,
+    selecting e.g. tach-bg-light.svg or tach-bg-dark.svg automatically.
+    Light faces: white/cream background, dark chrome bezel, dark ticks.
+    Dark faces: dark background, silver bezel, bright ticks.
+    Needle: amber (dark) or dark-navy (light).
+-->
+<ui>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LANDSCAPE SECTION
+     Layout: [  tachometer  |    speedometer     | fuel / temp  ]
+                  28 %      |       44 %         |    28 %
+═════════════════════════════════════════════════════════════════ -->
+<section name="Classic 90" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
+         if="LandscapeLayout">
+  <union>
+    <item/>
+
+    <grid rows="100" cols="28,44,28">
+
+      <!-- ── col 1 : TACHOMETER ────────────────────────────────── -->
+      <item id="RPM" period="50" description="hidden" text-values="0:"
+            wrap="smooth(300,80,0)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/tach-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── col 2 : SPEEDOMETER ───────────────────────────────── -->
+      <item id="Speed" period="50" description="hidden" text-values="0:"
+            wrap="predict(50, 0.7)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/spd-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── col 3 : FUEL + TEMPERATURE (stacked) ─────────────── -->
+      <union>
+        <item/>
+        <grid rows="50,50" cols="100">
+
+          <!-- Fuel gauge  (FuelInTank 0–100 %) -->
+          <item id="FuelInTank" text-evaluator=""
+                period="60000" description="hidden" text-values="0:"
+                decorator-bg="image"
+                    bg-image-zorder="bottom"
+                    bg-image-scale="1"
+                    bg-image-align="center"
+                    bg-image-aspect="true"
+                    bg-image-path="images/classic90/fuel-bg-$Theme_brightness.svg"
+                decorator-arrow="image"
+                    arrow-image-zorder="top"
+                    arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                    arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
+                    arrow-image-scale="1"
+                    arrow-image-rotate-align="center"
+                    arrow-image-align="center"
+          />
+
+          <!-- Coolant temperature gauge  (40–120 °C) -->
+          <item id="CoolantTemp" period="10000" description="hidden" text-values="0:"
+                decorator-bg="image"
+                    bg-image-zorder="bottom"
+                    bg-image-scale="1"
+                    bg-image-align="center"
+                    bg-image-aspect="true"
+                    bg-image-path="images/classic90/temp-bg-$Theme_brightness.svg"
+                decorator-arrow="image"
+                    arrow-image-zorder="top"
+                    arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                    arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
+                    arrow-image-scale="1"
+                    arrow-image-rotate-align="center"
+                    arrow-image-align="center"
+          />
+
+        </grid>
+      </union>
+
+    </grid>
+  </union>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PORTRAIT SECTION
+     Layout: [  tachometer  |  speedometer  ]   (top half)
+              [    fuel      |   temperature ]   (bottom half)
+═════════════════════════════════════════════════════════════════ -->
+<section name="Classic 90" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
+         if="PortraitLayout">
+  <union>
+    <item/>
+
+    <grid rows="50,50" cols="50,50">
+
+      <!-- ── row 1, col 1 : TACHOMETER ─────────────────────────── -->
+      <item id="RPM" period="50" description="hidden" text-values="0:"
+            wrap="smooth(300,80,0)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/tach-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 1, col 2 : SPEEDOMETER ────────────────────────── -->
+      <item id="Speed" period="50" description="hidden" text-values="0:"
+            wrap="predict(50, 0.7)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/spd-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 2, col 1 : FUEL ───────────────────────────────── -->
+      <item id="FuelInTank" inherit="_FuelLevelJoint"
+            period="60000" description="hidden" text-values="0:"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/fuel-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 2, col 2 : TEMPERATURE ────────────────────────── -->
+      <item id="CoolantTemp" period="10000" description="hidden" text-values="0:"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/classic90/temp-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
+                arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+    </grid>
+  </union>
+</section>
+
+</ui>

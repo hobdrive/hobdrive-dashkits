@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <radialGradient id="bgG" cx="45%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e8e8e0"/>
+    </radialGradient>
+    <radialGradient id="bzG" cx="38%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#f0f0f0"/>
+      <stop offset="45%" stop-color="#b0b0b0"/>
+      <stop offset="100%" stop-color="#787878"/>
+    </radialGradient>
+  </defs>
+  <circle cx="150" cy="150" r="148" fill="url(#bzG)"/>
+  <circle cx="150" cy="150" r="138" fill="url(#bgG)"/>
+  <circle cx="150" cy="150" r="136" fill="none" stroke="#cccccc" stroke-width="1.5"/>
+  <path d="M 270.10,100.25 A 130,130 0 0,1 241.92,241.92" fill="none" stroke="#007733" stroke-width="7" stroke-linecap="round" opacity="0.75"/>
+  <line x1="68.68" y1="231.32" x2="55.95" y2="244.05" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="79.29" y="220.71" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">E</text>
+  <line x1="43.75" y1="105.99" x2="27.12" y2="99.10" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="57.61" y="111.73" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">¼</text>
+  <line x1="150.00" y1="35.00" x2="150.00" y2="17.00" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="150.00" y="50.00" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">½</text>
+  <line x1="256.25" y1="105.99" x2="272.88" y2="99.10" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="242.39" y="111.73" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">¾</text>
+  <line x1="231.32" y1="231.32" x2="244.05" y2="244.05" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+  <text x="220.71" y="220.71" text-anchor="middle" dominant-baseline="central" fill="#111111" font-size="13" font-family="Arial,Helvetica,sans-serif" font-weight="bold">F</text>
+  <line x1="28.01" y1="177.27" x2="20.20" y2="179.01" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="78.12" y1="47.73" x2="73.52" y2="41.19" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="216.98" y1="44.46" x2="221.26" y2="37.70" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="273.14" y1="171.49" x2="281.02" y2="172.87" stroke="#666666" stroke-width="1.2" stroke-linecap="round"/>
+  <text x="150" y="204" text-anchor="middle" fill="#555555" font-size="11" font-family="Arial,Helvetica,sans-serif" letter-spacing="2">FUEL</text>
+  <circle cx="150" cy="150" r="15" fill="#dddddd" stroke="#999999" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="6" fill="#bbbbbb" stroke="#888888" stroke-width="1"/>
+</svg>
