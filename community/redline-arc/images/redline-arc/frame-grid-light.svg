@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#f4f4f0"/>
+
+  <!-- Outer border -->
+  <rect x="0.75" y="0.75" width="198.5" height="198.5"
+        fill="none" stroke="#c0c0b8" stroke-width="1.5"/>
+
+  <!-- Accent stripes on all four edges -->
+  <rect x="0"   y="0"   width="200" height="3"   fill="#e06600" opacity="0.55"/>
+  <rect x="0"   y="197" width="200" height="3"   fill="#e06600" opacity="0.35"/>
+  <rect x="0"   y="0"   width="3"   height="200" fill="#e06600" opacity="0.55"/>
+  <rect x="197" y="0"   width="3"   height="200" fill="#e06600" opacity="0.35"/>
+
+  <!-- Cross dividers -->
+  <line x1="3"   y1="100" x2="197" y2="100" stroke="#ccccca" stroke-width="1.5"/>
+  <line x1="100" y1="3"   x2="100" y2="197" stroke="#ccccca" stroke-width="1.5"/>
+
+  <!-- Subtle alternating cell fills -->
+  <rect x="3"   y="3"   width="97" height="97"  fill="#000000" opacity="0.018"/>
+  <rect x="100" y="100" width="97" height="97"  fill="#000000" opacity="0.018"/>
+</svg>

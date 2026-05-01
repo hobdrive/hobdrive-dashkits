@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="ng" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%"   stop-color="#ff6600"/>
+      <stop offset="35%"  stop-color="#ff3300"/>
+      <stop offset="100%" stop-color="#cc2200"/>
+    </linearGradient>
+    <linearGradient id="cg" x1="0.3" y1="0.3" x2="0.7" y2="0.7">
+      <stop offset="0%"   stop-color="#444448"/>
+      <stop offset="100%" stop-color="#111114"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Needle shaft: thin tapered triangle pointing north from center -->
+  <polygon points="150,24 147.5,150 152.5,150" fill="url(#ng)"/>
+  <!-- Counterweight stub below center -->
+  <polygon points="147.5,150 146,180 154,180 152.5,150" fill="#991100" opacity="0.75"/>
+  <!-- Specular highlight along shaft -->
+  <line x1="150" y1="26" x2="150" y2="148"
+        stroke="#ffaa44" stroke-width="0.8" opacity="0.45"/>
+
+  <!-- Center boss (rotates with needle — stays circular either way) -->
+  <circle cx="150" cy="150" r="14" fill="#131316" stroke="#42424a" stroke-width="1.8"/>
+  <circle cx="150" cy="150" r="7"  fill="#0c0c10" stroke="#525258" stroke-width="1.2"/>
+  <circle cx="150" cy="150" r="3"  fill="#1a1a20"/>
+</svg>

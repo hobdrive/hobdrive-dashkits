@@ -1,0 +1,163 @@
+<!--
+  redline-arc – Sports Tachometer Dashboard
+  Large RPM tachometer with 270° clockwise arc (6 o'clock → 3 o'clock),
+  reddish redline zone (6000–8000 RPM), decorative inner concentric circles,
+  color-separated speed display, and a 4-sensor info panel.
+
+  Needle rotation formula (270° sweep, 0–8000 RPM):
+    Arc start = 6 o'clock (bottom); needle points UP at rotation = 0°.
+    0 RPM    → 6pm  → rotation = 180°
+    8000 RPM → 3pm  → rotation = 180° + 270° = 450° (≡ 90°)
+    Formula: Sensor_Value * 0.03375 + 180
+
+  Day / Night: $Theme_brightness expands to "light" or "dark".
+-->
+<ui>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LANDSCAPE SECTION
+     Layout: [   tachometer (62%)   |  speed box + info (38%)  ]
+     Right panel: [ speed box (26%) ]
+                  [ info column (74%) — 4 sensor rows ]
+═════════════════════════════════════════════════════════════════ -->
+<section name="redline-arc" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
+         if="LandscapeLayout">
+  <union>
+    <item/>
+
+    <grid rows="100" cols="62,38">
+
+      <!-- ── col 1 : TACHOMETER ───────────────────────────────────── -->
+      <item id="RPM" period="50" description="hidden" text-values="0:"
+            wrap="smooth(300,80,0)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/redline-arc/tach-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/redline-arc/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 0.03375 + 180 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── col 2 : SPEED BOX + INFO COLUMN ──────────────────────── -->
+      <grid rows="26,74" cols="100">
+
+        <!-- Speed box: colored background + large digital readout -->
+        <union>
+          <item id="Speed" period="50" description="hidden" text-values="0:"
+                wrap="predict(50, 0.7)"
+                decorator-bg="image"
+                    bg-image-zorder="bottom"
+                    bg-image-scale="1"
+                    bg-image-align="center"
+                    bg-image-aspect="false"
+                    bg-image-path="images/redline-arc/spd-box-$Theme_brightness.svg"
+          />
+          <item id="Speed" period="50" description="hidden" size="huge"
+                text-align="center" wrap="predict(50, 0.7)"/>
+        </union>
+
+        <!-- Info column: 4 sensors with decorative frame -->
+        <union>
+          <item id="" description="hidden"
+                decorator-bg="image"
+                    bg-image-zorder="bottom"
+                    bg-image-scale="1"
+                    bg-image-align="center"
+                    bg-image-aspect="false"
+                    bg-image-path="images/redline-arc/frame-col-$Theme_brightness.svg"
+          />
+          <grid rows="25,25,25,25" cols="100">
+            <item id="CoolantTemp"         period="10000"  size="normal"/>
+            <item id="FuelInTank"          inherit="_FuelLevelJoint" period="60000" size="normal"/>
+            <item id="FuelEconomy_instant" period="1000"   size="normal"/>
+            <item id="BatteryVoltage"      period="30000"  size="normal"/>
+          </grid>
+        </union>
+
+      </grid>
+
+    </grid>
+  </union>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PORTRAIT SECTION
+     Layout: [ tachometer (52%)  ]
+              [ speed box  (11%) ]
+              [ 2×2 info grid (37%) ]
+═════════════════════════════════════════════════════════════════ -->
+<section name="redline-arc" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
+         if="PortraitLayout">
+  <union>
+    <item/>
+
+    <grid rows="52,11,37" cols="100">
+
+      <!-- ── row 1 : TACHOMETER ────────────────────────────────────── -->
+      <item id="RPM" period="50" description="hidden" text-values="0:"
+            wrap="smooth(300,80,0)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/redline-arc/tach-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/redline-arc/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 0.03375 + 180 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 2 : SPEED BOX ─────────────────────────────────────── -->
+      <union>
+        <item id="Speed" period="50" description="hidden" text-values="0:"
+              wrap="predict(50, 0.7)"
+              decorator-bg="image"
+                  bg-image-zorder="bottom"
+                  bg-image-scale="1"
+                  bg-image-align="center"
+                  bg-image-aspect="false"
+                  bg-image-path="images/redline-arc/spd-box-$Theme_brightness.svg"
+        />
+        <item id="Speed" period="50" description="hidden" size="huge"
+              text-align="center" wrap="predict(50, 0.7)"/>
+      </union>
+
+      <!-- ── row 3 : INFO GRID (2 × 2) ────────────────────────────── -->
+      <union>
+        <item id="" description="hidden"
+              decorator-bg="image"
+                  bg-image-zorder="bottom"
+                  bg-image-scale="1"
+                  bg-image-align="center"
+                  bg-image-aspect="false"
+                  bg-image-path="images/redline-arc/frame-grid-$Theme_brightness.svg"
+        />
+        <grid rows="50,50" cols="50,50">
+          <item id="CoolantTemp"         period="10000"  size="small"/>
+          <item id="FuelInTank"          inherit="_FuelLevelJoint" period="60000" size="small"/>
+          <item id="FuelEconomy_instant" period="1000"   size="small"/>
+          <item id="BatteryVoltage"      period="30000"  size="small"/>
+        </grid>
+      </union>
+
+    </grid>
+  </union>
+</section>
+
+</ui>
