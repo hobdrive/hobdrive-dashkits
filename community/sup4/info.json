@@ -1,6 +1,6 @@
 {
     "name": "sup4",
-    "version": "1.0.0",
-    "description": "Performance dashboard: large central tachometer with sensor panels on each side. Landscape-first, dark/light theme.",
+    "version": "2.0.0",
+    "description": "Performance dashboard: large central tachometer (0–8000 RPM, 270° arc, 6pm→3pm) with redline zone and inner rings, flanked by sensor panels with decorative column frames, and a colour-separated speed box. Landscape-first, dark/light theme.",
     "author": "GitHub Copilot"
 }
