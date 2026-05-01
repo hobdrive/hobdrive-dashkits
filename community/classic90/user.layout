@@ -40,7 +40,7 @@
     <grid rows="100" cols="28,44,28">
 
       <!-- ── col 1 : TACHOMETER ────────────────────────────────── -->
-      <item id="RPM" period="50" text-values="0:"
+      <item id="RPM" period="50" description="hidden" text-values="0:"
             wrap="smooth(300,80,0)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
@@ -58,7 +58,7 @@
       />
 
       <!-- ── col 2 : SPEEDOMETER ───────────────────────────────── -->
-      <item id="Speed" period="50" text-values="0:"
+      <item id="Speed" period="50" description="hidden" text-values="0:"
             wrap="predict(50, 0.7)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
@@ -82,7 +82,7 @@
 
           <!-- Fuel gauge  (FuelInTank 0–100 %) -->
           <item id="FuelInTank" inherit="_FuelLevelJoint"
-                period="60000" text-values="0:"
+                period="60000" description="hidden" text-values="0:"
                 decorator-bg="image"
                     bg-image-zorder="bottom"
                     bg-image-scale="1"
@@ -99,7 +99,7 @@
           />
 
           <!-- Coolant temperature gauge  (40–120 °C) -->
-          <item id="CoolantTemp" period="10000" text-values="0:"
+          <item id="CoolantTemp" period="10000" description="hidden" text-values="0:"
                 decorator-bg="image"
                     bg-image-zorder="bottom"
                     bg-image-scale="1"
@@ -138,7 +138,7 @@
     <grid rows="50,50" cols="50,50">
 
       <!-- ── row 1, col 1 : TACHOMETER ─────────────────────────── -->
-      <item id="RPM" period="50" text-values="0:"
+      <item id="RPM" period="50" description="hidden" text-values="0:"
             wrap="smooth(300,80,0)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
@@ -156,7 +156,7 @@
       />
 
       <!-- ── row 1, col 2 : SPEEDOMETER ────────────────────────── -->
-      <item id="Speed" period="50" text-values="0:"
+      <item id="Speed" period="50" description="hidden" text-values="0:"
             wrap="predict(50, 0.7)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
@@ -175,7 +175,7 @@
 
       <!-- ── row 2, col 1 : FUEL ───────────────────────────────── -->
       <item id="FuelInTank" inherit="_FuelLevelJoint"
-            period="60000" text-values="0:"
+            period="60000" description="hidden" text-values="0:"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
@@ -192,7 +192,7 @@
       />
 
       <!-- ── row 2, col 2 : TEMPERATURE ────────────────────────── -->
-      <item id="CoolantTemp" period="10000" text-values="0:"
+      <item id="CoolantTemp" period="10000" description="hidden" text-values="0:"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
