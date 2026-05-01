@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <radialGradient id="bgG" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#f8f8f8"/>
+      <stop offset="100%" stop-color="#d8d8d8"/>
+    </radialGradient>
+    <radialGradient id="bzG" cx="38%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#e0e0e0"/>
+      <stop offset="50%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#888"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Bezel + background -->
+  <circle cx="150" cy="150" r="149" fill="url(#bzG)"/>
+  <circle cx="150" cy="150" r="140" fill="url(#bgG)"/>
+  <circle cx="150" cy="150" r="138" fill="none" stroke="#ccc" stroke-width="1.5"/>
+
+  <!-- Normal zone arc outline (0–7000 RPM, -135° to 75°) -->
+  <path d="M 59.49,240.51 A 128,128 0 1,1 273.64,116.87" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" opacity="0.40"/>
+
+  <!-- Red zone arc fill (7000–9000 RPM, 75° to 135°) -->
+  <path d="M 273.64,116.87 A 128,128 0 0,1 240.51,240.51" fill="none" stroke="#cc0000" stroke-width="9" stroke-linecap="round" opacity="0.70"/>
+  <path d="M 271.71,117.39 A 126,126 0 0,1 239.10,239.10" fill="none" stroke="#ff3300" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- Major ticks: normal zone (i=0..6) -->
+  <line x1="58.78" y1="241.22" x2="68.68" y2="231.32" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <line x1="25.40" y1="183.39" x2="38.92" y2="179.76" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <line x1="25.40" y1="116.61" x2="38.92" y2="120.24" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <line x1="58.78" y1="58.78"  x2="68.68" y2="68.68"  stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <line x1="116.61" y1="25.40" x2="120.24" y2="38.92" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <line x1="183.39" y1="25.40" x2="179.76" y2="38.92" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <line x1="241.22" y1="58.78" x2="231.32" y2="68.68" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Major ticks: red zone (i=7..9) -->
+  <line x1="274.60" y1="116.61" x2="261.08" y2="120.24" stroke="#cc0000" stroke-width="3" stroke-linecap="round"/>
+  <line x1="274.60" y1="183.39" x2="261.08" y2="179.76" stroke="#cc0000" stroke-width="3" stroke-linecap="round"/>
+  <line x1="241.22" y1="241.22" x2="231.32" y2="231.32" stroke="#cc0000" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Half ticks: normal zone -->
+  <line x1="42.61" y1="212.00" x2="49.54" y2="208.00" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="26.00" y1="150.00" x2="34.00" y2="150.00" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="42.61" y1="88.00"  x2="49.54" y2="92.00"  stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="88.00" y1="42.61"  x2="92.00" y2="49.54"  stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="150.00" y1="26.00" x2="150.00" y2="34.00" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="212.00" y1="42.61" x2="208.00" y2="49.54" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="257.39" y1="88.00" x2="250.46" y2="92.00" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Half ticks: red zone -->
+  <line x1="274.00" y1="150.00" x2="266.00" y2="150.00" stroke="#cc0000" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="257.39" y1="212.00" x2="250.46" y2="208.00" stroke="#cc0000" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Labels: normal zone (0–6) -->
+  <text x="76.46"  y="223.54" text-anchor="middle" dominant-baseline="central" fill="#1a1a1a" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">0</text>
+  <text x="49.54"  y="176.92" text-anchor="middle" dominant-baseline="central" fill="#1a1a1a" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">1</text>
+  <text x="49.54"  y="123.08" text-anchor="middle" dominant-baseline="central" fill="#1a1a1a" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">2</text>
+  <text x="76.46"  y="76.46"  text-anchor="middle" dominant-baseline="central" fill="#1a1a1a" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">3</text>
+  <text x="123.08" y="49.54"  text-anchor="middle" dominant-baseline="central" fill="#1a1a1a" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">4</text>
+  <text x="176.92" y="49.54"  text-anchor="middle" dominant-baseline="central" fill="#1a1a1a" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">5</text>
+  <text x="223.54" y="76.46"  text-anchor="middle" dominant-baseline="central" fill="#1a1a1a" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">6</text>
+
+  <!-- Labels: red zone (7–9) -->
+  <text x="250.46" y="123.08" text-anchor="middle" dominant-baseline="central" fill="#cc0000" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">7</text>
+  <text x="250.46" y="176.92" text-anchor="middle" dominant-baseline="central" fill="#cc0000" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">8</text>
+  <text x="223.54" y="223.54" text-anchor="middle" dominant-baseline="central" fill="#cc0000" font-size="20" font-family="Arial,Helvetica,sans-serif" font-weight="bold">9</text>
+
+  <!-- Unit label -->
+  <text x="150" y="198" text-anchor="middle" fill="#666" font-size="11" font-family="Arial,Helvetica,sans-serif" letter-spacing="1">×1000 RPM</text>
+
+  <!-- Center hub -->
+  <circle cx="150" cy="150" r="16" fill="#ddd" stroke="#999" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="6"  fill="#bbb" stroke="#888" stroke-width="1"/>
+</svg>

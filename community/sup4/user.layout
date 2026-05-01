@@ -1,0 +1,137 @@
+<!--
+  sup4 – Performance dashboard
+  Large central tachometer (0–9000 RPM, 270° sweep) flanked by sensor panels.
+
+  Needle rotation formula (270° sweep, 0–9000 RPM):
+    Sensor_Value * 0.03 - 135
+    (0 RPM → -135°, 9000 RPM → +135°)
+
+  Day / Night: $Theme_brightness expands to "light" or "dark".
+-->
+<ui>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LANDSCAPE SECTION
+     Layout: [ sensor panel | tachometer + digital | sensor panel ]
+                  23 %      |        54 %          |     23 %
+═════════════════════════════════════════════════════════════════ -->
+<section name="sup4" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
+         if="LandscapeLayout">
+  <union>
+    <item/>
+
+    <grid rows="100" cols="23,54,23">
+
+      <!-- ── col 1 : LEFT SENSOR PANEL ─────────────────────────── -->
+      <grid rows="20,20,20,20,20" cols="100">
+        <item id="FuelPressure"          period="1000"   size="normal"/>
+        <item id="IAT"                   period="5000"   size="normal"/>
+        <item id="BoostPressure"         period="200"    size="normal"/>
+        <item id="ControlModuleVoltage"  period="10000"  size="normal"/>
+        <item id="Lambda"                period="500"    size="normal"/>
+      </grid>
+
+      <!-- ── col 2 : TACHOMETER + DIGITAL READOUTS ─────────────── -->
+      <union>
+        <!-- Tachometer gauge face + rotating needle -->
+        <item id="RPM" period="50" description="hidden" text-values="0:"
+              wrap="smooth(300,80,0)"
+              decorator-bg="image"
+                  bg-image-zorder="bottom"
+                  bg-image-scale="1"
+                  bg-image-align="center"
+                  bg-image-aspect="true"
+                  bg-image-path="images/sup4/tach-bg-$Theme_brightness.svg"
+              decorator-arrow="image"
+                  arrow-image-zorder="top"
+                  arrow-image-path="images/sup4/needle.svg"
+                  arrow-image-rotate='$${ Sensor_Value * 0.03 - 135 }'
+                  arrow-image-scale="1"
+                  arrow-image-rotate-align="center"
+                  arrow-image-align="center"
+        />
+        <!-- Digital overlay: RPM value + Speed below -->
+        <grid rows="50,20,30" cols="100">
+          <item/>
+          <!-- RPM digital readout in center zone -->
+          <item id="RPM" period="50" description="hidden" size="large"
+                text-align="center"/>
+          <!-- Speed digital readout at bottom -->
+          <item id="Speed" period="50" description="hidden" size="huge"
+                text-align="center"/>
+        </grid>
+      </union>
+
+      <!-- ── col 3 : RIGHT SENSOR PANEL ────────────────────────── -->
+      <grid rows="20,20,20,20,20" cols="100">
+        <item id="EthanolContent"  period="10000"  size="normal"/>
+        <item id="CoolantTemp"     period="10000"  size="normal"/>
+        <item id="OilTemperature"  period="5000"   size="normal"/>
+        <item id="OilPressure"     period="500"    size="normal"/>
+        <item id="Odometer"        period="120000" size="normal" actions="SetupOdometer"/>
+      </grid>
+
+    </grid>
+  </union>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PORTRAIT SECTION
+     Layout: [ tachometer (55%) ]
+              [ speed readout (10%) ]
+              [ left sensors | right sensors (35%) ]
+═════════════════════════════════════════════════════════════════ -->
+<section name="sup4" title-height="0" fixed="true"
+         maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
+         if="PortraitLayout">
+  <union>
+    <item/>
+
+    <grid rows="55,10,35" cols="100">
+
+      <!-- ── row 1 : TACHOMETER ────────────────────────────────── -->
+      <item id="RPM" period="50" description="hidden" text-values="0:"
+            wrap="smooth(300,80,0)"
+            decorator-bg="image"
+                bg-image-zorder="bottom"
+                bg-image-scale="1"
+                bg-image-align="center"
+                bg-image-aspect="true"
+                bg-image-path="images/sup4/tach-bg-$Theme_brightness.svg"
+            decorator-arrow="image"
+                arrow-image-zorder="top"
+                arrow-image-path="images/sup4/needle.svg"
+                arrow-image-rotate='$${ Sensor_Value * 0.03 - 135 }'
+                arrow-image-scale="1"
+                arrow-image-rotate-align="center"
+                arrow-image-align="center"
+      />
+
+      <!-- ── row 2 : SPEED DIGITAL ─────────────────────────────── -->
+      <item id="Speed" period="50" description="hidden" size="huge"
+            text-align="center"/>
+
+      <!-- ── row 3 : SENSOR PANELS ─────────────────────────────── -->
+      <grid rows="20,20,20,20,20" cols="50,50">
+        <!-- Left column -->
+        <item id="FuelPressure"         period="1000"   size="small"/>
+        <item id="EthanolContent"       period="10000"  size="small"/>
+        <item id="IAT"                  period="5000"   size="small"/>
+        <item id="CoolantTemp"          period="10000"  size="small"/>
+        <item id="BoostPressure"        period="200"    size="small"/>
+        <item id="OilTemperature"       period="5000"   size="small"/>
+        <item id="ControlModuleVoltage" period="10000"  size="small"/>
+        <item id="OilPressure"          period="500"    size="small"/>
+        <item id="Lambda"               period="500"    size="small"/>
+        <item id="Odometer"             period="120000" size="small" actions="SetupOdometer"/>
+      </grid>
+
+    </grid>
+  </union>
+</section>
+
+</ui>
