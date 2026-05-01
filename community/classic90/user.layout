@@ -81,7 +81,7 @@
         <grid rows="50,50" cols="100">
 
           <!-- Fuel gauge  (FuelInTank 0–100 %) -->
-          <item id="FuelInTank" inherit="_FuelLevelJoint"
+          <item id="FuelInTank" text-evaluator=""
                 period="60000" description="hidden" text-values="0:"
                 decorator-bg="image"
                     bg-image-zorder="bottom"
