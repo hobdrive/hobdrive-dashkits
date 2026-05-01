@@ -7,9 +7,8 @@
     - Temperature gauge on the right (C → H, normal zone highlighted)
   All gauge faces and the shared needle are SVG sprites.
 
-  Needle rotation formula for all gauges uses the same 270° sweep:
+  Needle rotation formula (270° sweep):
     val_min → −135°,  val_max → +135°
-    rotation = (value − val_min) / (val_max − val_min) × 270 − 135
 
   Rotation values:
     Speed    (0–240 km/h) :  Sensor_Value * 1.125 − 135
@@ -18,8 +17,8 @@
     CoolTemp (40–120 °C)  :  (clamped − 40) * 3.375 − 135
 
   Day / Night adaptation:
-    image-path uses $${ daynight == "day" ? "…-day.svg" : "….svg" }
-    so the correct gauge face (dark or light) is picked automatically.
+    ${ Theme_brightness == "light" ? "…-day.svg" : "….svg" }
+    Theme_brightness is "light" (day) or "dark" (night).
     Day faces: white/cream background, dark chrome bezel, dark ticks.
     Night faces: dark background, silver bezel, bright ticks.
     Needle: amber (night) or dark-navy (day).
@@ -30,69 +29,69 @@
      LANDSCAPE SECTION
      Layout: [  tachometer  |    speedometer     | fuel / temp  ]
                   28 %      |       44 %         |    28 %
-     Rows:  70 % gauges | 15 % digital readouts | 15 % trip bar
 ═════════════════════════════════════════════════════════════════ -->
 <section name="Classic 90" title-height="0" fixed="true"
          maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
          if="LandscapeLayout">
   <union>
     <item/>
 
-    <grid rows="70,15,15" cols="28,44,28">
+    <grid rows="100" cols="28,44,28">
 
-      <!-- ── row 1, col 1 : TACHOMETER ─────────────────────────── -->
-      <item id="RPM" description="hidden" period="50"
+      <!-- ── col 1 : TACHOMETER ────────────────────────────────── -->
+      <item id="RPM" period="50" text-values="0:"
             wrap="smooth(300,80,0)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='$${ daynight == "day" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
+                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
                 arrow-image-align="center"
       />
 
-      <!-- ── row 1, col 2 : SPEEDOMETER ────────────────────────── -->
-      <item id="Speed" description="hidden" period="50"
+      <!-- ── col 2 : SPEEDOMETER ───────────────────────────────── -->
+      <item id="Speed" period="50" text-values="0:"
             wrap="predict(50, 0.7)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='$${ daynight == "day" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
+                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
                 arrow-image-align="center"
       />
 
-      <!-- ── row 1, col 3 : FUEL + TEMPERATURE (stacked) ──────── -->
+      <!-- ── col 3 : FUEL + TEMPERATURE (stacked) ─────────────── -->
       <union>
         <item/>
         <grid rows="50,50" cols="100">
 
           <!-- Fuel gauge  (FuelInTank 0–100 %) -->
           <item id="FuelInTank" inherit="_FuelLevelJoint"
-                description="hidden" period="60000"
+                period="60000" text-values="0:"
                 decorator-bg="image"
                     bg-image-zorder="bottom"
                     bg-image-scale="1"
                     bg-image-align="center"
                     bg-image-aspect="true"
-                    bg-image-path='$${ daynight == "day" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
+                    bg-image-path='${ Theme_brightness == "light" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
                 decorator-arrow="image"
                     arrow-image-zorder="top"
-                    arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                    arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                     arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
                     arrow-image-scale="1"
                     arrow-image-rotate-align="center"
@@ -100,16 +99,16 @@
           />
 
           <!-- Coolant temperature gauge  (40–120 °C) -->
-          <item id="CoolantTemp" description="hidden" period="10000"
+          <item id="CoolantTemp" period="10000" text-values="0:"
                 decorator-bg="image"
                     bg-image-zorder="bottom"
                     bg-image-scale="1"
                     bg-image-align="center"
                     bg-image-aspect="true"
-                    bg-image-path='$${ daynight == "day" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
+                    bg-image-path='${ Theme_brightness == "light" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
                 decorator-arrow="image"
                     arrow-image-zorder="top"
-                    arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                    arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                     arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
                     arrow-image-scale="1"
                     arrow-image-rotate-align="center"
@@ -119,18 +118,6 @@
         </grid>
       </union>
 
-      <!-- ── row 2 : digital readouts ──────────────────────────── -->
-      <item id="RPM"        size="small" description="hidden" period="50"/>
-      <item id="Odometer"   size="normal" description="hidden"
-            actions="SetupOdometer" period="30000"/>
-      <item id="ControlModuleVoltage" size="small" period="30000"/>
-
-      <!-- ── row 3 : trip bar ───────────────────────────────────── -->
-      <item id="FuelEconomy_trip"    size="small" period="10000"/>
-      <item id="FuelEconomy_instant" size="small" period="1000"/>
-      <item id="DistanceRun"         size="small" period="5000"
-            actions="SetupOdometer"/>
-
     </grid>
   </union>
 </section>
@@ -139,29 +126,29 @@
 <!-- ═══════════════════════════════════════════════════════════════
      PORTRAIT SECTION
      Layout: [  tachometer  |  speedometer  ]   (top half)
-              [    fuel      |   temperature ]   (middle)
-              [      trip / odometer bar     ]   (bottom)
+              [    fuel      |   temperature ]   (bottom half)
 ═════════════════════════════════════════════════════════════════ -->
 <section name="Classic 90" title-height="0" fixed="true"
          maximize-focus="true" controls="autohide"
+         ignore-gauges="true"
          if="PortraitLayout">
   <union>
     <item/>
 
-    <grid rows="40,40,10,10" cols="50,50">
+    <grid rows="50,50" cols="50,50">
 
       <!-- ── row 1, col 1 : TACHOMETER ─────────────────────────── -->
-      <item id="RPM" description="hidden" period="50"
+      <item id="RPM" period="50" text-values="0:"
             wrap="smooth(300,80,0)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='$${ daynight == "day" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
+                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -169,17 +156,17 @@
       />
 
       <!-- ── row 1, col 2 : SPEEDOMETER ────────────────────────── -->
-      <item id="Speed" description="hidden" period="50"
+      <item id="Speed" period="50" text-values="0:"
             wrap="predict(50, 0.7)"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='$${ daynight == "day" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
+                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -188,16 +175,16 @@
 
       <!-- ── row 2, col 1 : FUEL ───────────────────────────────── -->
       <item id="FuelInTank" inherit="_FuelLevelJoint"
-            description="hidden" period="60000"
+            period="60000" text-values="0:"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='$${ daynight == "day" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
+                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -205,31 +192,21 @@
       />
 
       <!-- ── row 2, col 2 : TEMPERATURE ────────────────────────── -->
-      <item id="CoolantTemp" description="hidden" period="10000"
+      <item id="CoolantTemp" period="10000" text-values="0:"
             decorator-bg="image"
                 bg-image-zorder="bottom"
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='$${ daynight == "day" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
+                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='$${ daynight == "day" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
                 arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
                 arrow-image-align="center"
       />
-
-      <!-- ── row 3 : digital readouts ──────────────────────────── -->
-      <item id="Odometer" size="small" description="hidden"
-            actions="SetupOdometer" period="30000"/>
-      <item id="ControlModuleVoltage" size="small" period="30000"/>
-
-      <!-- ── row 4 : trip bar ───────────────────────────────────── -->
-      <item id="FuelEconomy_instant" size="small" period="1000"/>
-      <item id="DistanceRun"         size="small" period="5000"
-            actions="SetupOdometer"/>
 
     </grid>
   </union>
