@@ -55,6 +55,13 @@ The SVG asset files must be named accordingly:
 
 ---
 
+## 3. Dashkit theming and orientation support
+
+Create dashkits with dark/light theme variations always. Only if user explicitly asks for a single theme should a one-theme dashkit be made.
+
+Also, try to have dashkit for both portrait and landscape orientations, unless user explicitly asks for one orientation only.
+Try to convey both layouts in one section, otherwise maintenance could be more difficult (e.g. if a change is needed, it would have to be made in two separate sections instead of one).
+
 ## 4. Add `ignore-gauges="true"` to the `<section>` element
 
 When a section renders only custom gauge images (no auto-generated gauge widgets are wanted), add `ignore-gauges="true"` to the `<section>` tag so HobDrive does not auto-inject default gauge elements.
@@ -125,4 +132,6 @@ Use `inherit="<alias_id>"` to pull in a sensor alias defined elsewhere (e.g. `_F
 
 ## 9. Do not add textual readout rows in pure gauge dashkits
 
-Including `<item type="text" ...>` rows for a dashkit that is meant to be purely graphical clutters the layout and may break the intended visual. Omit text rows entirely when all information is conveyed through gauge faces and needles.
+Including `<item type="text" ...>` rows for a dashkit that is meant to be purely graphical may break the intended visual.
+Omit text elements entirely when all information is conveyed through gauge faces and needles. Only if user explicitly asks for a digital readout should text items be added.
+

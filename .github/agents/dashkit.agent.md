@@ -23,3 +23,5 @@ And core tinyexe syntax:
 https://hobdrive.github.io/hobdrive-docs/en/dynamic-expr-core.html
 
 Images he creates should be in SVG. 
+
+Use extra knowledge about syntax from the existing dashkits (they are all verified on master) and from LEARNING.md file.
