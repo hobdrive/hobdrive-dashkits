@@ -17,11 +17,11 @@
     CoolTemp (40–120 °C)  :  (clamped − 40) * 3.375 − 135
 
   Day / Night adaptation:
-    ${ Theme_brightness == "light" ? "…-day.svg" : "….svg" }
-    Theme_brightness is "light" (day) or "dark" (night).
-    Day faces: white/cream background, dark chrome bezel, dark ticks.
-    Night faces: dark background, silver bezel, bright ticks.
-    Needle: amber (night) or dark-navy (day).
+    $Theme_brightness expands to "light" or "dark" at load time,
+    selecting e.g. tach-bg-light.svg or tach-bg-dark.svg automatically.
+    Light faces: white/cream background, dark chrome bezel, dark ticks.
+    Dark faces: dark background, silver bezel, bright ticks.
+    Needle: amber (dark) or dark-navy (light).
 -->
 <ui>
 
@@ -47,10 +47,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
+                bg-image-path="images/classic90/tach-bg-$Theme_brightness.svg"
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                 arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -65,10 +65,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
+                bg-image-path="images/classic90/spd-bg-$Theme_brightness.svg"
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                 arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -88,10 +88,10 @@
                     bg-image-scale="1"
                     bg-image-align="center"
                     bg-image-aspect="true"
-                    bg-image-path='${ Theme_brightness == "light" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
+                    bg-image-path="images/classic90/fuel-bg-$Theme_brightness.svg"
                 decorator-arrow="image"
                     arrow-image-zorder="top"
-                    arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                    arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                     arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
                     arrow-image-scale="1"
                     arrow-image-rotate-align="center"
@@ -105,10 +105,10 @@
                     bg-image-scale="1"
                     bg-image-align="center"
                     bg-image-aspect="true"
-                    bg-image-path='${ Theme_brightness == "light" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
+                    bg-image-path="images/classic90/temp-bg-$Theme_brightness.svg"
                 decorator-arrow="image"
                     arrow-image-zorder="top"
-                    arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                    arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                     arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
                     arrow-image-scale="1"
                     arrow-image-rotate-align="center"
@@ -145,10 +145,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/tach-bg-day.svg" : "images/classic90/tach-bg.svg" }'
+                bg-image-path="images/classic90/tach-bg-$Theme_brightness.svg"
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                 arrow-image-rotate='$${ Sensor_Value * 0.03375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -163,10 +163,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/spd-bg-day.svg" : "images/classic90/spd-bg.svg" }'
+                bg-image-path="images/classic90/spd-bg-$Theme_brightness.svg"
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                 arrow-image-rotate='$${ Sensor_Value * 1.125 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -181,10 +181,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/fuel-bg-day.svg" : "images/classic90/fuel-bg.svg" }'
+                bg-image-path="images/classic90/fuel-bg-$Theme_brightness.svg"
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                 arrow-image-rotate='$${ Sensor_Value * 2.7 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
@@ -198,10 +198,10 @@
                 bg-image-scale="1"
                 bg-image-align="center"
                 bg-image-aspect="true"
-                bg-image-path='${ Theme_brightness == "light" ? "images/classic90/temp-bg-day.svg" : "images/classic90/temp-bg.svg" }'
+                bg-image-path="images/classic90/temp-bg-$Theme_brightness.svg"
             decorator-arrow="image"
                 arrow-image-zorder="top"
-                arrow-image-path='${ Theme_brightness == "light" ? "images/classic90/needle-day.svg" : "images/classic90/needle.svg" }'
+                arrow-image-path="images/classic90/needle-$Theme_brightness.svg"
                 arrow-image-rotate='$${ (Max(Min(120; Sensor_Value); 40) - 40) * 3.375 - 135 }'
                 arrow-image-scale="1"
                 arrow-image-rotate-align="center"
