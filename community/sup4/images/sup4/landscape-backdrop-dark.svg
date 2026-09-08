@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="140" viewBox="0 0 1000 560">
+  <!-- A soft scrim over the host wallpaper; zero alpha at every outer edge. -->
+  <defs>
+    <radialGradient id="surround" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#080c10" stop-opacity="0.94"/>
+      <stop offset="0.35" stop-color="#080c10" stop-opacity="0.92"/>
+      <stop offset="0.62" stop-color="#080c10" stop-opacity="0.84"/>
+      <stop offset="0.84" stop-color="#080c10" stop-opacity="0.58"/>
+      <stop offset="1" stop-color="#080c10" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1000" height="560" fill="url(#surround)"/>
+</svg>

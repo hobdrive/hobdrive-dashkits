@@ -1,123 +1,104 @@
-<!--
-  sup4 – Performance dashboard
-  Large central tachometer (0–8000 RPM, 270° sweep, 6pm→3pm arc) flanked by
-  sensor panels with decorative column frames.  Color-separated speed box below
-  the tachometer.
-
-  Needle rotation formula (270° sweep, 0–8000 RPM):
-    Arc start = 6 o'clock (bottom); needle points UP at rotation = 0°.
-    0 RPM    → 6pm  → rotation = 180°
-    8000 RPM → 3pm  → rotation = 180° + 270° = 450° (≡ 90°)
-    Formula: Sensor_Value * 0.03375 + 180
-
-  Day / Night: $Theme_brightness expands to "light" or "dark".
--->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- sup4 landscape: 1000 x 560 composition, 0–9000 RPM, 270-degree sweep.
+     Fit accounts for the section renderer's 2% right margin.
+     Middle side readings follow a radius-310 circle; the radius-360 separators
+     run between their labels and values. Values overlay the full composition
+     so their boxes can follow the dial beyond the rectangular side columns.
+     Zero padding before each crop applies the mask rotation before clipping.
+     The existing portrait layout and its assets are preserved below. -->
 <ui>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     LANDSCAPE SECTION
-     Layout: [ sensor panel | tachometer + speed box | sensor panel ]
-                  23 %      |           54 %          |     23 %
-═════════════════════════════════════════════════════════════════ -->
-<section name="sup4" title-height="0" fixed="true"
-         maximize-focus="true" controls="autohide"
-         ignore-gauges="true"
-         if="LandscapeLayout">
+<section name="sup4" title-height="0" fixed="true" maximize-focus="true" controls="autohide" ignore-gauges="true" if="LandscapeLayout">
   <union>
-    <item/>
-
-    <grid rows="100" cols="23,54,23">
-
-      <!-- ── col 1 : LEFT SENSOR PANEL ─────────────────────────── -->
+    <item>
+      <image image-path="images/sup4/landscape-backdrop-$Theme_brightness.svg" image-aspect="false"/>
+    </item>
+    <grid rows="${Max(0; 50 - (LayoutWidth * 0.98) / LayoutHeight * 560 / 1000 * 50)},${Min(100; (LayoutWidth * 0.98) / LayoutHeight * 560 / 1000 * 100)},${Max(0; 50 - (LayoutWidth * 0.98) / LayoutHeight * 560 / 1000 * 50)}" cols="${Max(0; 50 - LayoutHeight / (LayoutWidth * 0.98) * 1000 / 560 * 50)},${Min(100; LayoutHeight / (LayoutWidth * 0.98) * 1000 / 560 * 100)},${Max(0; 50 - LayoutHeight / (LayoutWidth * 0.98) * 1000 / 560 * 50)}">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
       <union>
-        <item id="" description="hidden"
-              decorator-bg="image"
-                  bg-image-zorder="bottom"
-                  bg-image-scale="1"
-                  bg-image-align="center"
-                  bg-image-aspect="false"
-                  bg-image-path="images/sup4/frame-col-$Theme_brightness.svg"
-        />
-        <grid rows="20,20,20,20,20" cols="100">
-          <item id="FuelPressure"          period="1000"   size="normal"/>
-          <item id="IAT"                   period="5000"   size="normal"/>
-          <item id="BoostPressure"         period="200"    size="normal"/>
-          <item id="ControlModuleVoltage"  period="10000"  size="normal"/>
-          <item id="Lambda"                period="500"    size="normal"/>
-        </grid>
-      </union>
-
-      <!-- ── col 2 : TACHOMETER + SPEED BOX ────────────────────── -->
-      <union>
-        <!-- Tachometer gauge face + rotating needle -->
-        <item id="RPM" period="50" description="hidden" text-values="0:"
-              wrap="smooth(300,80,0)"
-              decorator-bg="image"
-                  bg-image-zorder="bottom"
-                  bg-image-scale="1"
-                  bg-image-align="center"
-                  bg-image-aspect="true"
-                  bg-image-path="images/sup4/tach-bg-$Theme_brightness.svg"
-              decorator-arrow="image"
-                  arrow-image-zorder="top"
-                  arrow-image-path="images/sup4/needle.svg"
-                  arrow-image-rotate='$${ Sensor_Value * 0.03375 + 180 }'
-                  arrow-image-scale="1"
-                  arrow-image-rotate-align="center"
-                  arrow-image-align="center"
-        />
-        <!-- Digital overlay: RPM value + Speed box below -->
-        <grid rows="50,20,30" cols="100">
+        <item>
+          <image image-path="images/sup4/landscape-panel-$Theme_brightness.svg" image-aspect="false"/>
+        </item>
+        <grid rows="100" cols="22,56,22">
           <item/>
-          <!-- RPM digital readout in center zone -->
-          <item id="RPM" period="50" description="hidden" size="large"
-                text-align="center"/>
-          <!-- Speed box: colored background + large digital readout -->
           <union>
-            <item id="Speed" period="50" description="hidden" text-values="0:"
-                  wrap="predict(50, 0.7)"
-                  decorator-bg="image"
-                      bg-image-zorder="bottom"
-                      bg-image-scale="1"
-                      bg-image-align="center"
-                      bg-image-aspect="false"
-                      bg-image-path="images/sup4/spd-box-$Theme_brightness.svg"
-            />
-            <item id="Speed" period="50" description="hidden" size="huge"
-                  text-align="center" wrap="predict(50, 0.7)"/>
+            <item id="RPM" type="text" period="50" description="hidden" units="none" text-values="0:" wrap="smooth(160,40,0)">
+              <image image-path="images/sup4/landscape-tach-$Theme_brightness.svg" image-aspect="false"/>
+              <break/>
+              <image image-path="images/sup4/landscape-cover-left-$Theme_brightness.svg" image-aspect="false"/>
+              <filter effect="rotate($${Min(180; Max(0; Sensor_Value * 0.03))},50%,50%)" mode="in" interval="40"/>
+              <padding padding="0"/>
+              <crop crop="0 50% 0 0"/>
+              <break/>
+              <image image-path="images/sup4/landscape-cover-right-$Theme_brightness.svg" image-aspect="false"/>
+              <filter effect="rotate($${Min(90; Max(0; Sensor_Value * 0.03 - 180))},50%,50%)" mode="in" interval="40"/>
+              <padding padding="0"/>
+              <crop crop="0 0 50% 50%"/>
+              <break/>
+              <image image-path="images/sup4/landscape-marks-$Theme_brightness.svg" image-aspect="false"/>
+              <break/>
+              <image image-path="images/sup4/landscape-needle.svg" image-aspect="false" image-rotate="$${180 + Min(9000; Max(0; Sensor_Value)) * 0.03}" image-rotate-align="center"/>
+            </item>
+            <item id="RPM" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="78" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="50">
+              <padding padding="44% 26% 49.6% 51%"/>
+            </item>
+            <item id="Speed" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="78" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#95601c&quot; : &quot;#734409&quot;}" period="50">
+              <padding padding="56.2% 9% 38.2% 72%"/>
+            </item>
+            <item id="Speed" type="text" description="hidden" units="aside" size="24" text-outline="false" text-values="0:" colored-value="true" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}">
+              <padding padding="64% 9% 32% 69%"/>
+            </item>
           </union>
+          <item/>
         </grid>
+        <item id="FuelPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="1000">
+          <padding padding="24.1071% 78.4400% 68.0357% 14.7400%"/>
+        </item>
+        <item id="IntakeAirTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="5000">
+          <padding padding="37.5000% 77.2161% 54.6429% 15.9639%"/>
+        </item>
+        <item id="BoostPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="1fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="200">
+          <padding padding="50.8929% 77.4722% 41.2500% 15.7078%"/>
+        </item>
+        <item id="ControlModuleVoltage" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="1fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="10000">
+          <padding padding="64.2857% 75.8639% 27.8571% 17.3161%"/>
+        </item>
+        <item id="Lambda" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="3fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="500">
+          <padding padding="77.6786% 78.4400% 14.4643% 14.7400%"/>
+        </item>
+        <item id="EthanolContent" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="10000">
+          <padding padding="24.1071% 15.1800% 68.0357% 78.2200%"/>
+        </item>
+        <item id="CoolantTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="10000">
+          <padding padding="37.5000% 16.0739% 54.6429% 77.3261%"/>
+        </item>
+        <item id="EngineOilTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="5000">
+          <padding padding="50.8929% 15.8178% 41.2500% 77.5822%"/>
+        </item>
+        <item id="OilPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="1fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="500">
+          <padding padding="64.2857% 17.4261% 27.8571% 75.9739%"/>
+        </item>
+        <item id="Odometer" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="44" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="120000" actions="SetupOdometer">
+          <padding padding="77.6786% 13.8600% 14.4643% 78.2200%"/>
+        </item>
       </union>
-
-      <!-- ── col 3 : RIGHT SENSOR PANEL ────────────────────────── -->
-      <union>
-        <item id="" description="hidden"
-              decorator-bg="image"
-                  bg-image-zorder="bottom"
-                  bg-image-scale="1"
-                  bg-image-align="center"
-                  bg-image-aspect="false"
-                  bg-image-path="images/sup4/frame-col-$Theme_brightness.svg"
-        />
-        <grid rows="20,20,20,20,20" cols="100">
-          <item id="EthanolContent"  period="10000"  size="normal"/>
-          <item id="CoolantTemp"     period="10000"  size="normal"/>
-          <item id="OilTemperature"  period="5000"   size="normal"/>
-          <item id="OilPressure"     period="500"    size="normal"/>
-          <item id="Odometer"        period="120000" size="normal" actions="SetupOdometer"/>
-        </grid>
-      </union>
-
+      <item/>
+      <item/>
+      <item/>
+      <item/>
     </grid>
   </union>
 </section>
 
 
+
+
 <!-- ═══════════════════════════════════════════════════════════════
      PORTRAIT SECTION
-     Layout: [ tachometer (55%) ]
-              [ speed box  (10%) ]
-              [ sensor grid (35%) ]
+     Layout: [ tachometer with embedded speed arc (55%) ]
+              [ sensor grid (45%) ]
 ═════════════════════════════════════════════════════════════════ -->
 <section name="sup4" title-height="0" fixed="true"
          maximize-focus="true" controls="autohide"
@@ -126,42 +107,47 @@
   <union>
     <item/>
 
-    <grid rows="55,10,35" cols="100">
+    <grid rows="55,45" cols="100">
 
-      <!-- ── row 1 : TACHOMETER ────────────────────────────────── -->
-      <item id="RPM" period="50" description="hidden" text-values="0:"
-            wrap="smooth(300,80,0)"
-            decorator-bg="image"
-                bg-image-zorder="bottom"
-                bg-image-scale="1"
-                bg-image-align="center"
-                bg-image-aspect="true"
-                bg-image-path="images/sup4/tach-bg-$Theme_brightness.svg"
-            decorator-arrow="image"
-                arrow-image-zorder="top"
-                arrow-image-path="images/sup4/needle.svg"
-                arrow-image-rotate='$${ Sensor_Value * 0.03375 + 180 }'
-                arrow-image-scale="1"
-                arrow-image-rotate-align="center"
-                arrow-image-align="center"
-      />
-
-      <!-- ── row 2 : SPEED BOX ─────────────────────────────────── -->
+      <!-- ── row 1 : TACHOMETER with embedded speed arc ─────── -->
       <union>
-        <item id="Speed" period="50" description="hidden" text-values="0:"
-              wrap="predict(50, 0.7)"
-              decorator-bg="image"
-                  bg-image-zorder="bottom"
-                  bg-image-scale="1"
-                  bg-image-align="center"
-                  bg-image-aspect="false"
-                  bg-image-path="images/sup4/spd-box-$Theme_brightness.svg"
-        />
-        <item id="Speed" period="50" description="hidden" size="huge"
-              text-align="center" wrap="predict(50, 0.7)"/>
+        <item id="RPM" period="50" description="hidden" text-values="0:"
+              wrap="smooth(300,80,0)">
+          <!-- Face background (bezel, face, rings, orange arc – NO ticks/labels) -->
+          <image image-zorder="bottom" image-scale="1" image-align="center" image-aspect="true"
+                 image-path="images/sup4/tach-bg-$Theme_brightness.svg"/>
+          <!-- Arc cover: face-colour hollow arc stroke rotated clockwise with RPM -->
+          <break/>
+          <image image-zorder="top" image-scale="1" image-align="center" image-aspect="true"
+                 image-path="images/sup4/arc-cover-$Theme_brightness.svg"/>
+          <filter effect="rotate($${Sensor_Value * 0.03375},50%,50%)" mode="in" interval="50"/>
+          <!-- Static overlay: ticks, labels, unit text, hub – always on top of cover -->
+          <break/>
+          <image image-zorder="top" image-scale="1" image-align="center" image-aspect="true"
+                 image-path="images/sup4/tach-overlay-$Theme_brightness.svg"/>
+          <!-- Speed arc panel: arc-shaped background at 3–5pm, inside the tach face -->
+          <break/>
+          <image image-zorder="top" image-scale="1" image-align="center" image-aspect="true"
+                 image-path="images/sup4/spd-arc-$Theme_brightness.svg"/>
+          <!-- Needle -->
+          <break/>
+          <image image-zorder="top" image-scale="1" image-align="center" image-aspect="true"
+                 image-rotate='$${ Sensor_Value * 0.03375 + 180 }'
+                 image-rotate-align="center"
+                 image-path="images/sup4/needle.svg"/>
+        </item>
+        <!-- Speed text over tach: grid aligns text to the 3–5pm arc sector -->
+        <grid rows="48,30,22" cols="56,30,14">
+          <item/><item/><item/>
+          <item/>
+          <item id="Speed" period="50" description="hidden" size="large"
+                text-align="center" wrap="predict(50, 0.7)"/>
+          <item/>
+          <item/><item/><item/>
+        </grid>
       </union>
 
-      <!-- ── row 3 : SENSOR PANELS ─────────────────────────────── -->
+      <!-- ── row 2 : SENSOR PANELS ─────────────────────────────── -->
       <union>
         <item id="" description="hidden"
               decorator-bg="image"

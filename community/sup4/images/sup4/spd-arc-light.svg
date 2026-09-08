@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <!--
+    Speed arc panel – light theme.
+    Same geometry as dark variant. Orange warm background.
+
+    Center = (150,150)
+    Outer r=100: P1@5° = (249.6,158.7)  P2@65° = (192.3,240.6)
+    Inner r=62:  P3@65° = (176.2,206.2) P4@5°  = (211.7,155.4)
+  -->
+  <defs>
+    <radialGradient id="spdBg" cx="70%" cy="65%" r="60%">
+      <stop offset="0%"   stop-color="#ff9500"/>
+      <stop offset="100%" stop-color="#c85000"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- Arc-shaped panel body -->
+  <path d="M 249.6,158
+           A 100,100 0 0,1 192.3,240.6
+           L 176.2,206.2
+           A  62, 62 0 0,0 211.7,158
+           Z"
+        fill="url(#spdBg)" opacity="0.90"/>
+
+  <!-- Outer arc border (dark accent) -->
+  <path d="M 249.6,158 A 100,100 0 0,1 192.3,240.6"
+        fill="none" stroke="#7a2800" stroke-width="1.4" opacity="0.60"/>
+  <!-- Inner arc border -->
+  <path d="M 211.7,158 A 62,62 0 0,1 176.2,206.2"
+        fill="none" stroke="#7a2800" stroke-width="0.8" opacity="0.40"/>
+  <!-- Left straight edge -->
+  <line x1="249.6" y1="158" x2="211.7" y2="158" stroke="#7a2800" stroke-width="0.8" opacity="0.40"/>
+  <!-- Right straight edge -->
+  <line x1="192.3" y1="240.6" x2="176.2" y2="206.2" stroke="#7a2800" stroke-width="0.8" opacity="0.40"/>
+
+  <!-- Highlight band -->
+  <path d="M 246.5,160.3
+           A 97,97 0 0,1 190.5,237.4
+           L 187.6,228.1
+           A 88,88 0 0,0 238.3,164.0
+           Z"
+        fill="#ffffff" opacity="0.08"/>
+
+  <!-- "km/h" unit label -->
+  <text x="212" y="216"
+        text-anchor="middle" dominant-baseline="central"
+        font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="bold"
+        fill="#5a1800" opacity="0.70" letter-spacing="1.5">km/h</text>
+</svg>
