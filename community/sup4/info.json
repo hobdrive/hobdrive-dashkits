@@ -1,6 +1,6 @@
 {
     "name": "sup4",
-    "version": "2.1.0",
-    "description": "Landscape performance cluster inspired by the reference instrument panel: 0–9000 RPM tachometer with a live magenta sweep, silver bezel, inset speed window and horizontal sensor rows. Separate dark and light artwork; existing portrait layout retained.",
+    "version": "2.3.0",
+    "description": "Performance cluster with a 0–9000 RPM tachometer, live magenta sweep and theme-integrated background. Landscape readings follow the dial; portrait places compact readings above and below the same dial. Racing readings are enabled by default; a shared screen property switches both orientations to everyday fuel and trip readings with localized labels and units. Separate dark and light artwork.",
     "author": "GitHub Copilot"
 }
