@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <!--
+    Arc cover – light theme.  Same geometry as arc-cover-dark.svg.
+    Fill colours match the outer face zone of tach-bg-light.svg (≈ #e8e8e2).
+  -->
+  <path d="M 150,275 A 125,125 0 1,1 275,150"
+        fill="none" stroke="#e8e8e2" stroke-width="22" stroke-linecap="butt"/>
+  <path d="M 150,275 A 125,125 0 1,1 275,150"
+        fill="none" stroke="#f4f4f0" stroke-width="10" stroke-linecap="butt"/>
+</svg>

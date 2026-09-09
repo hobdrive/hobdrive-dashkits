@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <!--
+    Speed arc panel – dark theme.
+    Annular sector shaped to follow the tachometer rings, positioned at 3–5pm
+    (SVG angles 5°–65° from center-right). Outer r=100, inner r=62.
+    Fully transparent outside the panel. Rendered as a static overlay layer
+    inside the tachometer item.
+
+    Center = (150,150)
+    Outer r=100: P1@5° = (249.6,158.7)  P2@65° = (192.3,240.6)
+    Inner r=62:  P3@65° = (176.2,206.2) P4@5°  = (211.7,155.4)
+  -->
+  <defs>
+    <radialGradient id="spdBg" cx="70%" cy="65%" r="60%">
+      <stop offset="0%"   stop-color="#0d1f35"/>
+      <stop offset="100%" stop-color="#060c18"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Arc-shaped panel body -->
+  <path d="M 249.6,158.7
+           A 100,100 0 0,1 192.3,240.6
+           L 176.2,206.2
+           A  62, 62 0 0,0 211.7,155.4
+           Z"
+        fill="url(#spdBg)" opacity="0.92"/>
+
+  <!-- Outer arc border (cyan accent) -->
+  <path d="M 249.6,158.7 A 100,100 0 0,1 192.3,240.6"
+        fill="none" stroke="#00c8e0" stroke-width="1.4" opacity="0.75"/>
+  <!-- Inner arc border -->
+  <path d="M 211.7,155.4 A 62,62 0 0,1 176.2,206.2"
+        fill="none" stroke="#00c8e0" stroke-width="0.8" opacity="0.40"/>
+  <!-- Left straight edge -->
+  <line x1="249.6" y1="158.7" x2="211.7" y2="155.4" stroke="#00c8e0" stroke-width="0.8" opacity="0.40"/>
+  <!-- Right straight edge -->
+  <line x1="192.3" y1="240.6" x2="176.2" y2="206.2" stroke="#00c8e0" stroke-width="0.8" opacity="0.40"/>
+
+  <!-- Subtle inner highlight band along outer arc -->
+  <path d="M 246.5,160.3
+           A 97,97 0 0,1 190.5,237.4
+           L 187.6,228.1
+           A 88,88 0 0,0 238.3,164.0
+           Z"
+        fill="#00c8e0" opacity="0.03"/>
+
+  <!-- "SPD" unit label – positioned at arc midpoint (~35°), near inner edge -->
+  <!-- r=68, angle=35°: (150+55.7,150+39.0) = (205.7,189.0) -->
+  <text x="212" y="216"
+        text-anchor="middle" dominant-baseline="central"
+        font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="bold"
+        fill="#00c8e0" opacity="0.65" letter-spacing="1.5">km/h</text>
+</svg>
