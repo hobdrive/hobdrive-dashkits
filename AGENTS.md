@@ -19,6 +19,10 @@ sup4 visual-loop experience, including geometry, themes, masks, and sensor fixtu
   give new artwork separate names when it must not affect that layout.
 - Use nested XML decorators. Keep each dial, mask, and needle in one coordinate
   system with a uniform fit. Document non-obvious wrappers and renderer assumptions.
+- For portrait, reuse the complete dial and rearrange secondary readings around it.
+  Fit against the actual content area; global layout dimensions can include chrome.
+  Share screen-property IDs across orientations and verify the native toggle as well
+  as both rendered states.
 - Validate changes in the real Mac Catalyst Debug app through the Visual Loop.
   Inspect each capture and iterate on visible defects; XML validity or an SVG
   preview alone does not establish the rendered result. Reuse a running app and an
@@ -27,6 +31,9 @@ sup4 visual-loop experience, including geometry, themes, masks, and sensor fixtu
   Check active aliases and simulator formulas when injected values do not appear.
   Back up any profile files that need temporary changes, stop the app before editing
   or restoring them, and verify restoration after the pass. Do not reset the profile.
+- Coordinate use of the shared Catalyst process before reloading or changing its
+  profile. Check the first frame and the missing-to-valid transition without a reload;
+  action completion alone does not prove that every value and unit has rendered.
 - Check both themes, normal and wide viewports, scale endpoints and clamp behavior,
   long/negative/decimal values, missing sensors, and supported units as applicable.
   Save actual app previews and document bindings, fixture values, and limitations.
