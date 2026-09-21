@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="280" viewBox="0 0 1000 560">
+  <defs>
+    <linearGradient id="row-divider" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9ca7b4" stop-opacity="0" />
+      <stop offset="0.10" stop-color="#9ca7b4" />
+      <stop offset="0.90" stop-color="#9ca7b4" />
+      <stop offset="1" stop-color="#9ca7b4" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <path d="M 14 125 H 986" fill="none" stroke="url(#row-divider)" stroke-width="1.6" />
+  <path d="M 14 200 H 986" fill="none" stroke="url(#row-divider)" stroke-width="1.6" />
+  <path d="M 14 275 H 986" fill="none" stroke="url(#row-divider)" stroke-width="1.6" />
+  <path d="M 14 350 H 986" fill="none" stroke="url(#row-divider)" stroke-width="1.6" />
+  <path d="M 14 425 H 986" fill="none" stroke="url(#row-divider)" stroke-width="1.6" />
+  <path d="M 14 500 H 986" fill="none" stroke="url(#row-divider)" stroke-width="1.6" />
+  <path d="M 148.552 202 A 360 360 0 0 0 165.073 412 M 851.448 202 A 360 360 0 0 1 834.927 412" fill="none" stroke="#9ca7b4" stroke-width="1.6" />
+</svg>

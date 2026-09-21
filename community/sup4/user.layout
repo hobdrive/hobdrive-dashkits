@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- sup4 landscape: 1000 x 560 composition, 0–9000 RPM, 270-degree sweep.
+     Fit accounts for the section renderer's 2% right margin.
+     Middle side readings follow a radius-310 circle; the radius-360 separators
+     run between their labels and values. Values overlay the full composition
+     so their boxes can follow the dial beyond the rectangular side columns.
+     Zero padding before each crop applies the mask rotation before clipping.
+     Portrait below reuses the same dial in a uniformly fitted square. -->
+<ui>
+<section name="sup4" title-height="0" fixed="true" maximize-focus="true" controls="autohide" ignore-gauges="true" if="LandscapeLayout">
+  <config id="Layout_Sup4_Racing" type="bool" default="true" title="Racing readings" descr="Enabled: original racing readings. Disable to show fuel consumption, trip distance, average speed and remaining range." title-ru="Гоночные показатели" descr-ru="Включено: оригинальные гоночные показатели. Выключите для показа расхода топлива, пробега поездки, средней скорости и запаса хода."/>
+  <union>
+    <item>
+      <image image-path="images/sup4/landscape-backdrop-$Theme_brightness.svg" image-aspect="false"/>
+    </item>
+    <grid rows="${Max(0; 50 - (LayoutWidth * 0.98) / LayoutHeight * 560 / 1000 * 50)},${Min(100; (LayoutWidth * 0.98) / LayoutHeight * 560 / 1000 * 100)},${Max(0; 50 - (LayoutWidth * 0.98) / LayoutHeight * 560 / 1000 * 50)}" cols="${Max(0; 50 - LayoutHeight / (LayoutWidth * 0.98) * 1000 / 560 * 50)},${Min(100; LayoutHeight / (LayoutWidth * 0.98) * 1000 / 560 * 100)},${Max(0; 50 - LayoutHeight / (LayoutWidth * 0.98) * 1000 / 560 * 50)}">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <union>
+        <item if="${Layout_Sup4_Racing}">
+          <image image-path="images/sup4/landscape-panel-$Theme_brightness.svg" image-aspect="false"/>
+        </item>
+        <item if="${!Layout_Sup4_Racing}">
+          <image image-path="images/sup4/landscape-panel-daily-$Theme_brightness.svg" image-aspect="false"/>
+        </item>
+        <grid rows="100" cols="22,56,22">
+          <item/>
+          <union>
+            <item id="RPM" type="text" period="50" description="hidden" units="none" text-values="0:" wrap="smooth(160,40,0)">
+              <image image-path="images/sup4/landscape-tach-$Theme_brightness.svg" image-aspect="false"/>
+              <break/>
+              <image image-path="images/sup4/landscape-cover-left-$Theme_brightness.svg" image-aspect="false"/>
+              <filter effect="rotate($${Min(180; Max(0; Sensor_Value * 0.03))},50%,50%)" mode="in" interval="40"/>
+              <padding padding="0"/>
+              <crop crop="0 50% 0 0"/>
+              <break/>
+              <image image-path="images/sup4/landscape-cover-right-$Theme_brightness.svg" image-aspect="false"/>
+              <filter effect="rotate($${Min(90; Max(0; Sensor_Value * 0.03 - 180))},50%,50%)" mode="in" interval="40"/>
+              <padding padding="0"/>
+              <crop crop="0 0 50% 50%"/>
+              <break/>
+              <image image-path="images/sup4/landscape-marks-$Theme_brightness.svg" image-aspect="false"/>
+              <break/>
+              <image image-path="images/sup4/landscape-needle.svg" image-aspect="false" image-rotate="$${180 + Min(9000; Max(0; Sensor_Value)) * 0.03}" image-rotate-align="center"/>
+            </item>
+            <item id="RPM" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="78" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="50">
+              <padding padding="44% 26% 49.6% 51%"/>
+            </item>
+            <item id="Speed" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="78" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#95601c&quot; : &quot;#734409&quot;}" period="50">
+              <padding padding="56.2% 9% 38.2% 72%"/>
+            </item>
+            <item id="Speed" type="text" description="hidden" units="aside" size="24" text-outline="false" text-values="0:" colored-value="true" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}">
+              <padding padding="64% 9% 32% 69%"/>
+            </item>
+          </union>
+          <item/>
+        </grid>
+        <union if="${Layout_Sup4_Racing}">
+          <item id="FuelPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="1000">
+            <padding padding="24.1071% 78.4400% 68.0357% 14.7400%"/>
+          </item>
+          <item id="IntakeAirTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="5000">
+            <padding padding="37.5000% 77.2161% 54.6429% 15.9639%"/>
+          </item>
+          <item id="BoostPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="1fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="200">
+            <padding padding="50.8929% 77.4722% 41.2500% 15.7078%"/>
+          </item>
+          <item id="ControlModuleVoltage" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="1fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="10000">
+            <padding padding="64.2857% 75.8639% 27.8571% 17.3161%"/>
+          </item>
+          <item id="Lambda" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="3fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="500">
+            <padding padding="77.6786% 78.4400% 14.4643% 14.7400%"/>
+          </item>
+          <item id="EthanolContent" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="10000">
+            <padding padding="24.1071% 15.1800% 68.0357% 78.2200%"/>
+          </item>
+          <item id="CoolantTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="10000">
+            <padding padding="37.5000% 16.0739% 54.6429% 77.3261%"/>
+          </item>
+          <item id="EngineOilTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="5000">
+            <padding padding="50.8929% 15.8178% 41.2500% 77.5822%"/>
+          </item>
+          <item id="OilPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="1fixed" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="500">
+            <padding padding="64.2857% 17.4261% 27.8571% 75.9739%"/>
+          </item>
+          <item id="Odometer" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="44" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="120000" actions="SetupOdometer">
+            <padding padding="77.6786% 13.8600% 14.4643% 78.2200%"/>
+          </item>
+        </union>
+        <union if="${!Layout_Sup4_Racing}">
+          <item id="FuelEconomy_instant" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="1fixed" period="1000">
+            <padding padding="24.4643% 78.4400% 70.0000% 14.7400%"/>
+          </item>
+          <item id="FuelEconomy_instant" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="1000" text-evaluator="$${svalid(&quot;FuelEconomy_instant&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="30.5357% 78.4400% 66.6071% 14.7400%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e4e7ed&quot; : &quot;#27313f&quot;}" text-evaluator="${t(&quot;sup4.Instant.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="24.2857% 86.4% 71.0714% 2.4%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Instant.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="29.4643% 86.4% 67.5000% 2.4%"/>
+          </item>
+          <item id="FuelEconomy_trip" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="1fixed" period="2000">
+            <padding padding="37.8571% 77.2161% 56.6071% 15.9639%"/>
+          </item>
+          <item id="FuelEconomy_trip" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="2000" text-evaluator="$${svalid(&quot;FuelEconomy_trip&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="43.9286% 77.2161% 53.2143% 15.9639%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e3dc4b&quot; : &quot;#756006&quot;}" text-evaluator="${t(&quot;sup4.AverageFuel.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="37.6786% 86.4% 57.6786% 2.4%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.AverageFuel.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="42.8571% 86.4% 54.1071% 2.4%"/>
+          </item>
+          <item id="FuelPerHour" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="1fixed" period="1000">
+            <padding padding="51.2500% 77.4722% 43.2143% 15.7078%"/>
+          </item>
+          <item id="FuelPerHour" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="1000" text-evaluator="$${svalid(&quot;FuelPerHour&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="57.3214% 77.4722% 39.8214% 15.7078%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e3dc4b&quot; : &quot;#756006&quot;}" text-evaluator="${t(&quot;sup4.Hourly.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="51.0714% 86.4% 44.2857% 2.4%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Hourly.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="56.2500% 86.4% 40.7143% 2.4%"/>
+          </item>
+          <item id="ControlModuleVoltage" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="1fixed" period="10000">
+            <padding padding="64.6429% 75.8639% 29.8214% 17.3161%"/>
+          </item>
+          <item id="ControlModuleVoltage" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="10000" text-evaluator="$${svalid(&quot;ControlModuleVoltage&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="70.7143% 75.8639% 26.4286% 17.3161%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e3dc4b&quot; : &quot;#756006&quot;}" text-evaluator="${t(&quot;sup4.Battery.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="64.4643% 86.4% 30.8929% 2.4%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Battery.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="69.6429% 86.4% 27.3214% 2.4%"/>
+          </item>
+          <item id="FuelConsumed" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="1fixed" period="5000">
+            <padding padding="78.0357% 78.4400% 16.4286% 14.7400%"/>
+          </item>
+          <item id="FuelConsumed" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="5000" text-evaluator="$${svalid(&quot;FuelConsumed&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="84.1071% 78.4400% 13.0357% 14.7400%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e4e7ed&quot; : &quot;#27313f&quot;}" text-evaluator="${t(&quot;sup4.Used.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="77.8571% 86.4% 17.5000% 2.4%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="left" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Used.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="83.0357% 86.4% 13.9286% 2.4%"/>
+          </item>
+          <item id="DistanceRun" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="1fixed" period="5000">
+            <padding padding="24.4643% 15.1800% 70.0000% 78.2200%"/>
+          </item>
+          <item id="DistanceRun" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="5000" text-evaluator="$${svalid(&quot;DistanceRun&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="30.5357% 15.1800% 66.6071% 78.2200%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e4e7ed&quot; : &quot;#27313f&quot;}" text-evaluator="${t(&quot;sup4.Trip.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="24.2857% 2.4% 71.0714% 86.6%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Trip.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="29.4643% 2.4% 67.5000% 86.6%"/>
+          </item>
+          <item id="CoolantTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="0fixed" period="10000">
+            <padding padding="37.8571% 16.0739% 56.6071% 77.3261%"/>
+          </item>
+          <item id="CoolantTemp" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="10000" text-evaluator="$${svalid(&quot;CoolantTemp&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="43.9286% 16.0739% 53.2143% 77.3261%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e3dc4b&quot; : &quot;#756006&quot;}" text-evaluator="${t(&quot;sup4.Coolant.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="37.6786% 2.4% 57.6786% 86.6%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Coolant.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="42.8571% 2.4% 54.1071% 86.6%"/>
+          </item>
+          <item id="Speed_average" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="0fixed" period="5000">
+            <padding padding="51.2500% 15.8178% 43.2143% 77.5822%"/>
+          </item>
+          <item id="Speed_average" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="5000" text-evaluator="$${svalid(&quot;Speed_average&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="57.3214% 15.8178% 39.8214% 77.5822%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e3dc4b&quot; : &quot;#756006&quot;}" text-evaluator="${t(&quot;sup4.AverageSpeed.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="51.0714% 2.4% 44.2857% 86.6%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.AverageSpeed.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="56.2500% 2.4% 40.7143% 86.6%"/>
+          </item>
+          <item id="DistanceToEmpty" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="70" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="0fixed" period="5000">
+            <padding padding="64.6429% 17.4261% 29.8214% 75.9739%"/>
+          </item>
+          <item id="DistanceToEmpty" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="5000" text-evaluator="$${svalid(&quot;DistanceToEmpty&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="70.7143% 17.4261% 26.4286% 75.9739%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e3dc4b&quot; : &quot;#756006&quot;}" text-evaluator="${t(&quot;sup4.Range.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="64.4643% 2.4% 30.8929% 86.6%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Range.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="69.6429% 2.4% 27.3214% 86.6%"/>
+          </item>
+          <item id="Odometer" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="44" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" precision="0fixed" period="120000" actions="SetupOdometer">
+            <padding padding="78.0357% 13.8600% 16.4286% 78.2200%"/>
+          </item>
+          <item id="Odometer" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="34" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-values="0:" period="120000" text-evaluator="$${svalid(&quot;Odometer&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true">
+            <padding padding="84.1071% 13.8600% 13.0357% 78.2200%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="56" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#e4e7ed&quot; : &quot;#27313f&quot;}" text-evaluator="${t(&quot;sup4.Odometer.Title&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="77.8571% 2.4% 17.5000% 86.6%"/>
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="38" text-align="right" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#b0b8c3&quot; : &quot;#566373&quot;}" text-evaluator="${t(&quot;sup4.Odometer.Detail&quot;)}" ignore-value-validness="true" period="10000">
+            <padding padding="83.0357% 2.4% 13.9286% 86.6%"/>
+          </item>
+        </union>
+      </union>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </grid>
+  </union>
+</section>
+
+<!-- Portrait: 560 x 800 composition; the unchanged 560 x 560 RPM dial sits
+     at y=120. Five quiet readings above and five below share one fitted canvas.
+     The racing preference is common to both orientations. -->
+<section name="sup4" title-height="0" fixed="true" maximize-focus="true" controls="autohide" ignore-gauges="true" if="PortraitLayout">
+  <config id="Layout_Sup4_Racing" type="bool" default="true" title="Racing readings" descr="Enabled: original racing readings. Disable to show fuel consumption, trip distance, average speed and remaining range." title-ru="Гоночные показатели" descr-ru="Включено: оригинальные гоночные показатели. Выключите для показа расхода топлива, пробега поездки, средней скорости и запаса хода." />
+  <union>
+    <item>
+      <image image-path="images/sup4/portrait-backdrop-$Theme_brightness.svg" image-aspect="false" />
+    </item>
+    <grid rows="${Max(0; 50 - (LayoutWidth * 0.98) / LayoutHeight * 800 / 560 * 50)},${Min(100; (LayoutWidth * 0.98) / LayoutHeight * 800 / 560 * 100)},${Max(0; 50 - (LayoutWidth * 0.98) / LayoutHeight * 800 / 560 * 50)}" cols="${Max(0; 50 - LayoutHeight / (LayoutWidth * 0.98) * 560 / 800 * 50)},${Min(100; LayoutHeight / (LayoutWidth * 0.98) * 560 / 800 * 100)},${Max(0; 50 - LayoutHeight / (LayoutWidth * 0.98) * 560 / 800 * 50)}">
+      <item />
+      <item />
+      <item />
+      <item />
+      <union aspect-ratio="0.7">
+        <item>
+          <image image-path="images/sup4/portrait-dividers-$Theme_brightness.svg" image-aspect="false" />
+        </item>
+        <grid rows="15,70,15" cols="100">
+          <item />
+          <union>
+            <item id="RPM" type="text" period="50" description="hidden" units="none" text-values="0:" wrap="smooth(160,40,0)">
+              <image image-path="images/sup4/landscape-tach-$Theme_brightness.svg" image-aspect="false" />
+              <break />
+              <image image-path="images/sup4/landscape-cover-left-$Theme_brightness.svg" image-aspect="false" />
+              <filter effect="rotate($${Min(180; Max(0; Sensor_Value * 0.03))},50%,50%)" mode="in" interval="40" />
+              <padding padding="0" />
+              <crop crop="0 50% 0 0" />
+              <break />
+              <image image-path="images/sup4/landscape-cover-right-$Theme_brightness.svg" image-aspect="false" />
+              <filter effect="rotate($${Min(90; Max(0; Sensor_Value * 0.03 - 180))},50%,50%)" mode="in" interval="40" />
+              <padding padding="0" />
+              <crop crop="0 0 50% 50%" />
+              <break />
+              <image image-path="images/sup4/landscape-marks-$Theme_brightness.svg" image-aspect="false" />
+              <break />
+              <image image-path="images/sup4/landscape-needle.svg" image-aspect="false" image-rotate="$${180 + Min(9000; Max(0; Sensor_Value)) * 0.03}" image-rotate-align="center" />
+            </item>
+            <item id="RPM" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="78" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}" period="50">
+              <padding padding="44% 26% 49.6% 51%" />
+            </item>
+            <item id="Speed" type="text" description="hidden" units="none" text-outline="false" colored-value="true" precision="0fixed" size="78" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#95601c&quot; : &quot;#734409&quot;}" period="50">
+              <padding padding="56.2% 9% 38.2% 72%" />
+            </item>
+            <item id="Speed" type="text" description="hidden" units="aside" size="24" text-outline="false" text-values="0:" colored-value="true" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#ffc64a&quot; : &quot;#925509&quot;}">
+              <padding padding="64% 9% 32% 69%" />
+            </item>
+          </union>
+          <item />
+        </grid>
+        <union if="${Layout_Sup4_Racing}">
+          <item id="FuelPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="1000">
+            <padding padding="6.87500% 80.35714% 88.87500% 1.78571%" />
+          </item>
+          <item id="FuelPressure" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;FuelPressure&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="11.75000% 80.35714% 86.37500% 1.78571%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;FUEL PRES.&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="3.87500% 80.35714% 93.87500% 1.78571%" />
+          </item>
+          <item id="IntakeAirTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="5000">
+            <padding padding="6.87500% 61.07143% 88.87500% 21.07143%" />
+          </item>
+          <item id="IntakeAirTemp" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;IntakeAirTemp&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="5000">
+            <padding padding="11.75000% 61.07143% 86.37500% 21.07143%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;IAT&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="3.87500% 61.07143% 93.87500% 21.07143%" />
+          </item>
+          <item id="BoostPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="200">
+            <padding padding="6.87500% 41.78571% 88.87500% 40.35714%" />
+          </item>
+          <item id="BoostPressure" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;BoostPressure&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="200">
+            <padding padding="11.75000% 41.78571% 86.37500% 40.35714%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;BOOST&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="3.87500% 41.78571% 93.87500% 40.35714%" />
+          </item>
+          <item id="ControlModuleVoltage" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="10000">
+            <padding padding="6.87500% 22.50000% 88.87500% 59.64286%" />
+          </item>
+          <item id="ControlModuleVoltage" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;ControlModuleVoltage&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="10000">
+            <padding padding="11.75000% 22.50000% 86.37500% 59.64286%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;BATTERY&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="3.87500% 22.50000% 93.87500% 59.64286%" />
+          </item>
+          <item id="Lambda" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="3fixed" period="500">
+            <padding padding="6.87500% 3.21429% 88.87500% 78.92857%" />
+          </item>
+          <item id="Lambda" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;Lambda&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="500">
+            <padding padding="11.75000% 3.21429% 86.37500% 78.92857%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;LAMBDA&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="3.87500% 3.21429% 93.87500% 78.92857%" />
+          </item>
+          <item id="EthanolContent" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="10000">
+            <padding padding="91.87500% 80.35714% 3.87500% 1.78571%" />
+          </item>
+          <item id="EthanolContent" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;EthanolContent&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="10000">
+            <padding padding="96.75000% 80.35714% 1.37500% 1.78571%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;ETHANOL&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="88.87500% 80.35714% 8.87500% 1.78571%" />
+          </item>
+          <item id="CoolantTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="10000">
+            <padding padding="91.87500% 61.07143% 3.87500% 21.07143%" />
+          </item>
+          <item id="CoolantTemp" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;CoolantTemp&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="10000">
+            <padding padding="96.75000% 61.07143% 1.37500% 21.07143%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;WATER&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="88.87500% 61.07143% 8.87500% 21.07143%" />
+          </item>
+          <item id="EngineOilTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="5000">
+            <padding padding="91.87500% 41.78571% 3.87500% 40.35714%" />
+          </item>
+          <item id="EngineOilTemp" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;EngineOilTemp&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="5000">
+            <padding padding="96.75000% 41.78571% 1.37500% 40.35714%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;OIL T&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="88.87500% 41.78571% 8.87500% 40.35714%" />
+          </item>
+          <item id="OilPressure" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="500">
+            <padding padding="91.87500% 22.50000% 3.87500% 59.64286%" />
+          </item>
+          <item id="OilPressure" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;OilPressure&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="500">
+            <padding padding="96.75000% 22.50000% 1.37500% 59.64286%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;OIL P&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="88.87500% 22.50000% 8.87500% 59.64286%" />
+          </item>
+          <item id="Odometer" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="50" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="120000" actions="SetupOdometer">
+            <padding padding="91.87500% 3.21429% 3.87500% 78.92857%" />
+          </item>
+          <item id="Odometer" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;Odometer&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="120000">
+            <padding padding="96.75000% 3.21429% 1.37500% 78.92857%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${&quot;ODO&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="88.87500% 3.21429% 8.87500% 78.92857%" />
+          </item>
+        </union>
+        <union if="${!Layout_Sup4_Racing}">
+          <item id="FuelEconomy_instant" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="1000">
+            <padding padding="6.87500% 80.35714% 88.87500% 1.78571%" />
+          </item>
+          <item id="FuelEconomy_instant" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;FuelEconomy_instant&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="11.75000% 80.35714% 86.37500% 1.78571%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Instant.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="1.50000% 80.35714% 96.25000% 1.78571%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Instant.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="4.25000% 80.35714% 94.00000% 1.78571%" />
+          </item>
+          <item id="FuelEconomy_trip" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="2000">
+            <padding padding="6.87500% 61.07143% 88.87500% 21.07143%" />
+          </item>
+          <item id="FuelEconomy_trip" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;FuelEconomy_trip&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="2000">
+            <padding padding="11.75000% 61.07143% 86.37500% 21.07143%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.AverageFuel.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="1.50000% 61.07143% 96.25000% 21.07143%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.AverageFuel.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="4.25000% 61.07143% 94.00000% 21.07143%" />
+          </item>
+          <item id="FuelPerHour" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="1000">
+            <padding padding="6.87500% 41.78571% 88.87500% 40.35714%" />
+          </item>
+          <item id="FuelPerHour" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;FuelPerHour&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="1000">
+            <padding padding="11.75000% 41.78571% 86.37500% 40.35714%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Hourly.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="1.50000% 41.78571% 96.25000% 40.35714%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Hourly.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="4.25000% 41.78571% 94.00000% 40.35714%" />
+          </item>
+          <item id="ControlModuleVoltage" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="10000">
+            <padding padding="6.87500% 22.50000% 88.87500% 59.64286%" />
+          </item>
+          <item id="ControlModuleVoltage" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;ControlModuleVoltage&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="10000">
+            <padding padding="11.75000% 22.50000% 86.37500% 59.64286%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Battery.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="1.50000% 22.50000% 96.25000% 59.64286%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Battery.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="4.25000% 22.50000% 94.00000% 59.64286%" />
+          </item>
+          <item id="FuelConsumed" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="5000">
+            <padding padding="6.87500% 3.21429% 88.87500% 78.92857%" />
+          </item>
+          <item id="FuelConsumed" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;FuelConsumed&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="5000">
+            <padding padding="11.75000% 3.21429% 86.37500% 78.92857%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Used.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="1.50000% 3.21429% 96.25000% 78.92857%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Used.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="4.25000% 3.21429% 94.00000% 78.92857%" />
+          </item>
+          <item id="DistanceRun" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="1fixed" period="5000">
+            <padding padding="91.87500% 80.35714% 3.87500% 1.78571%" />
+          </item>
+          <item id="DistanceRun" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;DistanceRun&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="5000">
+            <padding padding="96.75000% 80.35714% 1.37500% 1.78571%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Trip.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="86.50000% 80.35714% 11.25000% 1.78571%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Trip.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="89.25000% 80.35714% 9.00000% 1.78571%" />
+          </item>
+          <item id="CoolantTemp" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="10000">
+            <padding padding="91.87500% 61.07143% 3.87500% 21.07143%" />
+          </item>
+          <item id="CoolantTemp" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;CoolantTemp&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="10000">
+            <padding padding="96.75000% 61.07143% 1.37500% 21.07143%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Coolant.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="86.50000% 61.07143% 11.25000% 21.07143%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Coolant.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="89.25000% 61.07143% 9.00000% 21.07143%" />
+          </item>
+          <item id="Speed_average" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="5000">
+            <padding padding="91.87500% 41.78571% 3.87500% 40.35714%" />
+          </item>
+          <item id="Speed_average" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;Speed_average&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="5000">
+            <padding padding="96.75000% 41.78571% 1.37500% 40.35714%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.AverageSpeed.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="86.50000% 41.78571% 11.25000% 40.35714%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.AverageSpeed.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="89.25000% 41.78571% 9.00000% 40.35714%" />
+          </item>
+          <item id="DistanceToEmpty" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="64" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="5000">
+            <padding padding="91.87500% 22.50000% 3.87500% 59.64286%" />
+          </item>
+          <item id="DistanceToEmpty" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;DistanceToEmpty&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="5000">
+            <padding padding="96.75000% 22.50000% 1.37500% 59.64286%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Range.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="86.50000% 22.50000% 11.25000% 59.64286%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Range.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="89.25000% 22.50000% 9.00000% 59.64286%" />
+          </item>
+          <item id="Odometer" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="50" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#dac58f&quot; : &quot;#80551c&quot;}" precision="0fixed" period="120000" actions="SetupOdometer">
+            <padding padding="91.87500% 3.21429% 3.87500% 78.92857%" />
+          </item>
+          <item id="Odometer" type="text" description="hidden" units="aside" text-outline="false" colored-value="true" size="30" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-values="0:" text-evaluator="$${svalid(&quot;Odometer&quot;) ? Sensor_Text : &quot;&quot;}" ignore-value-validness="true" period="120000">
+            <padding padding="96.75000% 3.21429% 1.37500% 78.92857%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="36" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#bac2cc&quot; : &quot;#485563&quot;}" text-evaluator="${t(&quot;sup4.Odometer.Title&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="86.50000% 3.21429% 11.25000% 78.92857%" />
+          </item>
+          <item id="DateTime" type="text" description="hidden" units="none" text-outline="false" colored-value="true" size="29" text-align="center" color-map="0:${Theme_brightness = &quot;dark&quot; ? &quot;#9ca8b6&quot; : &quot;#64717e&quot;}" text-evaluator="${t(&quot;sup4.Odometer.Detail&quot;)}" ignore-value-validness="true" period="1000">
+            <padding padding="89.25000% 3.21429% 9.00000% 78.92857%" />
+          </item>
+        </union>
+      </union>
+      <item />
+      <item />
+      <item />
+      <item />
+    </grid>
+  </union>
+</section>
+</ui>

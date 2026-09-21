@@ -10,6 +10,8 @@ Translations:
 
 Если вы хотите создать свои собственные панели и экраны - рассмотрите возможность клонирования этого шаблонного репозитория: [template-dashkits](https://github.com/hobdrive/template-dashkits)
 
+Для создания панели по фотографии или скриншоту используйте [пошаговое руководство](docs/REFERENCE_DASHKITS.md). Инструкции для агента: [AGENTS.md](AGENTS.md); дополнительные приёмы языка layout: [LEARNING.md](LEARNING.md).
+
 ![std](builtin/tripcomp/tripcomp-1.jpg)
 
 ![Preview of DashB3](./builtin/dashb3/preview-dashb3.jpg)

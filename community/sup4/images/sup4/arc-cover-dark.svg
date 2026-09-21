@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <!--
+    Arc cover – dark theme.  TRANSPARENT background — only the arc band is painted.
+
+    A 270° arc stroke in face background colour sits on top of the full orange arc
+    in tach-bg-dark.svg.  At 0 RPM the layout applies 0° rotation → cover aligns
+    exactly over the full orange arc (hidden).  At N RPM the layout rotates this
+    cover clockwise by (N × 0.03375°) from image centre (50%, 50%).  The cover's
+    start moves clockwise, exposing the orange arc from 6pm up to the needle while
+    still hiding the rest of the arc to 8000 RPM.
+
+    Geometry (same path as the orange arc in tach-bg):
+      0 RPM (6pm) = (150, 275)   clockwise 270°   8000 RPM (3pm) = (275, 150)
+      large-arc=1, sweep=1
+
+    Stroke-width 22 fully covers the orange glow (glow layers use width 16+9+2).
+    Background is intentionally left transparent so bezel, rings and labels show.
+  -->
+  <!-- Outer glow suppressor -->
+  <path d="M 150,275 A 125,125 0 1,1 275,150"
+        fill="none" stroke="#060608" stroke-width="22" stroke-linecap="butt"/>
+  <!-- Inner blend layer (face gradient is slightly lighter closer to centre) -->
+  <path d="M 150,275 A 125,125 0 1,1 275,150"
+        fill="none" stroke="#0e0e18" stroke-width="10" stroke-linecap="butt"/>
+</svg>

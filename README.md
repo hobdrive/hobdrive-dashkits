@@ -10,6 +10,8 @@ Refer [LAYOUT_SPEC.md](https://github.com/hobdrive/hobdrive-docs/blob/main/en/LA
 
 If you want to create your own dashes and screens - consider cloning this template repository: [template-dashkits](https://github.com/hobdrive/template-dashkits)
 
+For photo- or screenshot-based instrument panels, use the [reference authoring workflow (Russian)](docs/REFERENCE_DASHKITS.md). Agent entry point: [AGENTS.md](AGENTS.md); additional layout tips: [LEARNING.md](LEARNING.md).
+
 ![std](builtin/tripcomp/tripcomp-1.jpg)
 
 ![Preview of DashB3](./builtin/dashb3/preview-dashb3.jpg)

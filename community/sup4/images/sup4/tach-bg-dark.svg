@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <radialGradient id="bgG" cx="50%" cy="45%" r="65%">
+      <stop offset="0%"   stop-color="#1a1a22"/>
+      <stop offset="100%" stop-color="#060608"/>
+    </radialGradient>
+    <radialGradient id="bzG" cx="38%" cy="28%" r="68%">
+      <stop offset="0%"   stop-color="#6a6a70"/>
+      <stop offset="50%"  stop-color="#2a2a32"/>
+      <stop offset="100%" stop-color="#0c0c0e"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Outer bezel -->
+  <circle cx="150" cy="150" r="149" fill="url(#bzG)"/>
+  <!-- Main face -->
+  <circle cx="150" cy="150" r="140" fill="url(#bgG)"/>
+  <!-- Bezel inner edge ring -->
+  <circle cx="150" cy="150" r="138" fill="none" stroke="#1a1a22" stroke-width="1.5"/>
+
+  <!-- ── SECONDARY INNER CIRCLES ──────────────────────────────── -->
+  <!-- Outer decorative ring -->
+  <circle cx="150" cy="150" r="106" fill="none" stroke="#2e2e3c" stroke-width="3.5"/>
+  <!-- Middle decorative ring -->
+  <circle cx="150" cy="150" r="82"  fill="none" stroke="#252530" stroke-width="2.5"/>
+  <!-- Inner decorative ring -->
+  <circle cx="150" cy="150" r="56"  fill="none" stroke="#1e1e28" stroke-width="2"/>
+
+  <!-- ── FULL ARC TRACK: full 270° orange→red arc, 0–8000 RPM ── -->
+  <!-- 0 RPM = 6pm (150,275) → 8000 RPM = 3pm (275,150), clockwise 270° -->
+  <!-- Outer glow -->
+  <path d="M 150,275 A 125,125 0 1,1 275,150"
+        fill="none" stroke="#ff4400" stroke-width="16" stroke-linecap="round" opacity="0.18"/>
+  <!-- Core arc -->
+  <path d="M 150,275 A 125,125 0 1,1 275,150"
+        fill="none" stroke="#dd2200" stroke-width="9"  stroke-linecap="round" opacity="0.70"/>
+  <!-- Bright highlight -->
+  <path d="M 150,275 A 125,125 0 1,1 275,150"
+        fill="none" stroke="#ff6600" stroke-width="2"  stroke-linecap="round" opacity="0.55"/>
+
+  <!-- Ticks, labels, unit text and hub are in tach-overlay-dark.svg -->
+</svg>
